@@ -1,0 +1,28 @@
+{
+  "name": "sugarbowl",
+  "version": "0.1.0",
+  "description": "A collection of convenience functions for JavaScript & TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/skypilotcc/sugarbowl.git"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "utility",
+    "functions",
+    "arrays",
+    "strings",
+    "objects"
+  ],
+  "author": "William Thorsen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skypilotcc/sugarbowl/issues"
+  },
+  "homepage": "https://github.com/skypilotcc/sugarbowl#readme"
+}
