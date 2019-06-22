@@ -6,7 +6,8 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "babel ./src -d ./lib --extensions .ts",
-    "prepublishOnly": "npm run build",
+    "generate-typings": "tsc --project tsconfig.generate-typings.json",
+    "prepublishOnly": "npm run build && npm run generate-typings",
     "test": "jest"
   },
   "repository": {
