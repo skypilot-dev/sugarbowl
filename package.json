@@ -1,9 +1,12 @@
 {
-  "name": "sugarbowl",
+  "name": "@skypilot/sugarbowl",
   "version": "0.1.0",
   "description": "A collection of convenience functions for JavaScript & TypeScript",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
+    "build": "babel ./src -d ./lib --extensions .ts",
+    "prepublishOnly": "npm run build",
     "test": "jest"
   },
   "repository": {
