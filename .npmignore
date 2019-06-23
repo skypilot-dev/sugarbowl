@@ -5,11 +5,18 @@
 # Local-only files
 /local/
 
+# Temporary files
+/tmp/
+
 # Non-production files
 /src/
+/tests/
 
+.editorconfig
+.eslintrc.js
+.gitignore
 .prettierrc.js
 babel.config.js
-package-lock.json
 tsconfig.generate-typings.json
 tsconfig.json
+
