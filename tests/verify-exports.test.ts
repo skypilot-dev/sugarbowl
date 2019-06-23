@@ -2,6 +2,7 @@ import * as actualExports from '../src';
 
 const intendedExports = [
   /* array functions */
+  'sorterOnDigits',
   'toUniqueArray',
 
   /* date functions */
@@ -25,9 +26,19 @@ const intendedExports = [
 
 describe('Export verification', () => {
 
+  const actualExportNames = Object.keys(actualExports);
+
   it('exports should include all intended exports', () => {
     for (const exportName of intendedExports) {
-      expect(actualExports).toHaveProperty(exportName);
+      expect(actualExportNames).toContain(exportName);
+    }
+  });
+
+
+  it('exports should not include any unintended exports', () => {
+    for (const exportName of actualExportNames) {
+      expect(intendedExports).toContain(exportName);
     }
   });
 });
+
