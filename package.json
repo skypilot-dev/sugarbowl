@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "babel ./src -d ./lib --extensions .ts",
+    "build": "babel ./src -d ./lib --extensions .ts --ignore '**/*.test.ts'",
     "generate-typings": "tsc --project tsconfig.generate-typings.json",
     "prepublishOnly": "npm run build && npm run generate-typings",
     "test": "jest"

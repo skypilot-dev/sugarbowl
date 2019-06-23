@@ -8,6 +8,9 @@
     "noEmit": false,
     "outDir": "lib"
   },
+  "exclude": [
+    "**/*.test.ts"
+  ],
   "include": [
     "src"
   ]
