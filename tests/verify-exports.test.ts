@@ -19,6 +19,7 @@ const intendedExports = [
   'padStart',
   'removeExtraWhitespace',
   'removeWhitespace',
+  'startsWith',
   'toLowerCase',
   'toUpperCase',
   'trim',
