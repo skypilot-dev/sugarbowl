@@ -1,11 +1,11 @@
 {
   "name": "@skypilot/sugarbowl",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A collection of convenience functions for JavaScript & TypeScript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "babel ./src -d ./lib --extensions .ts --ignore '**/*.test.ts'",
+    "build": "rm -rf lib && babel ./src -d ./lib --extensions .ts --ignore '**/*.test.ts'",
     "generate-typings": "tsc --project tsconfig.generate-typings.json",
     "prepublishOnly": "npm run build && npm run generate-typings",
     "test": "jest"
