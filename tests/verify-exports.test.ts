@@ -2,6 +2,7 @@ import * as actualExports from '../src';
 
 const intendedExports = [
   /* array functions */
+  'flatten',
   'pickRandomItems',
   'shuffle',
   'sorterOnDigits',
