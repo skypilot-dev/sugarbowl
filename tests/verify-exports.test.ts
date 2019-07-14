@@ -1,14 +1,16 @@
 import * as actualExports from '../src';
 
 const intendedExports = [
-  /* array functions */
+  /* Array functions */
   'flatten',
   'pickRandomItems',
   'shuffle',
-  'sorterOnDigits',
   'toUniqueArray',
 
-  /* date functions */
+  /* Array sort functions */
+  'sorterOnDigits',
+
+  /* Date functions */
   'isValidDate',
 
   /* string functions */
@@ -16,11 +18,13 @@ const intendedExports = [
   'capitalizeFirstWord',
   'digitsOnly',
   'nondigitsOnly',
-  'padEnd',
-  'padStart',
   'removeExtraWhitespace',
   'removeWhitespace',
   'startsWith',
+
+  /* String prototype wrappers */
+  'padEnd',
+  'padStart',
   'toLowerCase',
   'toUpperCase',
   'trim',
