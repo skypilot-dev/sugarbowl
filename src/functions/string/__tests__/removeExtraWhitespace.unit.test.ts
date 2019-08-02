@@ -1,4 +1,4 @@
-import { removeExtraWhitespace } from './removeExtraWhitespace';
+import { removeExtraWhitespace } from '../removeExtraWhitespace';
 
 describe('removeExtraWhitespace()', () => {
   it('should replace any sequence of tabs and spaces with a single space', () => {

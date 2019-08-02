@@ -1,4 +1,4 @@
-import { digitsOnly } from './digitsOnly';
+import { digitsOnly } from '../digitsOnly';
 
 describe('digitsOnly()', () => {
   it(`should return only 'AB' from 'A1B2'`, () => {

@@ -1,5 +1,5 @@
-import { pickRandomItems } from './pickRandomItems';
-import { toUniqueArray } from './toUniqueArray';
+import { pickRandomItems } from '../pickRandomItems';
+import { toUniqueArray } from '../toUniqueArray';
 
 describe('pickRandomElements()', () => {
   let randomItems;

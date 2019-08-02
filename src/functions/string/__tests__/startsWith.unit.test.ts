@@ -1,4 +1,4 @@
-import { startsWith } from './startsWith';
+import { startsWith } from '../startsWith';
 
 describe('startsWith()', () => {
   it('should report that "abc" starts with "a"', () => {

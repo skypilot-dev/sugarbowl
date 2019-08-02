@@ -1,4 +1,4 @@
-import { shuffle } from './shuffle';
+import { shuffle } from '../shuffle';
 
 describe('shuffle()', () => {
   /* Used mixed types to prove that type doesn't matter */
