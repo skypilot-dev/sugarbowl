@@ -17,6 +17,8 @@ const intendedExports = [
   'capitalizeAllWords',
   'capitalizeFirstWord',
   'digitsOnly',
+  'inflectByNumber',
+  'inflectQuantity',
   'nondigitsOnly',
   'removeExtraWhitespace',
   'removeWhitespace',

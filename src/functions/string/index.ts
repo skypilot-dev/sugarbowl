@@ -1,5 +1,6 @@
 export { capitalizeAllWords } from './capitalizeAllWords';
 export { capitalizeFirstWord } from './capitalizeFirstWord';
+export { inflectQuantity, inflectByNumber } from './inflect';
 export { digitsOnly } from './digitsOnly';
 export { nondigitsOnly } from './nondigitsOnly';
 export { removeExtraWhitespace } from './removeExtraWhitespace';
