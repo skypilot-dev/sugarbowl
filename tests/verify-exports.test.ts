@@ -16,6 +16,7 @@ const intendedExports = [
   /* string functions */
   'capitalizeAllWords',
   'capitalizeFirstWord',
+  'computeHash',
   'digitsOnly',
   'inflectByNumber',
   'inflectQuantity',

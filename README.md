@@ -22,6 +22,8 @@ __String functions__
 
 <code>capitalizeFirstWord(<em>stringToCapitalize: string</em>): <em>string</em></code>
 
+<code>computeHash(<em>stringToHash: string, length: Integer = 32</em>): <em>string</em></code>
+
 <code>digitsOnly(<em>stringToParse: string</em>): <em>string</em></code>
 
 <code>inflectByNumber(<em>howMany: number, singular: string, plural?: string</em>): <em>string</em></code>

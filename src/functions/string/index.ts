@@ -2,6 +2,7 @@ export { capitalizeAllWords } from './capitalizeAllWords';
 export { capitalizeFirstWord } from './capitalizeFirstWord';
 export { inflectQuantity, inflectByNumber } from './inflect';
 export { digitsOnly } from './digitsOnly';
+export { computeHash } from './computeHash';
 export { nondigitsOnly } from './nondigitsOnly';
 export { removeExtraWhitespace } from './removeExtraWhitespace';
 export { removeWhitespace } from './removeWhitespace';
