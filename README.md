@@ -17,15 +17,25 @@ __Date functions__
 - `isValidDate`
 
 __String functions__
-- `capitalizeAllWords`
-- `capitalizeFirstWord`
-- `digitsOnly`
-- `inflectByNumber`
-- `inflectQuantity`
-- `nondigitsOnly`
-- `removeExtraWhitespace`
-- `removeWhitespace`
-- `startsWith`
+<pre>
+<code>capitalizeAllWords(<em>stringToCapitalize: string</em>): <em>string</em></code>
+
+<code>capitalizeFirstWord(<em>stringToCapitalize: string</em>): <em>string</em></code>
+
+<code>digitsOnly(<em>stringToParse: string</em>): <em>string</em></code>
+
+<code>inflectByNumber(<em>howMany: number, singular: string, plural?: string</em>): <em>string</em></code>
+
+<code>inflectQuantity(<em>howMany: number, singular: string, plural?: string</em>): <em>string</em></code>
+
+<code>nondigitsOnly(<em>stringToParse: string</em>): <em>string</em></code>
+
+<code>removeExtraWhitespace(<em>str: string</em>): <em>string</em></code>
+
+<code>removeWhitespace(<em>str: string</em>): <em>string</em></code>
+
+<code>startsWith(<em>string: string, substring: string, startFromPosition: Integer = 0</em>): <em>boolean</em></code>
+</pre>
 
 __`String.prototype` wrappers__
 - `padEnd`
