@@ -25,6 +25,7 @@ const intendedExports = [
   'parseEnclosed',
   'removeExtraWhitespace',
   'removeWhitespace',
+  'splitOnce',
   'startsWith',
 
   /* String prototype wrappers */

@@ -40,6 +40,8 @@ __String functions__
 
 <code>removeWhitespace(<em>str: string</em>): <em>string</em></code>
 
+<code>splitOnce(<em>stringToSplit: string, splitter: string</em>>): <em>string[]</em></code>
+
 <code>startsWith(<em>string: string, substring: string, startFromPosition: Integer = 0</em>): <em>boolean</em></code>
 </pre>
 

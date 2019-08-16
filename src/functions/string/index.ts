@@ -8,5 +8,6 @@ export { nondigitsOnly } from './nondigitsOnly';
 export { parseEnclosed } from './parseEnclosed';
 export { removeExtraWhitespace } from './removeExtraWhitespace';
 export { removeWhitespace } from './removeWhitespace';
+export { splitOnce } from './splitOnce'
 export { startsWith } from './startsWith';
 export * from './String-prototype-wrappers';
