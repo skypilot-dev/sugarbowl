@@ -30,7 +30,11 @@ __String functions__
 
 <code>inflectQuantity(<em>howMany: number, singular: string, plural?: string</em>): <em>string</em></code>
 
+<code>isEnclosed(<em>stringToCheck: string, startDelimiter: string, endDelimiter?: string = startDelimiter</em>): <em>boolean</em></code>
+
 <code>nondigitsOnly(<em>stringToParse: string</em>): <em>string</em></code>
+
+<code>function parseEnclosed(<em>stringToParse: string, startDelimiter: string, endDelimiter: string = startDelimiter</em>): <em>string</em></code>
 
 <code>removeExtraWhitespace(<em>str: string</em>): <em>string</em></code>
 
