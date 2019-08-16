@@ -1,5 +1,6 @@
 export { capitalizeAllWords } from './capitalizeAllWords';
 export { capitalizeFirstWord } from './capitalizeFirstWord';
+export { countOccurrences } from './countOccurrences';
 export { inflectQuantity, inflectByNumber } from './inflect';
 export { isEnclosed } from './isEnclosed';
 export { digitsOnly } from './digitsOnly';

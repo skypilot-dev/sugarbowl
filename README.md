@@ -24,6 +24,8 @@ __String functions__
 
 <code>computeHash(<em>stringToHash: string, length: Integer = 32</em>): <em>string</em></code>
 
+<code>countOccurrences(<em>str: string, substring: string</em>): <em>Integer</em></code>
+
 <code>digitsOnly(<em>stringToParse: string</em>): <em>string</em></code>
 
 <code>inflectByNumber(<em>howMany: number, singular: string, plural?: string</em>): <em>string</em></code>

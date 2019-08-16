@@ -17,6 +17,7 @@ const intendedExports = [
   'capitalizeAllWords',
   'capitalizeFirstWord',
   'computeHash',
+  'countOccurrences',
   'digitsOnly',
   'inflectByNumber',
   'inflectQuantity',
