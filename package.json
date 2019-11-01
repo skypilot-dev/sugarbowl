@@ -1,6 +1,6 @@
 {
   "name": "@skypilot/sugarbowl",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "A collection of convenience functions for JavaScript & TypeScript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,7 +8,7 @@
     "build": "rm -rf lib && babel ./src -d ./lib --extensions .ts --ignore '**/*.test.ts'",
     "check-types": "tsc --noEmit",
     "generate-typings": "tsc --project tsconfig.generate-typings.json",
-    "prepublishOnly": "npm test && npm run build && npm run generate-typings",
+    "prepublishOnly": "yarn check-types && yarn test && yarn build && yarn generate-typings",
     "test": "jest"
   },
   "repository": {
