@@ -15,6 +15,7 @@ const intendedExports = [
 
   /* Higher-order functions */
   'extendFunction',
+  'toMapFunction',
 
   /* string functions */
   'capitalizeAllWords',
