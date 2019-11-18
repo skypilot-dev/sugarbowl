@@ -16,6 +16,10 @@ __Date functions__
 
 - `isValidDate`
 
+__Higher-order functions__
+
+- `extendFunction(fnToExtend: function, extendingFn: function): function`
+
 __String functions__
 <pre>
 <code>capitalizeAllWords(<em>stringToCapitalize: string</em>): <em>string</em></code>

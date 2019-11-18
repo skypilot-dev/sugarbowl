@@ -13,6 +13,9 @@ const intendedExports = [
   /* Date functions */
   'isValidDate',
 
+  /* Higher-order functions */
+  'extendFunction',
+
   /* string functions */
   'capitalizeAllWords',
   'capitalizeFirstWord',
