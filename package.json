@@ -5,11 +5,14 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf lib && babel ./src -d ./lib --extensions .ts --ignore '**/*.test.ts'",
-    "check-types": "tsc --noEmit",
+    "build": "rm -rf lib && yarn run compile-ts",
+    "check-types": "tsc",
     "generate-typings": "tsc --project tsconfig.generate-typings.json",
-    "prepublishOnly": "yarn check-types && yarn test && yarn build && yarn generate-typings",
-    "test": "jest"
+    "prepublishOnly": "yarn run check-types && yarn run lint --quiet && yarn test && yarn run build && yarn run generate-typings",
+    "test": "jest",
+    "all-ci-checks": "yarn run check-types && yarn run lint --quiet && yarn test && yarn run build",
+    "compile-ts": "babel ./src --out-dir ./lib --extensions .ts --ignore '**/*.test.ts'",
+    "lint": "eslint --cache '**/*.{js,ts}'"
   },
   "repository": {
     "type": "git",
@@ -30,7 +33,9 @@
     "url": "https://github.com/skypilotcc/sugarbowl/issues"
   },
   "homepage": "https://github.com/skypilotcc/sugarbowl#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@skypilot/toolchain": "^0.4.16-alpha"
+  },
   "devDependencies": {},
   "files": [
     "/lib"
