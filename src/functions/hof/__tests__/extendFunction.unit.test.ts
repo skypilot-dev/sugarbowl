@@ -1,5 +1,9 @@
 import { extendFunction } from '../extendFunction';
 
+
+type Integer = number;
+
+
 describe('extendFunction()', () => {
   it('given two functions, should return a function that returns the result of the two functions', () => {
     const numberToString = (aNumber: number): string => aNumber.toString();
@@ -46,6 +50,25 @@ describe('extendFunction()', () => {
 
     /* Get the second item from the array and change it to uppercase */
     result = extendedFn(['A', 'b'], 1, true);
+    expect(result).toEqual('B');
+  });
+
+  it('given 3 functions, each accepting 2 args, should return a function that accepts 4 args & returns the combined result', () => {
+    const getArrayItem = (array: string[], index: number): string => array[index];
+    const toUpperOrLower = (aString: string, toUpper: boolean): string => toUpper
+      ? aString.toUpperCase()
+      : aString.toLowerCase();
+    const incrementFirstLetter = (aString: string, increment: Integer): string =>
+      String.fromCharCode(aString.charCodeAt(0) + increment);
+
+    const extendedFn = extendFunction(getArrayItem, toUpperOrLower, incrementFirstLetter);
+
+    /* Get the first item from the array, change it to lowercase, then get the next Unicode letter */
+    let result = extendedFn(['A', 'c'], 0, false, 1);
+    expect(result).toEqual('b');
+
+    /* Get the second item from the array, change it to uppercase, then get the previous Unicode letter */
+    result = extendedFn(['A', 'c'], 1, true, -1);
     expect(result).toEqual('B');
   });
 });
