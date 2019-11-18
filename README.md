@@ -18,7 +18,8 @@ __Date functions__
 
 __Higher-order functions__
 
-- `extendFunction(fnToExtend: function, extendingFn: function): function`
+- `extendFunction(fnToExtend: function, ...extendingFns: Function[]): Function`
+- `toMapFunction(...itemFns: Function[]): Function`
 
 __String functions__
 <pre>
