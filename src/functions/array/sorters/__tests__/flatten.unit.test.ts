@@ -20,7 +20,8 @@ describe('flatten()', () => {
 
 
   it('given an empty array, should return a new empty array', () => {
-    const initialArray = [];
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    const initialArray: any[] = [];
     const flattenedArray = flatten(initialArray);
 
     expect(flattenedArray).toEqual(initialArray);
@@ -40,7 +41,7 @@ describe('flatten()', () => {
   it('given an array of empty arrays, should return a new empty array', () => {
     const initialArray = [[], [[], []], []];
     const flattenedArray = flatten(initialArray);
-    const expectedArray = [];
+    const expectedArray: Array<[]> = [];
 
     expect(flattenedArray).toEqual(expectedArray);
   });

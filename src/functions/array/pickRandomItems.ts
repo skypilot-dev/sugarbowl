@@ -1,5 +1,7 @@
 import { Integer } from '../../types';
+
 import { shuffle } from './shuffle';
+
 
 /* Given an array of items, select the requested number of items at random from the array */
 export function pickRandomItems<T>(array: T[], numberOfItems: Integer): T[] {
