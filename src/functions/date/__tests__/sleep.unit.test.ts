@@ -9,6 +9,8 @@ describe('sleep()', () => {
     const endTime = new Date().getTime();
 
     const elapsedTime = endTime - startTime;
-    expect(elapsedTime).toBeGreaterThanOrEqual(1000);
+    /* Use a tolerance to avoid test failures when there is a tiny variance in timing. */
+    const toleranceInMs = 50;
+    expect(elapsedTime).toBeGreaterThanOrEqual(1000 - toleranceInMs);
   });
 });
