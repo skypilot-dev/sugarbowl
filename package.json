@@ -33,10 +33,10 @@
     "url": "https://github.com/skypilotcc/sugarbowl/issues"
   },
   "homepage": "https://github.com/skypilotcc/sugarbowl#readme",
-  "dependencies": {
-    "@skypilot/toolchain": "^0.4.16-alpha"
+  "dependencies": {},
+  "devDependencies": {
+    "@skypilot/toolchain": "^0.4.17-alpha"
   },
-  "devDependencies": {},
   "files": [
     "/lib"
   ]
