@@ -18,7 +18,8 @@ __Date functions__
 
 __Higher-order functions__
 
-- `extendFunction(fnToExtend: function, ...extendingFns: Function[]): Function`
+- `curry(fnToCurry: Function, ...args: any[]): Function`
+- `extendFunction(fnToExtend: Function, ...extendingFns: Function[]): Function`
 - `toMapFunction(...itemFns: Function[]): Function`
 
 __String functions__

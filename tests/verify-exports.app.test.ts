@@ -14,6 +14,7 @@ const intendedExports = [
   'isValidDate',
 
   /* Higher-order functions */
+  'curry',
   'extendFunction',
   'toMapFunction',
 
