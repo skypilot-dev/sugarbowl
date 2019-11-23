@@ -5,14 +5,14 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "all-ci-checks": "yarn run check-types && yarn run lint --quiet && yarn test && yarn run build",
     "build": "rm -rf lib && yarn run compile-ts",
     "check-types": "tsc",
-    "generate-typings": "tsc --project tsconfig.generate-typings.json",
-    "prepublishOnly": "yarn run check-types && yarn run lint --quiet && yarn test && yarn run build && yarn run generate-typings",
-    "test": "jest",
-    "all-ci-checks": "yarn run check-types && yarn run lint --quiet && yarn test && yarn run build",
     "compile-ts": "babel ./src --out-dir ./lib --extensions .ts --ignore '**/*.test.ts'",
-    "lint": "eslint --cache '**/*.{js,ts}'"
+    "generate-typings": "tsc --project tsconfig.generate-typings.json",
+    "lint": "eslint --cache '**/*.{js,ts}'",
+    "prepublishOnly": "yarn run check-types && yarn run lint --quiet && yarn test && yarn run build && yarn run generate-typings",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
