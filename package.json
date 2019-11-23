@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "all-ci-checks": "yarn run check-types && yarn run lint --quiet && yarn test && yarn run build",
+    "all-ci-checks": "yarn run all-cq-checks && yarn run build",
+    "all-cq-checks": "yarn run check-types && yarn run lint --quiet && yarn test",
     "build": "rm -rf lib && yarn run compile-ts",
     "check-types": "tsc",
     "compile-ts": "babel ./src --out-dir ./lib --extensions .ts --ignore '**/*.test.ts'",
@@ -35,7 +36,7 @@
   "homepage": "https://github.com/skypilotcc/sugarbowl#readme",
   "dependencies": {},
   "devDependencies": {
-    "@skypilot/toolchain": "^0.4.17-alpha"
+    "@skypilot/toolchain": "^1.0.0"
   },
   "files": [
     "/lib"
