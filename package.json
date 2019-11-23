@@ -28,7 +28,10 @@
     "strings",
     "objects"
   ],
-  "author": "William Thorsen",
+  "author": {
+    "name": "William Thorsen",
+    "email": "wthorsen@skypilot.dev"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/skypilotcc/sugarbowl/issues"
