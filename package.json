@@ -1,9 +1,40 @@
 {
   "name": "@skypilot/sugarbowl",
-  "version": "0.10.9",
   "description": "A collection of convenience functions for JavaScript & TypeScript",
+  "homepage": "https://github.com/skypilotcc/sugarbowl#readme",
+  "version": "0.11.0",
   "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "author": {
+    "email": "wthorsen@skypilot.dev",
+    "name": "William Thorsen"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/skypilotcc/sugarbowl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skypilotcc/sugarbowl/issues"
+  },
+  "keywords": [
+    "arrays",
+    "functions",
+    "javascript",
+    "objects",
+    "strings",
+    "typescript",
+    "utility"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@skypilot/toolchain": "^1.0.0",
+    "bumped": "^0.12.0",
+    "bumped-changelog": "^0.3.12",
+    "bumped-finepack": "^0.3.0",
+    "bumped-terminal": "^0.7.8"
+  },
+  "files": [
+    "/lib"
+  ],
   "scripts": {
     "all-ci-checks": "yarn run all-cq-checks && yarn run build",
     "all-cq-checks": "yarn run check-types && yarn run lint --quiet && yarn test",
@@ -15,37 +46,6 @@
     "prepublishOnly": "yarn run check-types && yarn run lint --quiet && yarn test && yarn run build && yarn run generate-typings",
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/skypilotcc/sugarbowl.git"
-  },
-  "keywords": [
-    "javascript",
-    "typescript",
-    "utility",
-    "functions",
-    "arrays",
-    "strings",
-    "objects"
-  ],
-  "author": {
-    "name": "William Thorsen",
-    "email": "wthorsen@skypilot.dev"
-  },
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/skypilotcc/sugarbowl/issues"
-  },
-  "homepage": "https://github.com/skypilotcc/sugarbowl#readme",
-  "dependencies": {},
-  "devDependencies": {
-    "@skypilot/toolchain": "^1.0.0",
-    "bumped": "^0.12.0",
-    "bumped-changelog": "^0.3.12",
-    "bumped-finepack": "^0.3.0",
-    "bumped-terminal": "^0.7.8"
-  },
-  "files": [
-    "/lib"
-  ]
+  "types": "lib/index.d.ts"
 }
