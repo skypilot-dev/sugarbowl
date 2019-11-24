@@ -22,6 +22,10 @@ __Higher-order functions__
 - `extendFunction(fnToExtend: Function, ...extendingFns: Function[]): Function`
 - `toMapFunction(...itemFns: Function[]): Function`
 
+__Object functions__
+
+- `isObject(value: any): boolean`
+
 __String functions__
 <pre>
 <code>capitalizeAllWords(<em>stringToCapitalize: string</em>): <em>string</em></code>
