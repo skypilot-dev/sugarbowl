@@ -22,6 +22,10 @@ __Higher-order functions__
 - `extendFunction(fnToExtend: Function, ...extendingFns: Function[]): Function`
 - `toMapFunction(...itemFns: Function[]): Function`
 
+__Number functions__
+
+- `isInteger(value: any): boolean`
+
 __Object functions__
 
 - `isObject(value: any): boolean`

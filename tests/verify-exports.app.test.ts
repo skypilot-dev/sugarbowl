@@ -18,7 +18,13 @@ const intendedExports = [
   'extendFunction',
   'toMapFunction',
 
-  /* string functions */
+  /* Number functions */
+  'isInteger',
+
+  /* Object functions */
+  'isObject',
+
+  /* String functions */
   'capitalizeAllWords',
   'capitalizeFirstWord',
   'computeHash',
