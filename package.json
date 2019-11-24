@@ -2,7 +2,7 @@
   "name": "@skypilot/sugarbowl",
   "description": "A collection of convenience functions for JavaScript & TypeScript",
   "homepage": "https://github.com/skypilotcc/sugarbowl#readme",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "main": "lib/index.js",
   "author": {
     "email": "wthorsen@skypilot.dev",
@@ -40,8 +40,8 @@
     "all-cq-checks": "yarn run check-types && yarn run lint --quiet && yarn test",
     "build": "rm -rf lib && yarn run compile-ts",
     "check-types": "tsc",
-    "cq": "yarn run all-cq-checks",
     "compile-ts": "babel ./src --out-dir ./lib --extensions .ts --ignore '**/*.test.ts'",
+    "cq": "yarn run all-cq-checks",
     "generate-typings": "tsc --project tsconfig.generate-typings.json",
     "lint": "eslint --cache '**/*.{js,ts}'",
     "prepublishOnly": "yarn run check-types && yarn run lint --quiet && yarn test && yarn run build && yarn run generate-typings",

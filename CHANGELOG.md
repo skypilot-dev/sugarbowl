@@ -1,3 +1,11 @@
+## 0.12.0 (2019-11-24)
+
+* Add convenience script to run code-quality checks ([c8d24f0](https://github.com/skypilotcc/sugarbowl/commit/c8d24f0))
+* add: Can check whether a value is an object ([384161f](https://github.com/skypilotcc/sugarbowl/commit/384161f))
+* add: Check whether a value is an integer ([25e294f](https://github.com/skypilotcc/sugarbowl/commit/25e294f))
+
+
+
 ## 0.11.0 (2019-11-23)
 
 * Add ISC license & author's email ([4b9124d](https://github.com/skypilotcc/sugarbowl/commit/4b9124d))
