@@ -40,6 +40,7 @@
     "all-cq-checks": "yarn run check-types && yarn run lint --quiet && yarn test",
     "build": "rm -rf lib && yarn run compile-ts",
     "check-types": "tsc",
+    "cq": "yarn run all-cq-checks",
     "compile-ts": "babel ./src --out-dir ./lib --extensions .ts --ignore '**/*.test.ts'",
     "generate-typings": "tsc --project tsconfig.generate-typings.json",
     "lint": "eslint --cache '**/*.{js,ts}'",
