@@ -1,6 +1,6 @@
 /* These functions are simply wrapper for the `String.prototype` methods of the same name */
 
-import { Integer } from '../../types';
+import { Integer } from '@skypilot/common-types';
 
 
 export function padEnd(str: string, targetLength: Integer, padString = ' '): string {

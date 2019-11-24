@@ -1,4 +1,4 @@
-import { Integer } from '../../types';
+import { Integer } from '@skypilot/common-types';
 
 import { shuffle } from './shuffle';
 

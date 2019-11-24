@@ -2,7 +2,7 @@
  * Note: As currently written, the function always returns `true` if the substring is an empty string.
  */
 
-import { Integer } from '../../types';
+import { Integer } from '@skypilot/common-types';
 
 export function startsWith(string: string, substring: string, position: Integer = 0): boolean {
   if (position < 0) {
