@@ -1,3 +1,9 @@
+## <small>0.12.1 (2019-11-27)</small>
+
+* Install & use a library of common types ([b1f9c8c](https://github.com/skypilotcc/sugarbowl/commit/b1f9c8c))
+
+
+
 ## 0.12.0 (2019-11-24)
 
 * Add convenience script to run code-quality checks ([c8d24f0](https://github.com/skypilotcc/sugarbowl/commit/c8d24f0))
