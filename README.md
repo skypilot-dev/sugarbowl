@@ -12,9 +12,10 @@ __Array functions__
 - `shuffle`
 - `toUniqueArray`
 
-__Date functions__
+__Date & time functions__
 
 - `isValidDate`
+- `sleep`
 
 __Higher-order functions__
 

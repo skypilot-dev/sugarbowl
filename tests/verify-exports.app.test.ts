@@ -10,8 +10,9 @@ const intendedExports = [
   /* Array sort functions */
   'sorterOnDigits',
 
-  /* Date functions */
+  /* Date & time functions */
   'isValidDate',
+  'sleep',
 
   /* Higher-order functions */
   'curry',
