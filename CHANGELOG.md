@@ -1,3 +1,11 @@
+## 1.0.0 (2019-12-01)
+
+* add: Can sleep for a specified duration ([a4b2c2e](https://github.com/skypilotcc/sugarbowl/commit/a4b2c2e))
+* Add convenience package-file scripts ([4be65a6](https://github.com/skypilotcc/sugarbowl/commit/4be65a6))
+* Update all dependencies ([144e0bd](https://github.com/skypilotcc/sugarbowl/commit/144e0bd))
+
+
+
 ## <small>0.12.1 (2019-11-27)</small>
 
 * Install & use a library of common types ([b1f9c8c](https://github.com/skypilotcc/sugarbowl/commit/b1f9c8c))
