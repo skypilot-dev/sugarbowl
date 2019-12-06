@@ -1,3 +1,10 @@
+## <small>1.0.1 (2019-12-06)</small>
+
+* Allow publication of non-stable releases from 'edge' branch ([168d31f](https://github.com/skypilotcc/sugarbowl/commit/168d31f))
+* Update all dependencies ([6acb42c](https://github.com/skypilotcc/sugarbowl/commit/6acb42c))
+
+
+
 ## 1.0.0 (2019-12-01)
 
 * add: Can sleep for a specified duration ([a4b2c2e](https://github.com/skypilotcc/sugarbowl/commit/a4b2c2e))
