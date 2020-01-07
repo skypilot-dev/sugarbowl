@@ -1,3 +1,9 @@
+## 1.2.0 (2020-01-07)
+
+* add: `swapKeysAndValues`: Swaps an object's keys and values ([70792f5](https://github.com/skypilotcc/sugarbowl/commit/70792f5))
+
+
+
 ## <small>1.0.1 (2019-12-06)</small>
 
 * Allow publication of non-stable releases from 'edge' branch ([168d31f](https://github.com/skypilotcc/sugarbowl/commit/168d31f))
