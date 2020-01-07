@@ -24,6 +24,7 @@ const intendedExports = [
 
   /* Object functions */
   'isObject',
+  'swapKeysAndValues',
 
   /* String functions */
   'capitalizeAllWords',

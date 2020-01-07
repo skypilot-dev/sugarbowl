@@ -30,6 +30,7 @@ __Number functions__
 __Object functions__
 
 - `isObject(value: any): boolean`
+- `swapKeysAndValues(obj: object): object`
 
 __String functions__
 <pre>
