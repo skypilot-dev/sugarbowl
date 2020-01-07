@@ -1,3 +1,9 @@
+## <small>1.2.1 (2020-01-07)</small>
+
+* Fix broken export & export-verification test ([81fd4f6](https://github.com/skypilotcc/sugarbowl/commit/81fd4f6))
+
+
+
 ## 1.2.0 (2020-01-07)
 
 * add: `swapKeysAndValues`: Swaps an object's keys and values ([70792f5](https://github.com/skypilotcc/sugarbowl/commit/70792f5))
