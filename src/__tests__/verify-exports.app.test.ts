@@ -1,6 +1,6 @@
-import * as actualExports from '../src';
+import * as actualExports from '../index';
 
-const intendedExports = [
+const intendedExports: string[] = [
   /* Array functions */
   'flatten',
   'pickRandomItems',
