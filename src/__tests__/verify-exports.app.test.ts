@@ -14,6 +14,9 @@ const intendedExports: string[] = [
   'isValidDate',
   'sleep',
 
+  /* Filesystem functions */
+  'readPackageFile',
+
   /* Higher-order functions */
   'curry',
   'extendFunction',

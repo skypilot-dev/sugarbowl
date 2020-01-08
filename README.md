@@ -17,6 +17,10 @@ __Date & time functions__
 - `isValidDate`
 - `sleep`
 
+__Filesystem functions__
+
+- `readPackageFile`
+
 __Higher-order functions__
 
 - `curry(fnToCurry: Function, ...args: any[]): Function`
