@@ -1,3 +1,12 @@
+## <small>1.3.1 (2020-01-14)</small>
+
+* add: `getOrDefault` returns  value mapped to a key or a default ([6bfe941](https://github.com/skypilotcc/sugarbowl/commit/6bfe941))
+* add: `readPackageFile`: Returns the project's `package.json` as JSON ([a53e8a5](https://github.com/skypilotcc/sugarbowl/commit/a53e8a5))
+* Move export verification test ([81d2fab](https://github.com/skypilotcc/sugarbowl/commit/81d2fab))
+* Upgrade Toolchain to latest version (v1.4.5) ([4a64ec1](https://github.com/skypilotcc/sugarbowl/commit/4a64ec1))
+
+
+
 ## <small>1.2.1 (2020-01-07)</small>
 
 * Fix broken export & export-verification test ([81fd4f6](https://github.com/skypilotcc/sugarbowl/commit/81fd4f6))
