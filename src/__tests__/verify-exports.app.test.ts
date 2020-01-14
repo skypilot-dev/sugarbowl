@@ -26,6 +26,7 @@ const intendedExports: string[] = [
   'isInteger',
 
   /* Object functions */
+  'getOrDefault',
   'isObject',
   'swapKeysAndValues',
 

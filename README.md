@@ -33,6 +33,7 @@ __Number functions__
 
 __Object functions__
 
+- `getOrDefault(obj: object, key: string, default: any)`
 - `isObject(value: any): boolean`
 - `swapKeysAndValues(obj: object): object`
 
