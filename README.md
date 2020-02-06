@@ -1,4 +1,10 @@
 # @skypilot/sugarbowl
+
+[![build](https://img.shields.io/github/workflow/status/skypilotcc/sugarbowl/Stable%20release?label=build)]()&nbsp;
+[![npm stable](https://img.shields.io/npm/v/@skypilot/sugarbowl?label=stable)](https://www.npmjs.com/package/@skypilot/sugarbowl)&nbsp;
+[![npm next](https://img.shields.io/npm/v/@skypilot/sugarbowl/next?label=next)](https://www.npmjs.com/package/@skypilot/sugarbowl)&nbsp;
+[![license: ISC](https://img.shields.io/badge/license-ISC-blue.svg)](https://opensource.org/licenses/ISC)  
+
 A collection of typed convenience functions for JavaScript & TypeScript.
 
 All functions are typed, and it is expected that they will be used only in
