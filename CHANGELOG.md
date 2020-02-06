@@ -1,3 +1,7 @@
+## [1.4.2](https://github.com/skypilotcc/sugarbowl/compare/v1.3.2...v1.4.2) (2020-02-06)
+
+
+
 ## [1.3.2](https://github.com/skypilotcc/sugarbowl/compare/v1.4.0-next.1...v1.3.2) (2020-02-06)
 
 
