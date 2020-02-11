@@ -15,6 +15,7 @@ const intendedExports: string[] = [
   'sleep',
 
   /* Filesystem functions */
+  'findPackageFileDir',
   'findUpTree',
   'readPackageFile',
 

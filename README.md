@@ -25,6 +25,7 @@ __Date & time functions__
 
 __Filesystem functions__
 
+- `findPackageFileDir`
 - `findUpTree`
 - `readPackageFile`
 
