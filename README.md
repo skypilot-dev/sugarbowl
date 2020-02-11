@@ -28,6 +28,7 @@ __Filesystem functions__
 - `findPackageFileDir`
 - `findUpTree`
 - `readPackageFile`
+- `writePackageFile`
 
 __Higher-order functions__
 

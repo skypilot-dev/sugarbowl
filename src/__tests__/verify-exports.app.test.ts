@@ -18,6 +18,7 @@ const intendedExports: string[] = [
   'findPackageFileDir',
   'findUpTree',
   'readPackageFile',
+  'writePackageFile',
 
   /* Higher-order functions */
   'curry',
