@@ -2,7 +2,7 @@
   "name": "@skypilot/sugarbowl",
   "description": "A collection of convenience functions for JavaScript & TypeScript",
   "homepage": "https://github.com/skypilotcc/sugarbowl#readme",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "main": "lib/index.js",
   "author": {
     "email": "wthorsen@skypilot.dev",
