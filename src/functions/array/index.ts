@@ -1,4 +1,5 @@
 export { flatten } from './flatten';
+export { omitSequentialDuplicateItems } from './omitSequentialDuplicateItems';
 export { pickRandomItems } from './pickRandomItems';
 export { shuffle } from './shuffle';
 export { sorterOnDigits } from './sorters/sorterOnDigits';
