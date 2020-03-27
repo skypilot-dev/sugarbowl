@@ -1,3 +1,17 @@
+# [1.6.0](https://github.com/skypilotcc/sugarbowl/compare/v1.6.0-next.0...v1.6.0) (2020-03-27)
+
+
+
+# [1.6.0-next.0](https://github.com/skypilotcc/sugarbowl/compare/v1.5.2...v1.6.0-next.0) (2020-03-27)
+
+
+### Features
+
+* Can return an array that omits sequential duplicates ([10efa18](https://github.com/skypilotcc/sugarbowl/commit/10efa18cf56b541e12bd6428722d5845fb41a867))
+* Can return an object that omits entries with undefined values ([5653295](https://github.com/skypilotcc/sugarbowl/commit/5653295e7d32cba80eb20df9474f19144edfc7e8))
+
+
+
 ## [1.5.2](https://github.com/skypilotcc/sugarbowl/compare/v1.5.2-next.1...v1.5.2) (2020-03-14)
 
 
