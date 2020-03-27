@@ -33,6 +33,7 @@ const intendedExports: string[] = [
   'entriesToKeyedItems',
   'getOrDefault',
   'isObject',
+  'omitUndefinedEntries',
   'swapKeysAndValues',
 
   /* String functions */
