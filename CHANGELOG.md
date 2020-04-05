@@ -1,3 +1,16 @@
+# [1.7.0](https://github.com/skypilotcc/sugarbowl/compare/v1.7.0-next.0...v1.7.0) (2020-04-05)
+
+
+
+# [1.7.0-next.0](https://github.com/skypilotcc/sugarbowl/compare/v1.6.0...v1.7.0-next.0) (2020-04-05)
+
+
+### Features
+
+* Can return an object that omits entries with falsy values ([a9648d0](https://github.com/skypilotcc/sugarbowl/commit/a9648d0e92608f1eebe792a9082228dca10d6365))
+
+
+
 # [1.6.0](https://github.com/skypilotcc/sugarbowl/compare/v1.6.0-next.0...v1.6.0) (2020-03-27)
 
 
