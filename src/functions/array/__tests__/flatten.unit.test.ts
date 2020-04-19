@@ -1,4 +1,4 @@
-import { flatten } from '../../flatten';
+import { flatten } from '../flatten';
 
 describe('flatten()', () => {
   it('given a nested array, should return an array in which all nested elements have been moved to the first level', () => {
