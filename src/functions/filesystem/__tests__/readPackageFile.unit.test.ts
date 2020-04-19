@@ -1,5 +1,5 @@
 import path from 'path';
-import { version as expectedVersion } from '../../../../package.json';
+import { version as expectedVersion } from 'root/package.json';
 import { readPackageFile } from '../readPackageFile';
 
 /* The path is resolved relative to the project root. */
