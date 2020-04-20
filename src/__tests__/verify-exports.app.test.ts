@@ -24,6 +24,7 @@ const intendedExports: string[] = [
   /* Higher-order functions */
   'curry',
   'extendFunction',
+  'pipe',
   'toMapFunction',
 
   /* Number functions */

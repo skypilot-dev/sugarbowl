@@ -40,6 +40,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 -   `curry(fnToCurry: Function, ...args: any[]): Function`
 -   `extendFunction(fnToExtend: Function, ...extendingFns: Function[]): Function`
+-   `pipe(...fnsToPipe: Function[])`
 -   `toMapFunction(...itemFns: Function[]): Function`
 
 ### Number functions
