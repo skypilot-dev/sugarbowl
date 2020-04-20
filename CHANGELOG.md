@@ -1,3 +1,16 @@
+# [1.8.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.8.0-next.0...v1.8.0) (2020-04-20)
+
+
+
+# [1.8.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.7.1...v1.8.0-next.0) (2020-04-20)
+
+
+### Features
+
+* Can chain a series of functions ([d306f9c](https://github.com/skypilot-dev/sugarbowl/commit/d306f9c4889694f300e3ab0bde40767ee668960c))
+
+
+
 ## [1.7.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.7.1-next.0...v1.7.1) (2020-04-19)
 
 
