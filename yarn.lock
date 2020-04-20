@@ -1097,10 +1097,10 @@
   resolved "https://registry.yarnpkg.com/@skypilot/eslint-config-typescript/-/eslint-config-typescript-1.0.10.tgz#639c607658bf2c9e2a81afea231e07f8fad039f5"
   integrity sha512-lM9NgnDUbAZIaioSQW6x3Y27lcmux9SRi9QUgeq55enVewmtIy7w9Q3XQElOC34+cCbOB9p2SY/EQquxOxzRLw==
 
-"@skypilot/toolchain@^3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@skypilot/toolchain/-/toolchain-3.6.0.tgz#05d9747e06058b3e5c004d3838d56ae76c23fc09"
-  integrity sha512-3UdtI/tFqo7+VWPkc0hMq8uzr9wWw9Sfq96/n46QPcPqd+Wa4eQteXYvtn15pYAWQutblWRXKsFwPZN/09rSsw==
+"@skypilot/toolchain@^3.6.1":
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/@skypilot/toolchain/-/toolchain-3.6.1.tgz#82bd410e19863a466e3d1906b80a6dd5068f2f9c"
+  integrity sha512-5GNcBTTLZhJsnidPKCDg+dQh0d/efNslUmtthMSHb5FeUMH8o7yP354yExylghDw/F22AVELYcqWFgzo/371fQ==
   dependencies:
     "@babel/cli" "^7.8.4"
     "@babel/core" "^7.9.0"
@@ -1125,7 +1125,7 @@
     git-branch-is "^3.1.0"
     husky "^4.2.5"
     jest "^25.3.0"
-    lint-staged "^10.1.5"
+    lint-staged "^10.1.6"
     typescript "^3.8.3"
 
 "@types/babel__core@^7.1.7":
@@ -1897,6 +1897,11 @@ commander@^4.0.0, commander@^4.0.1:
   resolved "https://registry.yarnpkg.com/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
 
+commander@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-5.0.0.tgz#dbf1909b49e5044f8fdaf0adc809f0c0722bdfd0"
+  integrity sha512-JrDGPAKjMGSP1G0DUoaceEJ3DZgAfr/q6X7FVk4+U5KxUSKviYGM2k6zWkfyyBHy5rAtzgYJFa1ro2O9PtoxwQ==
+
 commondir@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
@@ -2383,7 +2388,7 @@ execa@^1.0.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
-execa@^3.2.0, execa@^3.4.0:
+execa@^3.2.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/execa/-/execa-3.4.0.tgz#c08ed4550ef65d858fac269ffc8572446f37eb89"
   integrity sha512-r9vdGQk4bmCuK1yKQu1KTwcT2zwfWdbdaXfCtAh+5nU/4fSX+JAb7vZGvI5naJrQlvONrEB20jeruESI69530g==
@@ -2396,6 +2401,21 @@ execa@^3.2.0, execa@^3.4.0:
     npm-run-path "^4.0.0"
     onetime "^5.1.0"
     p-finally "^2.0.0"
+    signal-exit "^3.0.2"
+    strip-final-newline "^2.0.0"
+
+execa@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-4.0.0.tgz#7f37d6ec17f09e6b8fc53288611695b6d12b9daf"
+  integrity sha512-JbDUxwV3BoT5ZVXQrSVbAiaXhXUkIwvbhPIwZ0N13kX+5yCzOhUNdocxB/UQRuYOHRYYwAxKYwJYc0T4D12pDA==
+  dependencies:
+    cross-spawn "^7.0.0"
+    get-stream "^5.0.0"
+    human-signals "^1.1.1"
+    is-stream "^2.0.0"
+    merge-stream "^2.0.0"
+    npm-run-path "^4.0.0"
+    onetime "^5.1.0"
     signal-exit "^3.0.2"
     strip-final-newline "^2.0.0"
 
@@ -3779,17 +3799,17 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-lint-staged@^10.1.5:
-  version "10.1.5"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.1.5.tgz#de21ee7c4a91d75e5135b100b963f65e61645230"
-  integrity sha512-Etn83be+CiG674kIkE4pOyjtpssXfdmuAPhOehy5w4bOVMnQJ5DsiWq5CShpZj38NA+UdJSsMMkqhb3hB72kOg==
+lint-staged@^10.1.6:
+  version "10.1.6"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.1.6.tgz#086db5e4f5906642ccf648e9b54375d794a9be81"
+  integrity sha512-45zaGxf4XZuwdUk87yRFE/1b4vTZmH2UnYmUPmindsgdAljOFpWWb0yEjxngmqERUS/MGauJexFF6BjLVg9VMA==
   dependencies:
-    chalk "^3.0.0"
-    commander "^4.0.1"
+    chalk "^4.0.0"
+    commander "^5.0.0"
     cosmiconfig "^6.0.0"
     debug "^4.1.1"
     dedent "^0.7.0"
-    execa "^3.4.0"
+    execa "^4.0.0"
     listr "^0.14.3"
     log-symbols "^3.0.0"
     micromatch "^4.0.2"
