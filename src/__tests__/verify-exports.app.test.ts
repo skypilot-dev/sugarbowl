@@ -49,6 +49,7 @@ const intendedExports: string[] = [
   'isEnclosed',
   'nondigitsOnly',
   'parseEnclosed',
+  'randomAlphanumeric',
   'removeExtraWhitespace',
   'removeWhitespace',
   'splitOnce',

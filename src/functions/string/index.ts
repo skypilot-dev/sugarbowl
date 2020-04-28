@@ -7,6 +7,7 @@ export { digitsOnly } from './digitsOnly';
 export { computeHash } from './computeHash';
 export { nondigitsOnly } from './nondigitsOnly';
 export { parseEnclosed } from './parseEnclosed';
+export { randomAlphanumeric } from './randomAlphanumeric';
 export { removeExtraWhitespace } from './removeExtraWhitespace';
 export { removeWhitespace } from './removeWhitespace';
 export { splitOnce } from './splitOnce'
