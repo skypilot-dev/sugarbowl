@@ -1,3 +1,16 @@
+# [1.9.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.9.0-next.0...v1.9.0) (2020-04-29)
+
+
+
+# [1.9.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.8.0...v1.9.0-next.0) (2020-04-28)
+
+
+### Features
+
+* Can generate a random alphanumeric string ([16f2f24](https://github.com/skypilot-dev/sugarbowl/commit/16f2f24c60b33b05ad85a500be3c02e30ac67647))
+
+
+
 # [1.8.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.8.0-next.0...v1.8.0) (2020-04-20)
 
 
