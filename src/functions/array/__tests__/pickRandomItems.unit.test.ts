@@ -12,4 +12,11 @@ describe('pickRandomElements()', () => {
   it('should not have any duplicate items', () => {
     expect(randomItems.length).toBe(toUniqueArray(randomItems).length);
   });
+
+  it('accepts a read-only array', () => {
+    const readonlyArray: readonly string[] = ['a', 'b'];
+
+    const randomItems = pickRandomItems(readonlyArray, 1);
+    expect(randomItems.length).toBe(1);
+  });
 });

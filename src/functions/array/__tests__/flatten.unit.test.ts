@@ -9,6 +9,13 @@ describe('flatten()', () => {
     expect(flattenedArray).toEqual(expectedArray);
   });
 
+  it('can handle a nested read-only array', () => {
+    const initialArray = [[1, 2] as const, 3, 4, 5, [6, [7, 8]]];
+    const flattenedArray = flatten(initialArray);
+    const expectedArray = [1, 2, 3, 4, 5, 6, 7, 8];
+
+    expect(flattenedArray).toEqual(expectedArray);
+  });
 
   it('given a flat array, should return a clone of it', () => {
     const initialArray = [1, 2, 3];
@@ -18,6 +25,13 @@ describe('flatten()', () => {
     expect(flattenedArray).not.toBe(initialArray);
   });
 
+  it('can handle a read-only array', () => {
+    const initialArray = [1, 2, 3] as const;
+    const flattenedArray = flatten(initialArray);
+
+    expect(flattenedArray).toEqual(initialArray);
+    expect(flattenedArray).not.toBe(initialArray);
+  });
 
   it('given an empty array, should return a new empty array', () => {
     /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -28,7 +42,6 @@ describe('flatten()', () => {
     expect(flattenedArray).not.toBe(initialArray);
   });
 
-
   it('should skip empty subarrays', () => {
     const initialArray = [[], 'a', 'b', [], ['c', [], 'd']];
     const flattenedArray = flatten(initialArray);
@@ -36,7 +49,6 @@ describe('flatten()', () => {
 
     expect(flattenedArray).toEqual(expectedArray);
   });
-
 
   it('given an array of empty arrays, should return a new empty array', () => {
     const initialArray = [[], [[], []], []];

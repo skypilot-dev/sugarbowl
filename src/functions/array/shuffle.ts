@@ -1,6 +1,8 @@
 /* Given an items, create a new array comprising the same items, then shuffle the new array and
   return it. */
-export function shuffle<T>(array: T[]): T[] {
+import { MaybeReadOnlyArray } from '@skypilot/common-types';
+
+export function shuffle<T>(array: MaybeReadOnlyArray<T>): T[] {
   let store;
   const shuffledArray = Array.from(array);
   for (let i = array.length - 1; i > 0; i -= 1) {

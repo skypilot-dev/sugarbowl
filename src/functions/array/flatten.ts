@@ -1,6 +1,7 @@
-/* Given an array, recursively move all items from any nested arrays it contains to the parent array */
+import { MaybeReadOnlyArray } from '@skypilot/common-types';
 
-function flattenArray<T>(array: T[] | T[][], flattenedArray: T[] = []): T[] {
+/* Given an array, recursively move all items from any nested arrays it contains to the parent array */
+function flattenArray<T>(array: MaybeReadOnlyArray<T> | MaybeReadOnlyArray<T[]>, flattenedArray: T[] = []): T[] {
   for (let i = 0; i < array.length; i++) {
     const value = array[i];
     if (Array.isArray(value)) {
@@ -13,6 +14,6 @@ function flattenArray<T>(array: T[] | T[][], flattenedArray: T[] = []): T[] {
 }
 
 /* We wrap this function around `flattenArray` to hide the second parameter. */
-export function flatten<T>(array: T[] | T[][]): T[] {
+export function flatten<T>(array: MaybeReadOnlyArray<T> | MaybeReadOnlyArray<T[]>): T[] {
   return flattenArray(array);
 }

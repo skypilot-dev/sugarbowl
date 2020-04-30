@@ -18,12 +18,21 @@ describe('omitSequentialDuplicateItems', () => {
     expect(noDuplicates).toStrictEqual(expected);
   });
 
-  it('should be able to handle values of different types', () => {
+  it('can handle values of different types', () => {
     const array = [0, 'a', 'a', 1, 1];
 
     const noDuplicates = omitSequentialDuplicateItems(array);
 
     const expected = [0, 'a', 1];
+    expect(noDuplicates).toStrictEqual(expected);
+  });
+
+  it('can handle a read-only array', () => {
+    const array = [0] as const;
+
+    const noDuplicates = omitSequentialDuplicateItems(array);
+
+    const expected = [0];
     expect(noDuplicates).toStrictEqual(expected);
   });
 });
