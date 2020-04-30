@@ -67,6 +67,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `inflectQuantity(howMany: number, singular: string, plural?: string): string`
 -   `isEnclosed(stringToCheck: string, startDelimiter: string, endDelimiter?: string = startDelimiter): boolean`
 -   `nondigitsOnly(stringToParse: string): string`
+-   `parseInteger(stringToParse: string, options): Integer`
 -   `parseEnclosed(stringToParse: string, startDelimiter: string, endDelimiter: string = startDelimiter): string`
 -   `randomAlphanumeric(length: Integer): string`
 -   `removeExtraWhitespace(str: string): string`
