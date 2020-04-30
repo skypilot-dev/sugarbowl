@@ -1,3 +1,16 @@
+## [1.10.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.10.1-next.0...v1.10.1) (2020-04-30)
+
+
+
+## [1.10.1-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.10.0...v1.10.1-next.0) (2020-04-30)
+
+
+### Bug Fixes
+
+* `pickRandomItem` function isn't exported ([31d603a](https://github.com/skypilot-dev/sugarbowl/commit/31d603ae4468c87fbc003b0d27be1d1ddef0dddd))
+
+
+
 # [1.10.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.10.0-next.0...v1.10.0) (2020-04-30)
 
 
