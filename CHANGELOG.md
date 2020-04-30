@@ -1,3 +1,16 @@
+# [1.11.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.11.0-next.0...v1.11.0) (2020-04-30)
+
+
+
+# [1.11.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.10.1...v1.11.0-next.0) (2020-04-30)
+
+
+### Features
+
+* Can flexibly parse an integer from a string ([c64ebc4](https://github.com/skypilot-dev/sugarbowl/commit/c64ebc4b1759e07a431ff552b65b1a428db1cf5a))
+
+
+
 ## [1.10.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.10.1-next.0...v1.10.1) (2020-04-30)
 
 
