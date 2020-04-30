@@ -22,6 +22,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `omitSequentialDuplicateItems`
 -   `pickRandomItem`
 -   `pickRandomItems`
+-   `range(start: Integer, end: Integer): Integer[]`
 -   `shuffle`
 -   `toUniqueArray`
 

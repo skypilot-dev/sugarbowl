@@ -6,6 +6,7 @@ const intendedExports: string[] = [
   'omitSequentialDuplicateItems',
   'pickRandomItem',
   'pickRandomItems',
+  'range',
   'shuffle',
   'toUniqueArray',
 
