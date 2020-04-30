@@ -1,3 +1,17 @@
+# [1.10.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.10.0-next.0...v1.10.0) (2020-04-30)
+
+
+
+# [1.10.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.9.0...v1.10.0-next.0) (2020-04-30)
+
+
+### Features
+
+* Accept read-only arrays in array functions ([edcfe69](https://github.com/skypilot-dev/sugarbowl/commit/edcfe69ee6707b229e4efc78193de0baccb1f55e))
+* Can pick an item at random from an array ([bb0963b](https://github.com/skypilot-dev/sugarbowl/commit/bb0963bcf7a0fb87e0e936493ce39c02056bc64b))
+
+
+
 # [1.9.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.9.0-next.0...v1.9.0) (2020-04-29)
 
 
