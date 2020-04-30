@@ -1,3 +1,16 @@
+# [1.12.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.12.0-next.0...v1.12.0) (2020-04-30)
+
+
+
+# [1.12.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.11.0...v1.12.0-next.0) (2020-04-30)
+
+
+### Features
+
+* Can create a range of integers ([985e732](https://github.com/skypilot-dev/sugarbowl/commit/985e7324181a3a4355e2a38da3f9e2053467f35e))
+
+
+
 # [1.11.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.11.0-next.0...v1.11.0) (2020-04-30)
 
 
