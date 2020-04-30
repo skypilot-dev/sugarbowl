@@ -4,6 +4,7 @@ const intendedExports: string[] = [
   /* Array functions */
   'flatten',
   'omitSequentialDuplicateItems',
+  'pickRandomItem',
   'pickRandomItems',
   'shuffle',
   'toUniqueArray',

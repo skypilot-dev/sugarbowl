@@ -20,6 +20,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 -   `flatten`
 -   `omitSequentialDuplicateItems`
+-   `pickRandomItem`
 -   `pickRandomItems`
 -   `shuffle`
 -   `toUniqueArray`
