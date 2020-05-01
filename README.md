@@ -59,7 +59,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 ### String functions
 
--   `capitalizeAllWords(stringToCapitalize: string): string</code>`
+-   `capitalizeAllWords(stringToCapitalize: string): string`
 -   `<code>capitalizeFirstWord(stringToCapitalize: string): string`
 -   `computeHash(stringToHash: string, length: Integer = 32): string`
 -   `countOccurrences(str: string, substring: string): Integer`
