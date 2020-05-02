@@ -1,3 +1,11 @@
+# [1.13.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.13.0-next.0...v1.13.0) (2020-05-02)
+
+
+
+# [1.13.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.12.1...v1.13.0-next.0) (2020-05-02)
+
+
+
 ## [1.12.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.12.1-next.0...v1.12.1) (2020-05-01)
 
 
