@@ -1,9 +1,9 @@
-import { Integer } from '@skypilot/common-types';
+import { Integer, Maybe } from '@skypilot/common-types';
 import { digitsOnly } from './digitsOnly';
 
 type ParseIntegerOptions = {
   disallowEmpty?: boolean;
-  emptyEquals0?: boolean;
+  valueIfEmpty?: Maybe<Integer>;
   minValue?: Integer;
   maxValue?: Integer;
 }
@@ -11,12 +11,16 @@ type ParseIntegerOptions = {
 /* TODO: Support negative values. */
 
 /* Given the string representation of an integer value, return the integer. */
-export function parseInteger(intString: string, options: ParseIntegerOptions = {}): Integer | null {
-  if (!intString) {
+export function parseInteger(intString: string, options: ParseIntegerOptions = {}): Maybe<Integer> {
+  const { valueIfEmpty } = options;
+  if (valueIfEmpty) {
+    throw new Error(`Invalid non-zero value for 'valueIfEmpty': ${valueIfEmpty}`) ;
+  }
+  if (intString.trim() === '') {
     if (options.disallowEmpty) {
-      throw new Error("Invalid value: ''");
+      throw new Error(`Invalid value: '${intString}'`);
     }
-    return options.emptyEquals0 ? 0 : null;
+    return valueIfEmpty;
   }
 
   if (!(digitsOnly(intString).length == intString.length)) {

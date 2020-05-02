@@ -10,23 +10,31 @@ describe('parseInteger()', () => {
     expect(integer).toBe(expected);
   });
 
-  it('given an empty string, by default should return null', () => {
+  it('given an empty string, by default should return undefined', () => {
     const intString = '';
 
     const integer = parseInteger(intString);
 
-    const expected = null;
-    expect(integer).toBe(expected);
+    expect(integer).toBeUndefined();
   });
 
-  it('given an empty string when `emptyEquals0:true`, should return 0', () => {
+  it('given an empty string when `valueIfEmpty:0`, should return 0', () => {
     const intString = '';
-    const options = { emptyEquals0: true };
+    const options = { valueIfEmpty: 0 };
 
     const integer = parseInteger(intString, options);
 
     const expected = 0;
     expect(integer).toBe(expected);
+  });
+
+  it('given an empty string when `valueIfEmpty:null`, should return null', () => {
+    const intString = '';
+    const options = { valueIfEmpty: null };
+
+    const integer = parseInteger(intString, options);
+
+    expect(integer).toBeNull();
   });
 
   it('given an empty string when disallowed, should throw an error', () => {
@@ -53,6 +61,13 @@ describe('parseInteger()', () => {
   });
 
   it('should reject a value that is greater than the maximum', () => {
+    const intString = '1';
+    const options = { maxValue: 0 };
+
+    expect(() => parseInteger(intString, options)).toThrow();
+  });
+
+  it('should reject a non-zero value ', () => {
     const intString = '1';
     const options = { maxValue: 0 };
 
