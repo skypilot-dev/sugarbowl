@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { prettify } from 'src/functions/string/prettify';
+import { pushIf } from '../array';
 import { inflectByNumber } from '../string';
 import { wipeDir } from './wipeDir';
 
@@ -112,9 +113,7 @@ export async function writeDataFile<T extends object>(
     descriptionElements.push(data.length.toString());
     descriptionElements.push(inflectByNumber(data.length, 'record was', 'records were'));
   } else {
-    if (label) {
-      descriptionElements.push(label);
-    }
+    pushIf(descriptionElements, !!label, label);
     descriptionElements.push('object was');
   }
   descriptionElements.push('written');
