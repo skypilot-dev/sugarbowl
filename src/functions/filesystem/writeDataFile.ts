@@ -113,7 +113,7 @@ export async function writeDataFile<T extends object>(
     descriptionElements.push(data.length.toString());
     descriptionElements.push(inflectByNumber(data.length, 'record was', 'records were'));
   } else {
-    pushIf(descriptionElements, !!label, label);
+    pushIf(descriptionElements, label);
     descriptionElements.push('object was');
   }
   descriptionElements.push('written');
