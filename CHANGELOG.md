@@ -1,3 +1,22 @@
+# [1.14.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.14.0-next.0...v1.14.0) (2020-05-05)
+
+
+
+# [1.14.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.13.1...v1.14.0-next.0) (2020-05-05)
+
+
+### Bug Fixes
+
+* `rmdir` fails under GitHub Actions ([ba2dc8b](https://github.com/skypilot-dev/sugarbowl/commit/ba2dc8b29a1e8d8df55501bb0ef0e735738e537c))
+
+
+### Features
+
+* Can conditionally push to an array ([ad31335](https://github.com/skypilot-dev/sugarbowl/commit/ad3133502c37a8231d0d4550921e61f4fb13e912))
+* Can write data files as JSON with convenience options ([27b3079](https://github.com/skypilot-dev/sugarbowl/commit/27b3079363cf488682e4c2574146cbaba06731f0))
+
+
+
 ## [1.13.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.13.1-next.0...v1.13.1) (2020-05-02)
 
 
