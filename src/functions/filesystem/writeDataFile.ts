@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { prettify } from 'src/functions/string/prettify';
 import { inflectByNumber } from '../string';
+import { wipeDir } from './wipeDir';
 
 type IsoDateTimeResolution = 'ms' | 'milliseconds' | 's' | 'seconds' | 'm' | 'minutes'
 
@@ -59,7 +60,7 @@ export async function writeDataFile<T extends object>(
     overwrite,
     isoDateTimeResolution = 's',
     verbose,
-    wipeDir,
+    wipeDir: wipeRequested,
   } = options;
 
   const unresolvedFilePath = `${basePath}${filePath}`;
@@ -70,8 +71,8 @@ export async function writeDataFile<T extends object>(
   const dirPath = path.resolve(baseDirPath);
 
   if (!dryRun) {
-    if (wipeDir) {
-      await fs.promises.rmdir(dirPath, { recursive: true });
+    if (wipeRequested) {
+      await wipeDir(dirPath, { recursive: true });
     }
     await fs.promises.mkdir(dirPath, { recursive: true });
   }
@@ -109,9 +110,6 @@ export async function writeDataFile<T extends object>(
   const descriptionElements: string[] = [];
   if (Array.isArray(data)) {
     descriptionElements.push(data.length.toString());
-    if (label) {
-      descriptionElements.push(`'${label}'`);
-    }
     descriptionElements.push(inflectByNumber(data.length, 'record was', 'records were'));
   } else {
     if (label) {
