@@ -24,9 +24,9 @@ describe('', () => {
     }).toThrow();
   });
 
-  it('if length > 8, should throw an error', () => {
-    expect(() => {
-      randomAlphanumeric(9);
-    }).toThrow();
+  it('can return a string of greater than 8 characters', () => {
+    const random = randomAlphanumeric(64);
+    expect(random).toHaveLength(64);
+    expect(random.toLowerCase()).toBe(random);
   });
 });
