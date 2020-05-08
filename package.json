@@ -1,20 +1,7 @@
 {
   "name": "@skypilot/sugarbowl",
+  "version": "1.15.2",
   "description": "A collection of convenience functions for JavaScript & TypeScript",
-  "homepage": "https://github.com/skypilot-dev/sugarbowl#readme",
-  "version": "1.15.1",
-  "main": "lib/index.js",
-  "author": {
-    "email": "wthorsen@skypilot.dev",
-    "name": "William Thorsen"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/skypilot-dev/sugarbowl.git"
-  },
-  "bugs": {
-    "url": "https://github.com/skypilot-dev/sugarbowl/issues"
-  },
   "keywords": [
     "arrays",
     "functions",
@@ -24,11 +11,21 @@
     "typescript",
     "utility"
   ],
-  "dependencies": {},
-  "devDependencies": {
-    "@skypilot/common-types": "^1.7.2",
-    "@skypilot/toolchain": "^4.0.3"
+  "homepage": "https://github.com/skypilot-dev/sugarbowl#readme",
+  "bugs": {
+    "url": "https://github.com/skypilot-dev/sugarbowl/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/skypilot-dev/sugarbowl.git"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "William Thorsen",
+    "email": "wthorsen@skypilot.dev"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "/lib"
   ],
@@ -49,9 +46,12 @@
     "test": "jest",
     "typecheck": "tsc"
   },
-  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@skypilot/common-types": "^1.7.2",
+    "@skypilot/toolchain": "^4.0.3"
+  },
   "publishConfig": {
     "access": "public"
-  },
-  "types": "lib/index.d.ts"
+  }
 }
