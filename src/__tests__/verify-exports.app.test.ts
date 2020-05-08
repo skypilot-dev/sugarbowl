@@ -4,6 +4,7 @@ const intendedExports: string[] = [
   /* Array functions */
   'flatten',
   'omitSequentialDuplicateItems',
+  'pagesToIndices',
   'pickRandomItem',
   'pickRandomItems',
   'pushIf',
@@ -87,4 +88,3 @@ describe('Export verification', () => {
     }
   });
 });
-

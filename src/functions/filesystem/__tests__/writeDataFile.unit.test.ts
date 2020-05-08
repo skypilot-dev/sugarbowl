@@ -55,7 +55,7 @@ describe('writeDataFile(data, filePath, options?)', () => {
   it('given a basePath with a trailing slash, should treat it as a directory', async () => {
     const data = ['a'];
 
-  const result = await writeDataFile(data, 'fileName', {
+    const result = await writeDataFile(data, 'fileName', {
       basePath: 'base-path/',
       dryRun: true,
     });
