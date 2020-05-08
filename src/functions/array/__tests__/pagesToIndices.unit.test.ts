@@ -12,6 +12,7 @@ describe('pagesToIndices()', () => {
       startAtIndex: 0,
       endAtIndex: 1,
       stopBeforeIndex: 2,
+      resultsPerPage: 2,
     };
     expect(indexMap).toEqual(expected);
   });
@@ -24,7 +25,7 @@ describe('pagesToIndices()', () => {
     badResultsPerPage.forEach(resultsPerPage => {
       expect(() => {
         pagesToIndices(page, resultsPerPage);
-      }).toThrow('Invalid value');
+      }).toThrow("'resultsPerPage' must be >= 1");
     });
   });
 
@@ -39,6 +40,7 @@ describe('pagesToIndices()', () => {
       startAtIndex: 2,
       endAtIndex: 3,
       stopBeforeIndex: 4,
+      resultsPerPage: 2,
       totalPages: 3,
     };
     expect(indexMap).toEqual(expected);
@@ -46,6 +48,40 @@ describe('pagesToIndices()', () => {
     const { startAtIndex, endAtIndex, stopBeforeIndex } = expected;
     expect(array[endAtIndex]).toBe(4);
     expect(array.slice(startAtIndex, stopBeforeIndex)).toEqual([3, 4]);
+  });
+
+  it('when `page` > 1 and `resultsPerPage` is undefined, should throw an error', () => {
+    const page = 1;
+
+    expect(() => {
+      pagesToIndices(page);
+    }).toThrow();
+  });
+
+  it('when `page` > 1 and `resultsPerPage` is undefined, should throw an error when an array is passed', () => {
+    const page = 2;
+    const resultsPerPage = undefined;
+    const array = [1];
+
+    expect(() => {
+      pagesToIndices(page, resultsPerPage, array);
+    }).toThrow();
+  });
+
+  it('when an array is passed, `resultsPerPage` should default to the length of the array', () => {
+    const page = 1;
+    const array = [1, 2, 3, 4, 5];
+
+    const indexMap = pagesToIndices(page, undefined, array);
+
+    const expected = {
+      startAtIndex: 0,
+      endAtIndex: 4,
+      stopBeforeIndex: 5,
+      resultsPerPage: 5,
+      totalPages: 1,
+    };
+    expect(indexMap).toEqual(expected);
   });
 
   it('can accept an array shorter than the number of pages indicated by the pagination', () => {
@@ -60,6 +96,7 @@ describe('pagesToIndices()', () => {
       endAtIndex: 7,
       stopBeforeIndex: 8,
       totalPages: 3, // is less than 4 pages
+      resultsPerPage: 2,
     };
     expect(indexMap).toEqual(expected);
 
