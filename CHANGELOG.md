@@ -1,3 +1,31 @@
+# [1.16.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.16.0-next.1...v1.16.0) (2020-05-11)
+
+
+
+# [1.16.0-next.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.16.0-next.0...v1.16.0-next.1) (2020-05-08)
+
+
+### Bug Fixes
+
+* `randomAlphanumeric` may fail to generate a 10-char string ([48469f1](https://github.com/skypilot-dev/sugarbowl/commit/48469f12516871f80db06c45c48a91e8f46cf49e))
+
+
+### Features
+
+* `pagesToIndices` defaults to the indices for all items ([b42a895](https://github.com/skypilot-dev/sugarbowl/commit/b42a8957afef356bf1247b668f747f2fb0df10e1))
+* `randomAlphanumeric` can generate strings of any length ([5e03216](https://github.com/skypilot-dev/sugarbowl/commit/5e03216294541dcba5a2d9205f848f5ed79c6580))
+
+
+
+# [1.16.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.15.2...v1.16.0-next.0) (2020-05-08)
+
+
+### Features
+
+* Can convert page & results per page to array indices ([2e58784](https://github.com/skypilot-dev/sugarbowl/commit/2e587844521990f562d2c8d9ec4c09e55daa01a5))
+
+
+
 ## [1.15.2](https://github.com/skypilot-dev/sugarbowl/compare/v1.15.2-next.0...v1.15.2) (2020-05-08)
 
 
