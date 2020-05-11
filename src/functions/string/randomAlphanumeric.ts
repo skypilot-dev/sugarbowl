@@ -1,8 +1,17 @@
 import { Integer } from '@skypilot/common-types';
 
-export function randomAlphanumeric(length: Integer = 10): string {
-  if (length < 0 || length > 10) {
-    throw new Error(`Invalid length: ${length}. Length must be from 1 to 10`);
+function generateRandomAlphanumeric(): string {
+  const randomString = Math.random().toString(36);
+  return randomString.slice(2, randomString.length);
+}
+
+export function randomAlphanumeric(length: Integer = 8): string {
+  if (length < 0) {
+    throw new Error(`Expected 'length' >= 0; got ${length}`)
   }
-  return Math.random().toString(36).slice(2, length + 2);
+  let randomString = '';
+  while (randomString.length < length) {
+    randomString += generateRandomAlphanumeric();
+  }
+  return randomString.slice(0, length);
 }

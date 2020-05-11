@@ -1,15 +1,15 @@
 import { randomAlphanumeric } from '../randomAlphanumeric';
 
 describe('', () => {
-  it('by default should return a lowercase 10-character alphanumeric string', () => {
+  it('by default should return a lowercase 8-character alphanumeric string', () => {
     const random = randomAlphanumeric();
-    expect(random).toHaveLength(10);
+    expect(random).toHaveLength(8);
     expect(random.toLowerCase()).toBe(random);
   });
 
-  it('can return a string of less than 10 characters', () => {
-    const random = randomAlphanumeric(9);
-    expect(random).toHaveLength(9);
+  it('can return a string of less than 8 characters', () => {
+    const random = randomAlphanumeric(7);
+    expect(random).toHaveLength(7);
     expect(random.toLowerCase()).toBe(random);
   });
 
@@ -24,9 +24,9 @@ describe('', () => {
     }).toThrow();
   });
 
-  it('if length > 10, should throw an error', () => {
-    expect(() => {
-      randomAlphanumeric(11);
-    }).toThrow();
+  it('can return a string of greater than 8 characters', () => {
+    const random = randomAlphanumeric(64);
+    expect(random).toHaveLength(64);
+    expect(random.toLowerCase()).toBe(random);
   });
 });
