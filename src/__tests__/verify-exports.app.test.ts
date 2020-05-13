@@ -37,6 +37,7 @@ const intendedExports: string[] = [
 
   /* Object functions */
   'entriesToKeyedItems',
+  'filterLeavesByKey',
   'getOrDefault',
   'isObject',
   'omitFalsyEntries',

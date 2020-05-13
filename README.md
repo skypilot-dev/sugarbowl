@@ -54,6 +54,8 @@ carry the overhead of checking argument types or handling type coercion.
 
 ### Object functions
 
+-   `entriesToKeyedItems(key: string, obj: object)`
+-   `filterLeavesByKey(key: string, obj: object, options)`
 -   `getOrDefault(obj: object, key: string, default: any)`
 -   `isObject(value: any): boolean`
 -   `omitFalsyEntries(obj: object): object`
