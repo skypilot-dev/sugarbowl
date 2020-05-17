@@ -40,6 +40,7 @@ const intendedExports: string[] = [
   'filterLeavesByKey',
   'getOrDefault',
   'isObject',
+  'omitEntriesByValue',
   'omitFalsyEntries',
   'omitUndefinedEntries',
   'setValueByPath',

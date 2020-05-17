@@ -59,6 +59,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `getOrDefault(obj: object, key: string, default: any)`
 -   `isObject(value: any): boolean`
 -   `omitFalsyEntries(obj: object): object`
+-   `omitEntriesByValue(value: any, obj: object): object`
 -   `omitUndefinedEntries(obj: object): object`
 -   `setValueByPath(path: string | string[], value: any, target: object, options?)`
 -   `swapKeysAndValues(obj: object): object`
