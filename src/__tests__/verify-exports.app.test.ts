@@ -42,6 +42,7 @@ const intendedExports: string[] = [
   'isObject',
   'omitFalsyEntries',
   'omitUndefinedEntries',
+  'setValueByPath',
   'swapKeysAndValues',
 
   /* String functions */

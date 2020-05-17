@@ -60,6 +60,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `isObject(value: any): boolean`
 -   `omitFalsyEntries(obj: object): object`
 -   `omitUndefinedEntries(obj: object): object`
+-   `setValueByPath(path: string | string[], value: any, target: object, options?)`
 -   `swapKeysAndValues(obj: object): object`
 
 ### String functions
