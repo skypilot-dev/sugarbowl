@@ -3,6 +3,7 @@ import * as actualExports from '../index';
 const intendedExports: string[] = [
   /* Array functions */
   'flatten',
+  'getDuplicates',
   'omitSequentialDuplicateItems',
   'pagesToIndices',
   'pickRandomItem',

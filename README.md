@@ -19,6 +19,7 @@ carry the overhead of checking argument types or handling type coercion.
 ### Array functions
 
 -   `flatten`
+-   `getDuplicates`
 -   `omitSequentialDuplicateItems`
 -   `pagesToIndices`
 -   `pickRandomItem`

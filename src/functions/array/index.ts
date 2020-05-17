@@ -1,4 +1,5 @@
 export { flatten } from './flatten';
+export { getDuplicates } from './getDuplicates';
 export { omitSequentialDuplicateItems } from './omitSequentialDuplicateItems';
 export { pagesToIndices } from './pagesToIndices';
 export { pickRandomItem } from './pickRandomItem';
