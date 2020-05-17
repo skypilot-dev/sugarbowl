@@ -62,6 +62,34 @@ describe('filterLeavesByKey', () => {
     expect(filteredBranches).toStrictEqual(expected);
   });
 
+  it('when the leaf is an array, should return the array', () => {
+    const tree = {
+      branch: {
+        leaf: {
+          a: 'leaf-a',
+          b: 'leaf-b',
+        },
+        leafArray: {
+          a: ['a0', 'a1'],
+        },
+      },
+    };
+
+    expect(filterLeavesByKey('a', tree)).toStrictEqual({
+      branch: {
+        leaf: 'leaf-a',
+        leafArray: ['a0', 'a1'],
+      },
+    });
+
+    expect(filterLeavesByKey('b', tree)).toStrictEqual({
+      branch: {
+        leaf: 'leaf-b',
+        leafArray: undefined,
+      },
+    });
+  });
+
   it('given an empty object, should return undefined', () => {
     const leafKey = 'nonexistent-key';
     const tree = {};
@@ -94,29 +122,5 @@ describe('filterLeavesByKey', () => {
 
     expect(() => filterLeavesByKey('a', tree, options)).not.toThrow();
     expect(() => filterLeavesByKey('b', tree, options)).toThrow();
-  });
-
-  it('given a branch with the same name as the key, should treat the branch like any other branch', () => {
-    const leafKey = 'a';
-    const tree = {
-      a: { // should not be tripped up by this branch, which has the same name as the key
-        value1: {
-          a: 'value1-a', // should get this value
-          b: 'value1-b',
-        },
-      },
-      value2: {
-        a: 'value2-a', // should get this value
-        b: 'value2-b',
-      },
-    };
-
-    const filteredBranches = filterLeavesByKey(leafKey, tree);
-
-    const expected = {
-      a: { value1: 'value1-a' },
-      value2: 'value2-a',
-    };
-    expect(filteredBranches).toStrictEqual(expected);
   });
 });
