@@ -1,3 +1,36 @@
+# [1.17.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.17.0-next.1...v1.17.0) (2020-05-17)
+
+
+
+# [1.17.0-next.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.17.0-alpha.0...v1.17.0-next.1) (2020-05-17)
+
+
+### Features
+
+* Identify duplicate items in an array ([ae46fa9](https://github.com/skypilot-dev/sugarbowl/commit/ae46fa95271d1a1ac1df38fb850f6026cea27d9e))
+
+
+
+# [1.17.0-alpha.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.17.0-next.0...v1.17.0-alpha.0) (2020-05-17)
+
+
+### Features
+
+* `filterLeavesByKey` allows any values for leaves ([466b064](https://github.com/skypilot-dev/sugarbowl/commit/466b064c95ba7105352945432dceb7c234542faf))
+* Can omit object entries by value ([4ef2208](https://github.com/skypilot-dev/sugarbowl/commit/4ef220882acb8fdea9455544834de477f8171698))
+* Can set a value on an object by path ([bcf11c3](https://github.com/skypilot-dev/sugarbowl/commit/bcf11c3d35176938b772cf0dd9852d25f76c8fdf))
+
+
+
+# [1.17.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.16.0...v1.17.0-next.0) (2020-05-13)
+
+
+### Features
+
+* Can filter the extreme branches of an object by key ([1a89c24](https://github.com/skypilot-dev/sugarbowl/commit/1a89c240afed6cee5990a585f37313bf73718542))
+
+
+
 # [1.16.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.16.0-next.1...v1.16.0) (2020-05-11)
 
 
