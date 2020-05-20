@@ -34,6 +34,7 @@ const intendedExports: string[] = [
   'toMapFunction',
 
   /* Number functions */
+  'generateRandomInt',
   'isInteger',
 
   /* Object functions */
