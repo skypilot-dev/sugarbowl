@@ -2,10 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import { prettify } from 'src/functions/string/prettify';
 import { pushIf } from '../array';
+import {
+  DateTimeResolution,
+  DateTimeResolutionAbbrev,
+  truncateIsoDateTime,
+} from '../date/truncateIsoDateTime';
 import { inflectByNumber } from '../string';
 import { wipeDir } from './wipeDir';
-
-type IsoDateTimeResolution = 'ms' | 'milliseconds' | 's' | 'seconds' | 'm' | 'minutes'
 
 export type WriteDataFileOptions = {
   addIsoDateTime?: boolean;
@@ -13,7 +16,7 @@ export type WriteDataFileOptions = {
   overwrite?: boolean;
   dryRun?: boolean;
   identifier?: string;
-  isoDateTimeResolution?: IsoDateTimeResolution;
+  isoDateTimeResolution?: DateTimeResolution | DateTimeResolutionAbbrev;
   label?: string;
   verbose?: boolean;
   wipeDir?: boolean;
@@ -30,15 +33,6 @@ export type WriteDataFileResult<T> = {
   relativePath: string;
   shortestPath: string;
 }
-
-function roundIsoDateTime(resolution: IsoDateTimeResolution, isoDateTime: string): string {
-  if (resolution === 'ms' || resolution === 'milliseconds') {
-    return isoDateTime;
-  }
-  const howManyChars = resolution === 's' || resolution === 'seconds' ? 19 : 16;
-  return `${isoDateTime.slice(0, howManyChars)}Z`;
-}
-
 
 /* Given a blob of data, write it to a standardized location under a standardized file name. */
 export async function writeDataFile<T extends object>(
@@ -85,7 +79,7 @@ export async function writeDataFile<T extends object>(
     fileNameElements.push(identifier);
   }
   if (addIsoDateTime) {
-    fileNameElements.push(roundIsoDateTime(isoDateTimeResolution, isoDateTime));
+    fileNameElements.push(truncateIsoDateTime(isoDateTimeResolution, isoDateTime));
   }
 
   /* TODO: Support other file formats, including JavaScript and TypeScript. */
