@@ -1,3 +1,20 @@
+# [1.18.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.18.0-next.1...v1.18.0) (2020-05-30)
+
+
+
+# [1.18.0-next.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.18.0-next.0...v1.18.0-next.1) (2020-05-30)
+
+
+
+# [1.18.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.17.0...v1.18.0-next.0) (2020-05-20)
+
+
+### Features
+
+* Can generate a random integer within a range ([0424d10](https://github.com/skypilot-dev/sugarbowl/commit/0424d108211953dc6f39e6acd57ed80f2bb13a6e))
+
+
+
 # [1.17.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.17.0-next.1...v1.17.0) (2020-05-17)
 
 
