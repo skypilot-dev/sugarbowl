@@ -20,6 +20,8 @@ carry the overhead of checking argument types or handling type coercion.
 
 -   `flatten`
 -   `getDuplicates`
+-   `getFirstIntersection`
+-   `getIntersection`
 -   `omitSequentialDuplicateItems`
 -   `pagesToIndices`
 -   `pickRandomItem`
