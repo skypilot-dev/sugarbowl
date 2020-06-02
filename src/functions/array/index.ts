@@ -1,5 +1,7 @@
 export { flatten } from './flatten';
 export { getDuplicates } from './getDuplicates';
+export { getFirstIntersection } from './getFirstIntersection';
+export { getIntersection } from './getIntersection';
 export { omitSequentialDuplicateItems } from './omitSequentialDuplicateItems';
 export { pagesToIndices } from './pagesToIndices';
 export { pickRandomItem } from './pickRandomItem';

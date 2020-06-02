@@ -4,6 +4,8 @@ const intendedExports: string[] = [
   /* Array functions */
   'flatten',
   'getDuplicates',
+  'getFirstIntersection',
+  'getIntersection',
   'omitSequentialDuplicateItems',
   'pagesToIndices',
   'pickRandomItem',
