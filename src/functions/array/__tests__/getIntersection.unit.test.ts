@@ -5,29 +5,29 @@ describe('getIntersection(array1, array2)', () => {
     const array1 = [1, 2, 3, 4, 5];
     const array2 = [3, 2, 5];
 
-    const intersectingItems = getIntersection(array1, array2);
+    const intersection = getIntersection(array1, array2);
 
     const expected = [2, 3, 5];
-    expect(intersectingItems).toStrictEqual(expected);
+    expect(intersection).toStrictEqual(expected);
   });
 
   it('should allow duplicates', () => {
     const array1 = [1, 2, 2, 3];
     const array2 = [2, 1, 1];
 
-    const intersectingItems = getIntersection(array1, array2);
+    const intersection = getIntersection(array1, array2);
 
     const expected = [1, 2, 2];
-    expect(intersectingItems).toStrictEqual(expected);
+    expect(intersection).toStrictEqual(expected);
   });
 
-  it('when there is no getIntersection, should return an empty array', () => {
+  it('when there is no intersection, should return an empty array', () => {
     const array1 = [1];
     const array2 = [2];
 
-    const intersectingItems = getIntersection(array1, array2);
+    const intersection = getIntersection(array1, array2);
 
     const expected: number[] = [];
-    expect(intersectingItems).toStrictEqual(expected);
+    expect(intersection).toStrictEqual(expected);
   });
 });

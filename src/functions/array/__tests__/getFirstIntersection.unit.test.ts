@@ -31,7 +31,7 @@ describe('getFirstIntersection(rankedItems, referenceItems)', () => {
     expect(firstIntersection).toBe(expected);
   });
 
-  it('can handle an empty array of ranked items', () => {
+  it('can handle an empty array of reference items', () => {
     const rankedItems = [1, 2];
     const referenceItems: number[] = [];
 
