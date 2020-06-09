@@ -48,6 +48,6 @@ export function pagesToIndices<T>(
     resultsPerPage: resolvedResultsPerPage,
     startAtIndex,
     stopBeforeIndex,
-    ...omitUndefinedEntries({ totalPages }),
+    ...omitUndefinedEntries<{ totalPages: Integer | undefined }>({ totalPages }),
   };
 }

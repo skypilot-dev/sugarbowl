@@ -7,4 +7,3 @@ export function pickRandomItem<T>(array: MaybeReadOnlyArray<T>): T {
   }
   return array[Math.floor(Math.random() * array.length)];
 }
-

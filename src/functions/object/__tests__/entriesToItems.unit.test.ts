@@ -1,7 +1,7 @@
 /* FIXME: Throw an error if the value of `keyName` conflicts with any existing keys. */
 
 /* -- Imports -- */
-import { JsonObject } from '@skypilot/common-types';
+import { JsonMap } from '@skypilot/common-types';
 
 import { entriesToKeyedItems } from '../entriesToKeyedItems';
 
@@ -14,8 +14,8 @@ type SortFunction = <T>(a: T, b: T) => SortComparison;
 const SORT_HIGHER: SortComparison = -1;
 const SORT_LOWER: SortComparison = 1;
 
-const sortOnKeyFn = <T extends JsonObject, K extends keyof T>(keyName: K): SortFunction => (
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+const sortOnKeyFn = <T extends JsonMap, K extends keyof T>(keyName: K): SortFunction => (
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore // This typing looks good, but TypeScript complains
   (a, b) => a[keyName] < b[keyName] ? SORT_HIGHER : SORT_LOWER
 );

@@ -1,5 +1,5 @@
-import { Json } from '@skypilot/common-types';
+import { Json, JsonValue } from '@skypilot/common-types';
 
-export function prettify(data: object): Json {
+export function prettify(data: JsonValue): Json {
   return JSON.stringify(data, undefined, 2);
 }

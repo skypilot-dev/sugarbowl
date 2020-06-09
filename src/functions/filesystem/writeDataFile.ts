@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { JsonValue } from '@skypilot/common-types';
 import { prettify } from 'src/functions/string/prettify';
 import { pushIf } from '../array';
 import {
@@ -35,7 +36,7 @@ export type WriteDataFileResult<T> = {
 }
 
 /* Given a blob of data, write it to a standardized location under a standardized file name. */
-export async function writeDataFile<T extends object>(
+export async function writeDataFile<T extends JsonValue>(
   data: T, filePath: string, options: WriteDataFileOptions = {}
 ): Promise<WriteDataFileResult<T>> {
   if (!filePath) {

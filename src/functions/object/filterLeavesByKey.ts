@@ -1,8 +1,8 @@
 /* eslint-disable-next-line import/no-extraneous-dependencies */
-import { Literal } from '@skypilot/common-types';
+import { Primitive } from '@skypilot/common-types';
 
 interface Branch {
-  [key: string]: Branch | Literal | Array<Literal> | undefined;
+  [key: string]: Branch | Primitive | Array<Primitive> | undefined;
 }
 
 interface FilterLeavesByKeyOptions {
@@ -20,7 +20,7 @@ export function filterLeavesByKey<B extends Branch>(
   leafKey: string,
   tree: B,
   options: FilterLeavesByKeyOptions = {},
-): Branch | Literal | Literal[] | undefined {
+): Branch | Primitive | Primitive[] | undefined {
   const { throwOnUndefined } = options;
 
   const keys = Object.keys(tree);

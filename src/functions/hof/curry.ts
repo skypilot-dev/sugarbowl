@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types,@typescript-eslint/no-explicit-any */
 
 /* TODO: Add typings (if possible). */
 /* Given a function and arguments, return a function that accepts the arguments and

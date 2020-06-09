@@ -1,9 +1,9 @@
 import fs from 'fs';
-import { Integer, JsonObject } from '@skypilot/common-types';
+import { Integer, JsonMap } from '@skypilot/common-types';
 import { findUpTree } from './findUpTree';
 
 interface WritePackageFileOptions {
-  content: JsonObject;
+  content: JsonMap;
   pathToFile?: string;
   indentSize?: Integer;
 }

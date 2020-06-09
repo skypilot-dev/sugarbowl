@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+
 /* Given two functions, return a function that returns the result of the two functions. */
 function doExtendFunction(fnToExtend: Function, extendingFn: Function): Function {
   /* Identify how many additional arguments the second function expects. */

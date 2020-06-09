@@ -1,7 +1,7 @@
 /* Given an object and a key name, convert  */
-import { JsonArray, JsonObject } from '@skypilot/common-types';
+import { JsonArray, JsonMap } from '@skypilot/common-types';
 
-export function entriesToKeyedItems(keyName: string, obj: { [key: string]: JsonObject }): JsonArray {
+export function entriesToKeyedItems(keyName: string, obj: Record<string, JsonMap>): JsonArray {
   return Object.entries(obj)
     .map(([key, entry]) => (
       {

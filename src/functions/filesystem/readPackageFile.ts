@@ -1,16 +1,16 @@
 import fs from 'fs';
-import { JsonObject } from '@skypilot/common-types';
+import { JsonMap } from '@skypilot/common-types';
 import { findUpTree } from './findUpTree';
 
 interface ReadPackageFileOptions {
   pathToFile?: string;
 }
 
-export function readPackageFile(pathToFile: string): JsonObject;
-export function readPackageFile(options?: ReadPackageFileOptions): JsonObject;
+export function readPackageFile(pathToFile: string): JsonMap;
+export function readPackageFile(options?: ReadPackageFileOptions): JsonMap;
 
 /* Reads & returns a value from the project's package file. */
-export function readPackageFile(arg1: string | ReadPackageFileOptions = {}): JsonObject {
+export function readPackageFile(arg1: string | ReadPackageFileOptions = {}): JsonMap {
   const pathToPackageFile: string = (() => {
     if (typeof arg1 === 'string') {
       return arg1;
