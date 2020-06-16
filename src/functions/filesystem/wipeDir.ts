@@ -20,7 +20,7 @@ export async function wipeDir(dirPath: string, options: WipeDirOptions = {}): Pr
     childNames.map(childName => {
       const childPath = path.join(dirPath, childName);
       return fs.lstatSync(childPath).isDirectory()
-        ? (recursive ? wipeDir(childPath) : undefined)
+        ? (recursive ? fs.rmdirSync(childPath, { recursive }) : undefined)
         : unlink(childPath);
     })
   );
