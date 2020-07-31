@@ -1,3 +1,16 @@
+# [1.20.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.20.0-next.0...v1.20.0) (2020-07-31)
+
+
+
+# [1.20.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.19.0...v1.20.0-next.0) (2020-07-31)
+
+
+### Features
+
+* Enable custom evaluation function in `omitSequentialDuplicates` ([ccccf53](https://github.com/skypilot-dev/sugarbowl/commit/ccccf531714b2aa0776dcee67bb0eb57773471d3))
+
+
+
 # [1.19.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.19.0-next.1...v1.19.0) (2020-07-31)
 
 
