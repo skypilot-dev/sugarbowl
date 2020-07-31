@@ -1,3 +1,31 @@
+# [1.19.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.19.0-next.1...v1.19.0) (2020-07-31)
+
+
+
+# [1.19.0-next.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.19.0-alpha.2...v1.19.0-next.1) (2020-07-31)
+
+
+
+# [1.19.0-alpha.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.19.0-alpha.0...v1.19.0-alpha.1) (2020-06-16)
+
+
+### Bug Fixes
+
+* `wipeDir` fails to recursively delete directories ([1182f5a](https://github.com/skypilot-dev/sugarbowl/commit/1182f5ac2e7fdec2d7fe117302a41ad1f9b1a518))
+
+
+
+# [1.19.0-alpha.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.19.0-next.0...v1.19.0-alpha.0) (2020-06-09)
+
+
+### Features
+
+* Can check array for nonexistent item without TS error ([fe992e1](https://github.com/skypilot-dev/sugarbowl/commit/fe992e15412e721102e7e983931d3bea3742c3da))
+* Can get the intersection of arrays and 1st intersecting item ([624322a](https://github.com/skypilot-dev/sugarbowl/commit/624322a42bacc3e287782fe30bbfef997846cc4b))
+* Can truncate an ISO date-time string to a desired resolution ([eb790a5](https://github.com/skypilot-dev/sugarbowl/commit/eb790a5b2ed948054f4ae7afddbdf6cc21f89448))
+
+
+
 # [1.18.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.18.0-next.1...v1.18.0) (2020-05-30)
 
 
