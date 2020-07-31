@@ -1,3 +1,16 @@
+## [1.20.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.20.1-next.0...v1.20.1) (2020-07-31)
+
+
+
+## [1.20.1-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.20.0...v1.20.1-next.0) (2020-07-31)
+
+
+### Bug Fixes
+
+* `includes` & `truncateIsoDateTime` functions are not exported ([ecd2e0e](https://github.com/skypilot-dev/sugarbowl/commit/ecd2e0eb92e0416a979627aeeacfbc67fd38248b))
+
+
+
 # [1.20.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.20.0-next.0...v1.20.0) (2020-07-31)
 
 
