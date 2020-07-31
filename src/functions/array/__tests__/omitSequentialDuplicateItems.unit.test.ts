@@ -35,4 +35,30 @@ describe('omitSequentialDuplicateItems', () => {
     const expected = [0];
     expect(noDuplicates).toStrictEqual(expected);
   });
+
+  it('given an evaluation function, should use that function to compare items', () => {
+    type Item = { id: string; user: string };
+    const array: Item[] = [
+      /* Batch 1 */
+      { id: '1', user: 'joe' },
+      { id: '2', user: 'joe' }, // should be omitted, because only email determines uniqueness
+      { id: '3', user: 'jane' },
+      { id: '4', user: 'jane' }, // should be omitted
+      { id: '5', user: 'jane' }, // should be omitted
+      /* Batch 2 */
+      { id: '6', user: 'joe' }, // should not omitted
+    ];
+    const evaluate = ({ user }: Item): string => user;
+
+    const noDuplicates = omitSequentialDuplicateItems(array, { evaluate });
+
+    const expected: Item[] = [
+      /* Batch 1 */
+      { id: '1', user: 'joe' }, // first sequential occurrences in this batch
+      { id: '3', user: 'jane' },
+      /* Batch 2 */
+      { id: '6', user: 'joe' }, // first sequential occurrence in this batch
+    ];
+    expect(noDuplicates).toStrictEqual(expected);
+  });
 });

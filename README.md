@@ -22,7 +22,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `getDuplicates`
 -   `getFirstIntersection`
 -   `getIntersection`
--   `omitSequentialDuplicateItems`
+-   `omitSequentialDuplicateItems<I>(array: I[], { evaluate? }): I[]`
 -   `pagesToIndices`
 -   `pickRandomItem`
 -   `pickRandomItems`
