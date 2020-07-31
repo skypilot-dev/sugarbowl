@@ -22,6 +22,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `getDuplicates`
 -   `getFirstIntersection`
 -   `getIntersection`
+-   `includes`
 -   `omitSequentialDuplicateItems<I>(array: I[], { evaluate? }): I[]`
 -   `pagesToIndices`
 -   `pickRandomItem`
@@ -35,6 +36,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 -   `isValidDate`
 -   `sleep`
+-   `truncateIsoDateTime`
 
 ### Filesystem functions
 

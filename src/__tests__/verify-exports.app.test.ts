@@ -6,6 +6,7 @@ const intendedExports: string[] = [
   'getDuplicates',
   'getFirstIntersection',
   'getIntersection',
+  'includes',
   'omitSequentialDuplicateItems',
   'pagesToIndices',
   'pickRandomItem',
@@ -21,6 +22,7 @@ const intendedExports: string[] = [
   /* Date & time functions */
   'isValidDate',
   'sleep',
+  'truncateIsoDateTime',
 
   /* Filesystem functions */
   'findPackageFileDir',
