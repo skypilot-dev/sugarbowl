@@ -14,6 +14,7 @@ const intendedExports: string[] = [
   'pushIf',
   'range',
   'shuffle',
+  'toArray',
   'toUniqueArray',
 
   /* Array sort functions */

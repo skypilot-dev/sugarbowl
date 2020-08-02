@@ -30,6 +30,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `pushIf`
 -   `range(start: Integer, end: Integer): Integer[]`
 -   `shuffle`
+-   `toArray<T>(T | T[]): T[]`
 -   `toUniqueArray`
 
 ### Date & time functions

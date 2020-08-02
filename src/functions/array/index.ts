@@ -11,4 +11,5 @@ export { pushIf } from './pushIf';
 export { shuffle } from './shuffle';
 export { range } from './range';
 export { sorterOnDigits } from './sorters/sorterOnDigits';
+export { toArray } from './toArray';
 export { toUniqueArray } from './toUniqueArray';
