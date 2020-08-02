@@ -28,6 +28,7 @@ const intendedExports: string[] = [
   'findPackageFileDir',
   'findUpTree',
   'readPackageFile',
+  'wipeDir',
   'writeDataFile',
   'writePackageFile',
 
