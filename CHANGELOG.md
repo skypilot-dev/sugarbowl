@@ -1,3 +1,23 @@
+# [1.21.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.21.0-next.0...v1.21.0) (2020-08-02)
+
+
+
+# [1.21.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.20.1...v1.21.0-next.0) (2020-08-02)
+
+
+### Bug Fixes
+
+* The `wipeDir` function exists but is not exported ([cc63126](https://github.com/skypilot-dev/sugarbowl/commit/cc6312682a3b4da95e7dca0dd929964a2d512c87))
+
+
+### Features
+
+* Add `includeIf` ([a55f688](https://github.com/skypilot-dev/sugarbowl/commit/a55f688258b9f1b6dfcd4630e2ba023694f79e74))
+* Add `makeTempDir` ([b441964](https://github.com/skypilot-dev/sugarbowl/commit/b441964435241ee5a3eee344d7b193e981285ad7))
+* Add `toArray` ([bf27da6](https://github.com/skypilot-dev/sugarbowl/commit/bf27da6da5888be9752868835db4f92022a7b6d5))
+
+
+
 ## [1.20.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.20.1-next.0...v1.20.1) (2020-07-31)
 
 
