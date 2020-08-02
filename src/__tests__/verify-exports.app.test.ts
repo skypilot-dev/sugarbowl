@@ -28,6 +28,7 @@ const intendedExports: string[] = [
   /* Filesystem functions */
   'findPackageFileDir',
   'findUpTree',
+  'makeTempDir',
   'readPackageFile',
   'wipeDir',
   'writeDataFile',

@@ -43,6 +43,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 -   `findPackageFileDir`
 -   `findUpTree`
+-   `makeTempDir`
 -   `readPackageFile`
 -   `wipeDir`
 -   `writeDataFile`
