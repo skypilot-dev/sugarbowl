@@ -6,6 +6,7 @@ const intendedExports: string[] = [
   'getDuplicates',
   'getFirstIntersection',
   'getIntersection',
+  'includeIf',
   'includes',
   'omitSequentialDuplicateItems',
   'pagesToIndices',
