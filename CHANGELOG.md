@@ -1,3 +1,16 @@
+# [1.22.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.22.0-next.0...v1.22.0) (2020-08-03)
+
+
+
+# [1.22.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.21.0...v1.22.0-next.0) (2020-08-03)
+
+
+### Features
+
+* Add `consoleIf` ([f7bc898](https://github.com/skypilot-dev/sugarbowl/commit/f7bc89821105e5c6a6e740a6b6d82a3e448dccad))
+
+
+
 # [1.21.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.21.0-next.0...v1.21.0) (2020-08-02)
 
 
