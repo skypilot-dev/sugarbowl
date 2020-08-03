@@ -41,6 +41,9 @@ const intendedExports: string[] = [
   'pipe',
   'toMapFunction',
 
+  /* Input/output functions */
+  'consoleIf',
+
   /* Number functions */
   'generateRandomInt',
   'isInteger',

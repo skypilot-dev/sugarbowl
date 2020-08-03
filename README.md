@@ -57,6 +57,10 @@ carry the overhead of checking argument types or handling type coercion.
 -   `pipe(...fnsToPipe: Function[])`
 -   `toMapFunction(...itemFns: Function[]): Function`
 
+### Input/output functions
+
+-   `consoleIf(:boolean): (message: string) => void`
+
 ### Number functions
 
 -   `generateRandomInt(minValue: number, maxValue: number): Integer`

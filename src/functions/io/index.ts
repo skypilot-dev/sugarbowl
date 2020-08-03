@@ -1,0 +1,1 @@
+export { consoleIf } from './consoleIf';
