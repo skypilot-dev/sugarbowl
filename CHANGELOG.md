@@ -1,3 +1,16 @@
+# [1.23.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.23.0-next.0...v1.23.0) (2020-08-05)
+
+
+
+# [1.23.0-next.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.22.0...v1.23.0-next.0) (2020-08-05)
+
+
+### Features
+
+* Add 'mergeIf` ([ce0802d](https://github.com/skypilot-dev/sugarbowl/commit/ce0802d8b0b466e1cd09baf9179eea97a43305d0))
+
+
+
 # [1.22.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.22.0-next.0...v1.22.0) (2020-08-03)
 
 
