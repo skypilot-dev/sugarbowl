@@ -53,6 +53,7 @@ const intendedExports: string[] = [
   'filterLeavesByKey',
   'getOrDefault',
   'isObject',
+  'mergeIf',
   'omitEntriesByValue',
   'omitFalsyEntries',
   'omitUndefinedEntries',

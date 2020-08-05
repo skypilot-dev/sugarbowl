@@ -2,6 +2,7 @@ export { entriesToKeyedItems } from './entriesToKeyedItems';
 export { filterLeavesByKey } from './filterLeavesByKey';
 export { getOrDefault } from './getOrDefault';
 export { isObject } from './isObject';
+export { mergeIf } from './mergeIf';
 export { omitEntriesByValue } from './omitEntriesByValue';
 export { omitFalsyEntries } from './omitFalsyEntries';
 export { omitUndefinedEntries } from './omitUndefinedEntries';

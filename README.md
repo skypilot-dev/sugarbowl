@@ -72,6 +72,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `filterLeavesByKey(key: string, obj: object, options)`
 -   `getOrDefault(obj: object, key: string, default: any)`
 -   `isObject(value: any): boolean`
+-   `mergeIf(conditional: any, :object)`
 -   `omitFalsyEntries(obj: object): object`
 -   `omitEntriesByValue(value: any, obj: object): object`
 -   `omitUndefinedEntries(obj: object): object`
