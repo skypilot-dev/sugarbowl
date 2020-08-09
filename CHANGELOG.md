@@ -1,3 +1,16 @@
+# [1.24.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.24.0-next.3...v1.24.0) (2020-08-09)
+
+
+
+# [1.24.0-next.3](https://github.com/skypilot-dev/sugarbowl/compare/v1.23.0...v1.24.0-next.3) (2020-08-09)
+
+
+### Features
+
+* Add 'toUnixTime` ([8021104](https://github.com/skypilot-dev/sugarbowl/commit/80211045fb06cbbeea83c4da7bfa38c829f332b0))
+
+
+
 # [1.23.0](https://github.com/skypilot-dev/sugarbowl/compare/v1.23.0-next.0...v1.23.0) (2020-08-05)
 
 
