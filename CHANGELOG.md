@@ -1,3 +1,12 @@
+## [1.24.2](https://github.com/skypilot-dev/sugarbowl/compare/v1.24.2-next.1...v1.24.2) (2020-10-04)
+
+
+### Bug Fixes
+
+* wipeDir fails under Node 10 ([36aa69b](https://github.com/skypilot-dev/sugarbowl/commit/36aa69b4f9aa380e9390cd29e0471f24fa2e86fd))
+
+
+
 ## [1.24.1](https://github.com/skypilot-dev/sugarbowl/compare/v1.24.1-next.0...v1.24.1) (2020-08-16)
 
 
