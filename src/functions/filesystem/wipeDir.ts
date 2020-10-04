@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
+import { rmDir } from './rmDir';
 
 type WipeDirOptions = {
   recursive?: boolean;
@@ -9,6 +10,7 @@ type WipeDirOptions = {
 const readdir = util.promisify(fs.readdir);
 const unlink = util.promisify(fs.unlink);
 
+/* Remove the contents of the directory without removing the directory itself */
 export async function wipeDir(dirPath: string, options: WipeDirOptions = {}): Promise<void> {
   const { recursive } = options;
 
@@ -20,7 +22,7 @@ export async function wipeDir(dirPath: string, options: WipeDirOptions = {}): Pr
     childNames.map(childName => {
       const childPath = path.join(dirPath, childName);
       return fs.lstatSync(childPath).isDirectory()
-        ? (recursive ? fs.rmdirSync(childPath, { recursive }) : undefined)
+        ? (recursive ? rmDir(childPath) : undefined)
         : unlink(childPath);
     })
   );
