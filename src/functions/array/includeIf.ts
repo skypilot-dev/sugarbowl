@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-type Falsy = undefined | null | '' | 0;
+type Falsy = false | undefined | null | '' | 0;
 type Truthy<T = any> = Exclude<T, Falsy>;
 
 export function includeIf<T extends Falsy>(valueToIncludeIfTruthy: T): [];
