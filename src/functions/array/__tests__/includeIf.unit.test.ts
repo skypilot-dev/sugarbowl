@@ -50,4 +50,18 @@ describe('includeIf(value)', () => {
     const expected = [1, 2];
     expect(array).toStrictEqual(expected);
   });
+
+  it('should correctly narrow the type of the conditional', () => {
+    interface Query {
+      conditional: string;
+    }
+
+    const conditional = undefined;
+
+    const queries: Query[] = [
+      ...includeIf(conditional, { conditional }),
+    ];
+
+    expect(queries).toHaveLength(0);
+  });
 });
