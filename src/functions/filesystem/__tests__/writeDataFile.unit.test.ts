@@ -15,7 +15,7 @@ beforeEach(async () => {
 
 afterAll(async () => {
   await wipeDir(tmpDir, { recursive: true });
-})
+});
 
 describe('writeDataFile(data, filePath, options?)', () => {
   it('should return the data it was given', async () => {

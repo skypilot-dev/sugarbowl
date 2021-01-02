@@ -1,4 +1,4 @@
-import { Integer} from '@skypilot/common-types';
+import { Integer } from '@skypilot/common-types';
 import { digitsOnly } from './digitsOnly';
 
 type FalsyValue = Integer | null | undefined;
@@ -27,7 +27,7 @@ export function parseInteger<Empty extends FalsyValue = undefined>(
     return valueIfEmpty as Empty;
   }
 
-  if (!(digitsOnly(intString).length == intString.length)) {
+  if (!(digitsOnly(intString).length === intString.length)) {
     throw new Error(`Invalid value for integer field: '${intString}'`);
   }
 

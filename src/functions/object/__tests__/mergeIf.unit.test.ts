@@ -30,20 +30,20 @@ describe('mergeIf(), when used in an object-spread operation', () => {
     const combined = {
       ...original,
       ...mergeIf(true, objectToMerge),
-    }
+    };
 
     const expected = { a: 1, b: 2 };
     expect(combined).toStrictEqual(expected);
   });
 
   it('should overwrite properties of the original', () => {
-    const original = { a: { b: 1} };
+    const original = { a: { b: 1 } };
     const objectToMerge = { a: { c: 1 } };
 
     const combined = {
       ...original,
       ...mergeIf(1, objectToMerge),
-    }
+    };
 
     const expected = { a: { c: 1 } };
     expect(combined).toStrictEqual(expected);
@@ -56,7 +56,7 @@ describe('mergeIf(), when used in an object-spread operation', () => {
     const combined = {
       ...original,
       ...mergeIf(false, objectToMerge),
-    }
+    };
 
     const expected = { a: 1 };
     expect(combined).toStrictEqual(expected);

@@ -4,7 +4,7 @@ import { Integer } from '@skypilot/common-types';
 
 export function computeHash(stringToHash: string, length: Integer = 32): string {
   if (length > 32) {
-    throw new Error('Invalid hash length requested: The maximum length is 32.')
+    throw new Error('Invalid hash length requested: The maximum length is 32.');
   }
   const hash = crypto
     .createHash('md5')

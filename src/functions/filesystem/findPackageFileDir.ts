@@ -6,7 +6,7 @@ import { findUpTree } from './findUpTree';
 export function findPackageFileDir(filename = 'package.json'): string {
   const pathToPackageFile = findUpTree(filename);
   if (!pathToPackageFile) {
-    return ''
+    return '';
   }
   return path.dirname(pathToPackageFile);
 }

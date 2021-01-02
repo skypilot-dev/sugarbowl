@@ -16,7 +16,7 @@ describe('generateRandomInt(minValue, maxValue)', () => {
     const maxValue = 0;
 
     expect(() => {
-      generateRandomInt(minValue, maxValue)
+      generateRandomInt(minValue, maxValue);
     }).toThrow();
   });
 

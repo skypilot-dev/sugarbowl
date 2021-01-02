@@ -27,5 +27,5 @@ export function omitSequentialDuplicateItems<Item>(
     }
     lastEvaluation = evaluation;
     return uniqueArray;
-  }, [] as Item[])
+  }, [] as Item[]);
 }

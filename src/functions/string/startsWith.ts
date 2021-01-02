@@ -8,5 +8,5 @@ export function startsWith(string: string, substring: string, position: Integer 
   if (position < 0) {
     throw new Error('position must be >= 0');
   }
-  return string.slice(position, position + substring.length) == substring;
+  return string.slice(position, position + substring.length) === substring;
 }

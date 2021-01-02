@@ -1,4 +1,4 @@
-import {isValidDate } from './isValidDate';
+import { isValidDate } from './isValidDate';
 
 describe('isValidDate()', () => {
   it('should report that a newly instantiated Date is a valid date', () => {
