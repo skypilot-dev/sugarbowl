@@ -11,6 +11,6 @@ export { parseInteger } from './parseInteger';
 export { randomAlphanumeric } from './randomAlphanumeric';
 export { removeExtraWhitespace } from './removeExtraWhitespace';
 export { removeWhitespace } from './removeWhitespace';
-export { splitOnce } from './splitOnce'
+export { splitOnce } from './splitOnce';
 export { startsWith } from './startsWith';
 export * from './String-prototype-wrappers';

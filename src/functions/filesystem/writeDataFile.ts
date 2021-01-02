@@ -129,5 +129,5 @@ export async function writeDataFile<T extends JsonValue>(
     overwritten,
     relativePath: path.relative(path.resolve(), finalFilePath),
     shortestPath,
-  }
+  };
 }

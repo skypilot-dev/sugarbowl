@@ -7,7 +7,7 @@ function generateRandomAlphanumeric(): string {
 
 export function randomAlphanumeric(length: Integer = 8): string {
   if (length < 0) {
-    throw new Error(`Expected 'length' >= 0; got ${length}`)
+    throw new Error(`Expected 'length' >= 0; got ${length}`);
   }
   let randomString = '';
   while (randomString.length < length) {

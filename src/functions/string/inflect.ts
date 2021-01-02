@@ -16,5 +16,5 @@ export function inflectByNumber(howMany: number, singular: string, plural?: stri
  * phrase
  */
 export function inflectQuantity(howMany: number, singular: string, plural?: string): string {
-  return `${howMany.toString()} ${inflectByNumber(howMany, singular, plural)}`
+  return `${howMany.toString()} ${inflectByNumber(howMany, singular, plural)}`;
 }
