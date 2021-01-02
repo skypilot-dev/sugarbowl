@@ -20,7 +20,7 @@ export function makeTempDir(relativePath: string, options: MakeTempDirOptions = 
   const basePaths = toArray(baseDir);
 
   const tmpDir = os.tmpdir();
-  const subDir = addRandomSuffix ? `${relativePath}-${randomAlphanumeric()}}` : relativePath;
+  const subDir = addRandomSuffix ? `${relativePath}-${randomAlphanumeric()}` : relativePath;
   const dirPath = path.join(
     tmpDir,
     ...(basePaths),

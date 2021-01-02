@@ -60,6 +60,7 @@ describe('includeIf(value)', () => {
 
     const queries: Query[] = [
       ...includeIf(conditional, { conditional }),
+      ...includeIf(false, { conditional }),
     ];
 
     expect(queries).toHaveLength(0);
