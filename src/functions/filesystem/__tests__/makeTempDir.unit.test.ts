@@ -35,4 +35,12 @@ describe('makeTempDir(relativePath:string, options)', () => {
     expect(() => makeTempDir(subDirName, { baseDir })).not.toThrow();
     expect(() => makeTempDir(subDirName, { baseDir, disallowExisting: true })).toThrow();
   });
+
+  it('can created nested directories', () => {
+    const subDirName = 'test3/subdir';
+
+    makeTempDir(subDirName, { baseDir });
+    expect(() => makeTempDir(subDirName, { baseDir })).not.toThrow();
+    expect(() => makeTempDir(subDirName, { baseDir, disallowExisting: true })).toThrow();
+  });
 });
