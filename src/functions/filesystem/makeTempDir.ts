@@ -32,7 +32,7 @@ export function makeTempDir(relativePath: string, options: MakeTempDirOptions = 
       throw new Error(`The subdirectory '${relativePath}' already exists`);
     }
   } else {
-    fs.mkdirSync(dirPath);
+    fs.mkdirSync(dirPath, { recursive: true });
   }
   return dirPath;
 }
