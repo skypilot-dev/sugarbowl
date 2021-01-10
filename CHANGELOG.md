@@ -1,3 +1,12 @@
+## [1.24.4](https://github.com/skypilot-dev/sugarbowl/compare/v1.24.4-next.0...v1.24.4) (2021-01-10)
+
+
+### Bug Fixes
+
+* `makeTempDir` fails when multiple levels are to be created ([0ce692d](https://github.com/skypilot-dev/sugarbowl/commit/0ce692dbcb5d709a2d353cae29abfe8eb80bc461))
+
+
+
 ## [1.24.3](https://github.com/skypilot-dev/sugarbowl/compare/v1.24.3-next.4...v1.24.3) (2021-01-02)
 
 
