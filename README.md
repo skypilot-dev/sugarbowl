@@ -77,7 +77,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `mergeIf(conditional: any, :object)`
 -   `omitFalsyEntries(obj: object): object`
 -   `omitEntriesByValue(value: any, obj: object): object`
--   `omitUndefinedEntries(obj: object): object`
+-   `omitUndefined(obj: object): object`
 -   `setValueByPath(path: string | string[], value: any, target: object, options?)`
 -   `swapKeysAndValues(obj: object): object`
 
