@@ -1,3 +1,12 @@
+# [2.1.0](https://github.com/skypilot-dev/sugarbowl/compare/v2.1.0-next.0...v2.1.0) (2021-01-18)
+
+
+### Features
+
+* Restore support for Node 10 ([36c52c0](https://github.com/skypilot-dev/sugarbowl/commit/36c52c058525de5c249745a7310e751b99801cb0))
+
+
+
 # [2.0.0](https://github.com/skypilot-dev/sugarbowl/compare/v2.0.0-next.1...v2.0.0) (2021-01-18)
 
 
