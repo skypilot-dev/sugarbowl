@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/skypilot-dev/sugarbowl/compare/v2.0.0-next.1...v2.0.0) (2021-01-18)
+
+
+* drop!: Drop support for Node 10; add CI testing under Node 14 ([e7382e7](https://github.com/skypilot-dev/sugarbowl/commit/e7382e7faab9ffe6edf9cd28147314a5c7f85955))
+
+
+### BREAKING CHANGES
+
+* Dropped support for Node 10
+
+
+
 ## [1.24.4](https://github.com/skypilot-dev/sugarbowl/compare/v1.24.4-next.0...v1.24.4) (2021-01-10)
 
 
