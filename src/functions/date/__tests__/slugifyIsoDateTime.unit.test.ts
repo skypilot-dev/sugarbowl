@@ -1,50 +1,59 @@
 import { slugifyIsoDateTime } from '../slugifyIsoDateTime';
 
-const isoDateTimes = [
-  '1989-01-28T01:02:03.456Z',
-  '1989-01-28T01:02:03Z',
-  '1989-01-28T01:02Z',
-];
+const isoDateTime = '1989-01-28T01:02:03.456Z';
+const resolutions = [
+  'day',
+  'hour',
+  'minute',
+  'second',
+  'millisecond',
+] as const;
 
 describe('slugifyIsoDateTime', () => {
   it("using the default ('slug') preset, should use _ as the date-time separator and - as the unit separator", () => {
-    const expecteds = [
-      '1989-01-28-010203.456', // unlikely to be used
-      '1989-01-28-010203',
-      '1989-01-28-0102',
-    ];
+    const expecteds = {
+      day: '1989-01-28',
+      hour: '1989-01-28-01',
+      minute: '1989-01-28-0102',
+      second: '1989-01-28-010203',
+      millisecond: '1989-01-28-010203.456',
+    };
 
-    isoDateTimes.forEach((isoDateTime, index) => {
-      const simplified = slugifyIsoDateTime(isoDateTime, 'slug');
-      const expected = expecteds[index];
+    resolutions.forEach(dateTimeResolution => {
+      const simplified = slugifyIsoDateTime(isoDateTime, { dateTimeResolution, preset: 'slug' });
+      const expected = expecteds[dateTimeResolution];
       expect(simplified).toBe(expected);
     });
   });
 
   it("using the 'humanize' preset, should use - as the date-time separator and h m s as unit indicators", () => {
-    const expecteds = [
-      '1989-01-28-01h02m03s456',
-      '1989-01-28-01h02m03s',
-      '1989-01-28-01h02m',
-    ];
+    const expecteds = {
+      day: '1989-01-28',
+      hour: '1989-01-28-01h',
+      minute: '1989-01-28-01h02m',
+      second: '1989-01-28-01h02m03s',
+      millisecond: '1989-01-28-01h02m03s456',
+    };
 
-    isoDateTimes.forEach((isoDateTime, index) => {
-      const simplified = slugifyIsoDateTime(isoDateTime, 'humanize');
-      const expected = expecteds[index];
+    resolutions.forEach(dateTimeResolution => {
+      const simplified = slugifyIsoDateTime(isoDateTime, { dateTimeResolution, preset: 'humanize' });
+      const expected = expecteds[dateTimeResolution];
       expect(simplified).toBe(expected);
     });
   });
 
   it("using the 'compact' preset, should strip out nondigits & separate date from time with a hyphen", () => {
-    const expecteds = [
-      '19890128-010203456',
-      '19890128-010203',
-      '19890128-0102',
-    ];
+    const expecteds = {
+      day: '19890128',
+      hour: '19890128-01',
+      minute: '19890128-0102',
+      second: '19890128-010203',
+      millisecond: '19890128-010203456',
+    };
 
-    isoDateTimes.forEach((isoDateTime, index) => {
-      const simplified = slugifyIsoDateTime(isoDateTime, 'compact');
-      const expected = expecteds[index];
+    resolutions.forEach(dateTimeResolution => {
+      const simplified = slugifyIsoDateTime(isoDateTime, { dateTimeResolution, preset: 'compact' });
+      const expected = expecteds[dateTimeResolution];
       expect(simplified).toBe(expected);
     });
   });
