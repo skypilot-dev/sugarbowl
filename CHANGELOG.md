@@ -1,3 +1,13 @@
+# [2.2.0](https://github.com/skypilot-dev/sugarbowl/compare/v2.2.0-next.0...v2.2.0) (2021-02-28)
+
+
+### Features
+
+* Can format an ISO date-time string ([b616cf7](https://github.com/skypilot-dev/sugarbowl/commit/b616cf7715f007a120fb01ab39eb88b3b1977a67))
+* Can truncate ISO date string when slugifying ([121b1ae](https://github.com/skypilot-dev/sugarbowl/commit/121b1aecc7ba2e682af2737ba5280c404739c291))
+
+
+
 # [2.1.0](https://github.com/skypilot-dev/sugarbowl/compare/v2.1.0-next.0...v2.1.0) (2021-01-18)
 
 
