@@ -24,7 +24,7 @@ const intendedExports: string[] = [
   /* Date & time functions */
   'isValidDate',
   'sleep',
-  'slugifyIsoDateTime',
+  'slugifyDateTime',
   'toUnixTime',
   'truncateIsoDateTime',
 

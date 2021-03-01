@@ -161,11 +161,9 @@ describe('writeDataFile(data, filePath, options?)', () => {
     });
 
     return expect(writeDataFile(data, '/parent-dir/fileName', {
-      addIsoDateTime: true,
+      dateTimeFormat: 'humanized',
       basePath: tmpDir,
-      isoDateTimeResolution: 's',
       label: 'survey-response',
-      verbose: true,
       wipeDir: true,
     })).resolves.not.toThrow();
   });
