@@ -38,7 +38,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 -   `isValidDate`
 -   `sleep`
--   `slugifyIsoDateTime`
+-   `slugifyDateTime`
 -   `toUnixTime(:Date, decimalPlaces?: Integer): number`
 -   `toUnixTime(timestampInMs: number, decimalPlaces?: Integer): number`
 -   `truncateIsoDateTime`

@@ -1,4 +1,4 @@
-import { slugifyIsoDateTime } from '../slugifyIsoDateTime';
+import { slugifyDateTime } from '../slugifyDateTime';
 
 const isoDateTime = '1989-01-28T01:02:03.456Z';
 const resolutions = [
@@ -9,7 +9,7 @@ const resolutions = [
   'millisecond',
 ] as const;
 
-describe('slugifyIsoDateTime', () => {
+describe('slugifyDateTime', () => {
   it("using the default ('slug') preset, should use _ as the date-time separator and - as the unit separator", () => {
     const expecteds = {
       day: '1989-01-28',
@@ -20,23 +20,7 @@ describe('slugifyIsoDateTime', () => {
     };
 
     resolutions.forEach(dateTimeResolution => {
-      const simplified = slugifyIsoDateTime(isoDateTime, { dateTimeResolution, preset: 'slug' });
-      const expected = expecteds[dateTimeResolution];
-      expect(simplified).toBe(expected);
-    });
-  });
-
-  it("using the 'humanize' preset, should use - as the date-time separator and h m s as unit indicators", () => {
-    const expecteds = {
-      day: '1989-01-28',
-      hour: '1989-01-28-01h',
-      minute: '1989-01-28-01h02m',
-      second: '1989-01-28-01h02m03s',
-      millisecond: '1989-01-28-01h02m03s456',
-    };
-
-    resolutions.forEach(dateTimeResolution => {
-      const simplified = slugifyIsoDateTime(isoDateTime, { dateTimeResolution, preset: 'humanize' });
+      const simplified = slugifyDateTime(isoDateTime, { dateTimeResolution, preset: 'slug' });
       const expected = expecteds[dateTimeResolution];
       expect(simplified).toBe(expected);
     });
@@ -52,15 +36,32 @@ describe('slugifyIsoDateTime', () => {
     };
 
     resolutions.forEach(dateTimeResolution => {
-      const simplified = slugifyIsoDateTime(isoDateTime, { dateTimeResolution, preset: 'compact' });
+      const simplified = slugifyDateTime(isoDateTime, { dateTimeResolution, preset: 'compact' });
+      const expected = expecteds[dateTimeResolution];
+      expect(simplified).toBe(expected);
+    });
+  });
+
+  it("using the 'humanize' preset, should use - as the date-time separator and h m s as unit indicators", () => {
+    const expecteds = {
+      day: '1989-01-28',
+      hour: '1989-01-28-01h',
+      minute: '1989-01-28-01h02m',
+      second: '1989-01-28-01h02m03s',
+      millisecond: '1989-01-28-01h02m03s456',
+    };
+
+    resolutions.forEach(dateTimeResolution => {
+      const simplified = slugifyDateTime(isoDateTime, { dateTimeResolution, preset: 'humanized' });
       const expected = expecteds[dateTimeResolution];
       expect(simplified).toBe(expected);
     });
   });
 
   it("given the special 'now' date-time string, should use the current time", () => {
-    const slugified = slugifyIsoDateTime('now');
+    const slugified = slugifyDateTime('now');
     const pattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
     expect(pattern.test(slugified)).toBe(true);
   });
+
 });

@@ -3,21 +3,17 @@ import path from 'path';
 import { JsonValue } from '@skypilot/common-types';
 import { prettify } from 'src/functions/string/prettify';
 import { pushIf } from '../array';
-import {
-  DateTimeResolution,
-  DateTimeResolutionAbbrev,
-  truncateIsoDateTime,
-} from '../date/truncateIsoDateTime';
+import { slugifyDateTime } from '../date/slugifyDateTime';
+import type { SlugifyDateTimeOptions, SlugifyDateTimePresetCode } from '../date/slugifyDateTime';
 import { inflectByNumber } from '../string';
 import { wipeDir } from './wipeDir';
 
 export type WriteDataFileOptions = {
-  addIsoDateTime?: boolean;
   basePath?: string;
+  dateTimeFormat?: SlugifyDateTimeOptions | SlugifyDateTimePresetCode;
   overwrite?: boolean;
   dryRun?: boolean;
   identifier?: string;
-  isoDateTimeResolution?: DateTimeResolution | DateTimeResolutionAbbrev;
   label?: string;
   verbose?: boolean;
   wipeDir?: boolean;
@@ -48,13 +44,12 @@ export async function writeDataFile<T extends JsonValue>(
   }
 
   const {
-    addIsoDateTime,
     basePath = '',
+    dateTimeFormat,
     dryRun,
     identifier,
     label,
     overwrite,
-    isoDateTimeResolution = 's',
     verbose,
     wipeDir: wipeRequested,
   } = options;
@@ -79,8 +74,8 @@ export async function writeDataFile<T extends JsonValue>(
   if (identifier) {
     fileNameElements.push(identifier);
   }
-  if (addIsoDateTime) {
-    fileNameElements.push(truncateIsoDateTime(isoDateTimeResolution, isoDateTime));
+  if (dateTimeFormat) {
+    fileNameElements.push(slugifyDateTime(new Date(), dateTimeFormat));
   }
 
   /* TODO: Support other file formats, including JavaScript and TypeScript. */
