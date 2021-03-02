@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { JsonValue } from '@skypilot/common-types';
-import { prettify } from 'src/functions/string/prettify';
+import { beautify } from 'src/functions/string/beautify';
+import type { BeautifyOptions } from 'src/functions/string/beautify';
 import { pushIf } from '../array';
 import { slugifyDateTime } from '../date/slugifyDateTime';
 import type { SlugifyDateTimeOptions, SlugifyDateTimePresetCode } from '../date/slugifyDateTime';
@@ -10,11 +10,12 @@ import { wipeDir } from './wipeDir';
 
 export type WriteDataFileOptions = {
   basePath?: string;
+  beautifyOptions?: BeautifyOptions;
   dateTimeFormat?: SlugifyDateTimeOptions | SlugifyDateTimePresetCode;
-  overwrite?: boolean;
   dryRun?: boolean;
   identifier?: string;
   label?: string;
+  overwrite?: boolean;
   verbose?: boolean;
   wipeDir?: boolean;
 }
@@ -32,7 +33,7 @@ export type WriteDataFileResult<T> = {
 }
 
 /* Given a blob of data, write it to a standardized location under a standardized file name. */
-export async function writeDataFile<T extends JsonValue>(
+export async function writeDataFile<T>(
   data: T, filePath: string, options: WriteDataFileOptions = {}
 ): Promise<WriteDataFileResult<T>> {
   if (!filePath) {
@@ -45,6 +46,7 @@ export async function writeDataFile<T extends JsonValue>(
 
   const {
     basePath = '',
+    beautifyOptions,
     dateTimeFormat,
     dryRun,
     identifier,
@@ -95,7 +97,7 @@ export async function writeDataFile<T extends JsonValue>(
         return Promise.reject(new Error(`The file '${shortestPath}' already exists`));
       }
     }
-    await fs.promises.writeFile(finalFilePath, prettify(data), { encoding: 'utf-8' });
+    await fs.promises.writeFile(finalFilePath, beautify(data, beautifyOptions), { encoding: 'utf-8' });
   }
 
   const descriptionElements: string[] = [];

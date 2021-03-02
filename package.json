@@ -46,7 +46,9 @@
     "test": "jest",
     "typecheck": "tsc"
   },
-  "dependencies": {},
+  "dependencies": {
+    "json-beautify": "^1.1.1"
+  },
   "devDependencies": {
     "@skypilot/common-types": "^2.1.5",
     "@skypilot/toolchain": "^5.1.4"
