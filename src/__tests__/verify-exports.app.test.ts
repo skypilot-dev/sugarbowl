@@ -29,6 +29,7 @@ const intendedExports: string[] = [
   'truncateIsoDateTime',
 
   /* Filesystem functions */
+  'deleteFile',
   'findPackageFileDir',
   'findUpTree',
   'makeTempDir',

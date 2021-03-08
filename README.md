@@ -45,6 +45,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 ### Filesystem functions
 
+-   `deleteFile`
 -   `findPackageFileDir`
 -   `findUpTree`
 -   `makeTempDir`
