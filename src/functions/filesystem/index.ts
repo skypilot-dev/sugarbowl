@@ -1,3 +1,4 @@
+export { deleteFile } from './deleteFile';
 export { findPackageFileDir } from './findPackageFileDir';
 export { findUpTree } from './findUpTree';
 export { makeTempDir } from './makeTempDir';
