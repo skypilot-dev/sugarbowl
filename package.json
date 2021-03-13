@@ -50,8 +50,8 @@
     "json-beautify": "^1.1.1"
   },
   "devDependencies": {
-    "@skypilot/common-types": "^2.1.5",
-    "@skypilot/toolchain": "^5.1.4"
+    "@skypilot/common-types": "^2.1.8",
+    "@skypilot/toolchain": "^5.2.0"
   },
   "engines": {
     "node": ">=10.12.0"
