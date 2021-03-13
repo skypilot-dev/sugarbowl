@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { MaybeReadOnlyArray } from '@skypilot/common-types';
 import { toMutableArray } from './toMutableArray';
 
 type Evaluate<I> = (item: I) => any
@@ -12,7 +11,7 @@ interface OmitSequentialDuplicateItemsOptions<I> {
 /* Given an array, remove any item that is the same as the preceding item and return the resultr
    optionally, use a passed function to evaluate each item for purposes of comparison */
 export function omitSequentialDuplicateItems<Item>(
-  array: MaybeReadOnlyArray<Item>,
+  array: ReadonlyArray<Item>,
   options: OmitSequentialDuplicateItemsOptions<Item> = {}
 ): Item[] {
   const {
