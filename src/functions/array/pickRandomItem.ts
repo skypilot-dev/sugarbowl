@@ -1,7 +1,5 @@
-import { MaybeReadOnlyArray } from '@skypilot/common-types';
-
 /* Given an array of items, select one item from it at random and return it. */
-export function pickRandomItem<T>(array: MaybeReadOnlyArray<T>): T {
+export function pickRandomItem<T>(array: ReadonlyArray<T>): T {
   if (!array.length) {
     throw new Error('The array is empty');
   }
