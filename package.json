@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@skypilot/common-types": "^2.1.8",
-    "@skypilot/toolchain": "^5.2.0"
+    "@skypilot/toolchain": "^5.2.1"
   },
   "engines": {
     "node": ">=10.12.0"
