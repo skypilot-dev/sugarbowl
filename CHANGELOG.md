@@ -1,4 +1,23 @@
-## [2.2.1](https://github.com/skypilot-dev/sugarbowl/compare/v2.2.1-next.0...v2.2.1) (2021-02-28)
+# [3.0.0](https://github.com/skypilot-dev/sugarbowl/compare/v3.0.0-next.0...v3.0.0) (2021-03-14)
+
+
+### Features
+
+* Can delete a file if it exists & otherwise do nothing ([6f65dbb](https://github.com/skypilot-dev/sugarbowl/commit/6f65dbb88efe685f260fedc562a90778d3c15914))
+* Format of writeDataFile can be customized ([d705ed7](https://github.com/skypilot-dev/sugarbowl/commit/d705ed79b83900c467e45112e1953d61d970b850))
+
+
+* chg!: Change API for adding date-time stamps to file names ([54ae84f](https://github.com/skypilot-dev/sugarbowl/commit/54ae84fca664c3976366629d1a51230ab988c377))
+
+
+### BREAKING CHANGES
+
+* - `slugifyIsoDateTime` has been replaced by `slugifyDateTime`
+- The date-time API of `writeDataFile` has been changed: the `addIsoDateTime` and `isoDateTimeResolution` props have been replaced with a single `dateTimeFormat` prop
+
+
+
+## [2.2.1-alpha.0](https://github.com/skypilot-dev/sugarbowl/compare/v2.2.1...v2.2.1-alpha.0) (2021-02-28)
 
 
 
