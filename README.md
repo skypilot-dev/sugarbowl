@@ -69,6 +69,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 -   `generateRandomInt(minValue: number, maxValue: number): Integer`
 -   `isInteger(value: any): boolean`
+-   `isNumeric(value: any): boolean`
 
 ### Object functions
 

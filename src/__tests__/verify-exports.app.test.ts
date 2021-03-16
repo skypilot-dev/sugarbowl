@@ -50,6 +50,7 @@ const intendedExports: string[] = [
   /* Number functions */
   'generateRandomInt',
   'isInteger',
+  'isNumeric',
 
   /* Object functions */
   'entriesToKeyedItems',
