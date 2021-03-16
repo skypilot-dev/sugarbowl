@@ -1,3 +1,12 @@
+# [3.1.0](https://github.com/skypilot-dev/sugarbowl/compare/v3.1.0-next.0...v3.1.0) (2021-03-16)
+
+
+### Features
+
+* Can check whether a value is a number or numeric string ([719f39e](https://github.com/skypilot-dev/sugarbowl/commit/719f39e712092d516e51792c146ae43f33d09ca6))
+
+
+
 # [3.0.0](https://github.com/skypilot-dev/sugarbowl/compare/v3.0.0-next.0...v3.0.0) (2021-03-14)
 
 
