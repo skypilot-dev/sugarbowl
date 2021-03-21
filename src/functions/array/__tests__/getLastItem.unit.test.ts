@@ -18,7 +18,7 @@ describe('getLastItem', () => {
   });
 
   it('if a defaultValue is given and the the array is empty, should return the default value', () => {
-    const items = [] as const;
+    const items: number[] = [];
 
     const lastItem = getLastItem(items, { defaultValue: 1 });
 
