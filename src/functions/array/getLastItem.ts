@@ -1,14 +1,16 @@
-interface GetLastItemOptions<D> {
-  defaultValue?: D;
+interface GetLastItemOptions<Default> {
+  defaultValue?: Default;
 }
 
-export function getLastItem<T>(items: ReadonlyArray<T>, options?: { defaultValue: undefined }): T | undefined;
-export function getLastItem<T, D extends T | undefined>(items: ReadonlyArray<T>, options: GetLastItemOptions<D>): T | D;
+export function getLastItem<Item>(items: ReadonlyArray<Item>, options?: { defaultValue: undefined }): Item | undefined;
+export function getLastItem<Item, Default extends Item | undefined>(
+  items: ReadonlyArray<Item>, options: GetLastItemOptions<Default>
+): Item | Default;
 
 // Return the last item in the array, or null if the array is empty
-export function getLastItem<T, D extends T>(
-  items: ReadonlyArray<T>, options: GetLastItemOptions<T> = {}
-): T | D | undefined {
+export function getLastItem<Item, Default extends Item>(
+  items: ReadonlyArray<Item>, options: GetLastItemOptions<Item> = {}
+): Item | Default | undefined {
   const { defaultValue } = options;
   if (items.length === 0) {
     return defaultValue !== undefined ? defaultValue : undefined;
