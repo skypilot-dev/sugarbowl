@@ -22,6 +22,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `getDuplicates`
 -   `getFirstIntersection`
 -   `getIntersection`
+-   `getLastItem`
 -   `includeIf`
 -   `includes`
 -   `omitSequentialDuplicateItems<I>(array: I[], { evaluate? }): I[]`
