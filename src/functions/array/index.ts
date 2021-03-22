@@ -1,6 +1,7 @@
 export { flatten } from './flatten';
 export { getDuplicates } from './getDuplicates';
 export { getFirstIntersection } from './getFirstIntersection';
+export { getLastItem } from './getLastItem';
 export { getIntersection } from './getIntersection';
 export { includeIf } from './includeIf';
 export { includes } from './includes';
