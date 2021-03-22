@@ -1,3 +1,13 @@
+# [3.2.0](https://github.com/skypilot-dev/sugarbowl/compare/v3.2.0-next.0...v3.2.0) (2021-03-22)
+
+
+### Features
+
+* Can get the last item in an array ([7f416cf](https://github.com/skypilot-dev/sugarbowl/commit/7f416cf65a098913f7a0d8cb847da10ade61dcb3))
+* Narrow the return type of getLastItem when default value is given ([4489ef0](https://github.com/skypilot-dev/sugarbowl/commit/4489ef0b006b314903be1e45f90237f5645ffa0d))
+
+
+
 # [3.1.0](https://github.com/skypilot-dev/sugarbowl/compare/v3.1.0-next.0...v3.1.0) (2021-03-16)
 
 
