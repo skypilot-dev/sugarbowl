@@ -1,6 +1,5 @@
-/* -- IMPLEMENTATION -- */
-export function toArray<T>(value: T | T[]): T[] {
-  return value instanceof Array
+export function toArray<T>(value: T | ReadonlyArray<T>): T[] {
+  return Array.isArray(value)
     ? value
     : [value];
 }

@@ -12,7 +12,7 @@ interface IndexMap {
 /* Given values referencing a page and a number of items per page, return an object representing
    them as indices of an array. */
 export function pagesToIndices<T>(
-  page: Integer = 1, resultsPerPage?: Integer | undefined, array?: T[]
+  page: Integer = 1, resultsPerPage?: Integer | undefined, array?: ReadonlyArray<T>
 ): IndexMap {
   if (page < 1) {
     throw new Error(`'page' must be >= 1; value received: ${page}`);
