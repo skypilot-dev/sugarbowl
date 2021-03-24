@@ -1,6 +1,7 @@
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
+
 import { readPackageFile } from '../readPackageFile';
 import { writePackageFile } from '../writePackageFile';
 
@@ -16,8 +17,8 @@ afterAll(() => {
   fs.unlinkSync(pathToFile);
 });
 
-describe('', () => {
-  it('should', () => {
+describe('writePackageFile()', () => {
+  it('should write the object to a JSON file', () => {
     const content = { version: '9.9.9' };
 
     writePackageFile({ content, pathToFile });
