@@ -91,6 +91,9 @@ const intendedExports: string[] = [
   'trim',
   'trimLeft',
   'trimRight',
+
+  /* Classes */
+  'ValidationResult',
 ];
 
 describe('Export verification', () => {

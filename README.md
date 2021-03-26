@@ -113,3 +113,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `trim`
 -   `trimLeft`
 -   `trimRight`
+
+### Classes
+
+-   `ValidationResult`
