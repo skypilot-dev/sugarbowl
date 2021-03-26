@@ -148,5 +148,12 @@ describe('ValidationResult()', () => {
 
       expect(vr.success).toBe(true);
     });
+
+    it('should return false if any errors occurred', () => {
+      const vr = new ValidationResult();
+      vr.add('error', 'Error event');
+
+      expect(vr.success).toBe(false);
+    });
   });
 });

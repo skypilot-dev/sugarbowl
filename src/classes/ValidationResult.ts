@@ -5,17 +5,23 @@ import { capitalizeFirstWord, omitUndefinedEntries } from 'src/functions';
 const logLevels = [
   'debug',
   'info',
-  'error',
   'warn',
+  'error',
 ] as const;
 
 type LogLevel = typeof logLevels[number];
 
-interface ValidationResultInput {
+interface AddValidationResultOptions {
   id?: Integer | string;
   data?: unknown;
-  level?: LogLevel;
 }
+
+/*
+interface ValidationResultInput extends AddValidationResultOptions {
+  level?: LogLevel;
+  message: string;
+}
+ */
 
 interface ValidationEvent {
   id?: Integer | string;
@@ -44,14 +50,15 @@ export class ValidationResult {
   }
 
   get success(): boolean {
-    return !this.highestLevel || indexOfLevel(this.highestLevel) >= indexOfLevel('error');
+    const { highestLevel } = this;
+    return highestLevel === undefined || (indexOfLevel(highestLevel) < indexOfLevel('error'));
   }
 
   get warnings(): Array<ValidationEvent & { level: 'warn' }> {
     return this.getEvents('warn');
   }
 
-  add(level: LogLevel, message: string, options: ValidationResultInput = {}): ValidationEvent {
+  add(level: LogLevel, message: string, options: AddValidationResultOptions = {}): ValidationEvent {
     const { id, data } = options;
 
     const validationMessage = {
