@@ -62,6 +62,12 @@ carry the overhead of checking argument types or handling type coercion.
 -   `pipe(...fnsToPipe: Function[])`
 -   `toMapFunction(...itemFns: Function[]): Function`
 
+### Indefinite-value functions
+
+-   `isIndefinite(value: unknown): boolean`
+-   `isNull(value: unknown): value is null`
+-   `isUndefined(value: unknown): value is undefined`
+
 ### Input/output functions
 
 -   `consoleIf(:boolean): (message: string) => void`
