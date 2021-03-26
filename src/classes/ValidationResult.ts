@@ -5,17 +5,23 @@ import { capitalizeFirstWord, omitUndefinedEntries } from 'src/functions';
 const logLevels = [
   'debug',
   'info',
-  'error',
   'warn',
+  'error',
 ] as const;
 
 type LogLevel = typeof logLevels[number];
 
-interface ValidationResultInput {
+interface AddValidationResultOptions {
   id?: Integer | string;
   data?: unknown;
-  level?: LogLevel;
 }
+
+/*
+interface ValidationResultInput extends AddValidationResultOptions {
+  level?: LogLevel;
+  message: string;
+}
+ */
 
 interface ValidationEvent {
   id?: Integer | string;
@@ -26,6 +32,10 @@ interface ValidationEvent {
 
 export class ValidationResult {
   events: ValidationEvent[] = [];
+
+  get errorMessages(): string[] {
+    return this.getMessages('error');
+  }
 
   get errors(): Array<ValidationEvent & { level: 'error' }> {
     return this.getEvents('error');
@@ -43,15 +53,24 @@ export class ValidationResult {
     return logLevels[indexOfLevel(highestLogLevel)];
   }
 
+  get messages(): string[] {
+    return this.getMessages();
+  }
+
   get success(): boolean {
-    return !this.highestLevel || indexOfLevel(this.highestLevel) >= indexOfLevel('error');
+    const { highestLevel } = this;
+    return highestLevel === undefined || (indexOfLevel(highestLevel) < indexOfLevel('error'));
+  }
+
+  get warningMessages(): string[] {
+    return this.getMessages('warn');
   }
 
   get warnings(): Array<ValidationEvent & { level: 'warn' }> {
     return this.getEvents('warn');
   }
 
-  add(level: LogLevel, message: string, options: ValidationResultInput = {}): ValidationEvent {
+  add(level: LogLevel, message: string, options: AddValidationResultOptions = {}): ValidationEvent {
     const { id, data } = options;
 
     const validationMessage = {
@@ -77,7 +96,10 @@ export class ValidationResult {
 
   getMessages(level?: LogLevel): string[] {
     return (level === undefined ? this.getEvents() : this.getEvents(level))
-      .map(event => [capitalizeFirstWord(event.level), event.message].join(': '));
+      .map(event => [
+        event.level === 'warn' ? 'Warning' : capitalizeFirstWord(event.level),
+        event.message,
+      ].join(': '));
   }
 
   has(): boolean;

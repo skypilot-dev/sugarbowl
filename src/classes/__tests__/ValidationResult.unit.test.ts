@@ -54,7 +54,7 @@ describe('ValidationResult()', () => {
         'Debug: Debug event',
         'Error: Error event',
         'Info: Info event',
-        'Warn: Warn event',
+        'Warning: Warn event',
       ]);
     });
 
@@ -66,6 +66,28 @@ describe('ValidationResult()', () => {
       expect(vr.getMessages('error')).toStrictEqual([
         'Error: Error event',
       ]);
+    });
+  });
+
+  describe('errorMessages, warnMessages', () => {
+    it('should return the array of corresponding messages', () => {
+      const vr = new ValidationResult();
+      vr.add('error', 'Error event 1');
+      vr.add('warn', 'Warn event');
+      vr.add('error', 'Error event 2');
+
+      expect(vr.errorMessages).toStrictEqual([
+        'Error: Error event 1',
+        'Error: Error event 2',
+      ]);
+      expect(vr.warningMessages).toStrictEqual([
+        'Warning: Warn event',
+      ]);
+    });
+
+    it('if there are no messages, should return an empty array', () => {
+      const vr = new ValidationResult();
+      expect(vr.messages).toStrictEqual([]);
     });
   });
 
@@ -134,6 +156,24 @@ describe('ValidationResult()', () => {
     });
   });
 
+  describe('messages', () => {
+    it('should return the array of all messages', () => {
+      const vr = new ValidationResult();
+      vr.add('error', 'Error event');
+      vr.add('debug', 'Debug event');
+
+      expect(vr.messages).toStrictEqual([
+        'Error: Error event',
+        'Debug: Debug event',
+      ]);
+    });
+
+    it('if there are no messages, should return an empty array', () => {
+      const vr = new ValidationResult();
+      expect(vr.messages).toStrictEqual([]);
+    });
+  });
+
   describe('success', () => {
     it('should return true if no message were added', () => {
       const vr = new ValidationResult();
@@ -147,6 +187,13 @@ describe('ValidationResult()', () => {
       vr.add('warn', 'Warn event');
 
       expect(vr.success).toBe(true);
+    });
+
+    it('should return false if any errors occurred', () => {
+      const vr = new ValidationResult();
+      vr.add('error', 'Error event');
+
+      expect(vr.success).toBe(false);
     });
   });
 });
