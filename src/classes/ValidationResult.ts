@@ -33,6 +33,10 @@ interface ValidationEvent {
 export class ValidationResult {
   events: ValidationEvent[] = [];
 
+  get errorMessages(): string[] {
+    return this.getMessages('error');
+  }
+
   get errors(): Array<ValidationEvent & { level: 'error' }> {
     return this.getEvents('error');
   }
@@ -49,9 +53,17 @@ export class ValidationResult {
     return logLevels[indexOfLevel(highestLogLevel)];
   }
 
+  get messages(): string[] {
+    return this.getMessages();
+  }
+
   get success(): boolean {
     const { highestLevel } = this;
     return highestLevel === undefined || (indexOfLevel(highestLevel) < indexOfLevel('error'));
+  }
+
+  get warningMessages(): string[] {
+    return this.getMessages('warn');
   }
 
   get warnings(): Array<ValidationEvent & { level: 'warn' }> {
@@ -84,7 +96,10 @@ export class ValidationResult {
 
   getMessages(level?: LogLevel): string[] {
     return (level === undefined ? this.getEvents() : this.getEvents(level))
-      .map(event => [capitalizeFirstWord(event.level), event.message].join(': '));
+      .map(event => [
+        event.level === 'warn' ? 'Warning' : capitalizeFirstWord(event.level),
+        event.message,
+      ].join(': '));
   }
 
   has(): boolean;
