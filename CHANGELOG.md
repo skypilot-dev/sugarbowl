@@ -1,3 +1,21 @@
+# [3.3.0](https://github.com/skypilot-dev/sugarbowl/compare/v3.3.0-next.5...v3.3.0) (2021-03-26)
+
+
+### Bug Fixes
+
+* "warn" and "error" events are incorrectly ranked ([fb4876b](https://github.com/skypilot-dev/sugarbowl/commit/fb4876b0611af3a7eed0e5650d452eb4e44c7a3b))
+
+
+### Features
+
+* Accept read-only arrays in all array functions that can use them ([4b910f6](https://github.com/skypilot-dev/sugarbowl/commit/4b910f627b1d7bc3af12ca5e4f4a087cb30cdd73))
+* Can check indefinite values ([b6071f5](https://github.com/skypilot-dev/sugarbowl/commit/b6071f549c5b4fde971f61dddea172a1375688bc))
+* Can remove object entries whose values are empty arrays ([43260c3](https://github.com/skypilot-dev/sugarbowl/commit/43260c3a1f046064a98c38945aaf56eb36fb81e0))
+* Can use a ValidationResult class to manage validation events ([fc2109e](https://github.com/skypilot-dev/sugarbowl/commit/fc2109e3276c8349acc1d3f4eb424c6e88ff42d8))
+* Messages can be accessed through accessor shortcuts ([e35a3ce](https://github.com/skypilot-dev/sugarbowl/commit/e35a3ce5db0698a3f2792deed2b6b483225e99ea))
+
+
+
 # [3.2.0](https://github.com/skypilot-dev/sugarbowl/compare/v3.2.0-next.0...v3.2.0) (2021-03-22)
 
 
