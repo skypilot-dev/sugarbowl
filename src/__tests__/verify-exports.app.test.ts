@@ -9,7 +9,7 @@ const intendedExports: string[] = [
   'getLastItem',
   'includeIf',
   'includes',
-  'omitSequentialDuplicateItems',
+  'omitSequentialDuplicateItems', // TODO: Rename to "exclude" to avoid confusion with object functions
   'pagesToIndices',
   'pickRandomItem',
   'pickRandomItems',
@@ -59,6 +59,7 @@ const intendedExports: string[] = [
   'getOrDefault',
   'isObject',
   'mergeIf',
+  'omitEmptyArrays',
   'omitEntriesByValue',
   'omitFalsyEntries',
   'omitUndefinedEntries',
