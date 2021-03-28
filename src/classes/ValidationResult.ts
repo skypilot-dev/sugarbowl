@@ -2,19 +2,12 @@ import type { Integer } from '@skypilot/common-types';
 
 import { capitalizeFirstWord, omitUndefinedEntries } from 'src/functions';
 
-const logLevels = [
-  'debug',
-  'info',
-  'warn',
-  'error',
-] as const;
-
-type LogLevel = typeof logLevels[number];
-
 interface AddValidationResultOptions {
   id?: Integer | string;
   data?: unknown;
 }
+
+export type LogLevel = typeof ValidationResult.logLevels[number];
 
 /*
 interface ValidationResultInput extends AddValidationResultOptions {
@@ -31,7 +24,21 @@ interface ValidationEvent {
 }
 
 export class ValidationResult {
+  static readonly logLevels = [
+    'debug',
+    'info',
+    'warn',
+    'error',
+  ] as const;
+
   events: ValidationEvent[] = [];
+
+  static compareLevels(a: LogLevel, b: LogLevel): Integer {
+    if (a === b) {
+      return 0;
+    }
+    return ValidationResult.logLevels.indexOf(a) - ValidationResult.logLevels.indexOf(b);
+  }
 
   get errorMessages(): string[] {
     return this.getMessages('error');
@@ -46,11 +53,9 @@ export class ValidationResult {
       return undefined;
     }
 
-    const highestLogLevel = this.events.sort(
-      (a, b) => indexOfLevel(b.level)  - indexOfLevel(a.level)
-    )[0].level;
-
-    return logLevels[indexOfLevel(highestLogLevel)];
+    return this.events
+      .sort((a, b) => ValidationResult.compareLevels(a.level, b.level))
+      .reverse()[0].level;
   }
 
   get messages(): string[] {
@@ -59,7 +64,7 @@ export class ValidationResult {
 
   get success(): boolean {
     const { highestLevel } = this;
-    return highestLevel === undefined || (indexOfLevel(highestLevel) < indexOfLevel('error'));
+    return highestLevel === undefined || (ValidationResult.compareLevels(highestLevel, 'error') < 0);
   }
 
   get warningMessages(): string[] {
@@ -107,8 +112,4 @@ export class ValidationResult {
   has(level?: LogLevel): boolean {
     return (level === undefined ? this.getEvents() : this.getEvents(level)).length > 0;
   }
-}
-
-function indexOfLevel(logLevel: LogLevel): Integer {
-  return logLevels.indexOf(logLevel);
 }
