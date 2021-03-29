@@ -15,6 +15,27 @@ describe('ValidationResult()', () => {
     });
   });
 
+  describe('compareLevels(a: LogLevel | null, b: logLevel | null)', () => {
+    it('should return a negative number if level a < level b', () => {
+      const comparison = ValidationResult.compareLevels('warn', 'error');
+      expect(comparison).toBeLessThan(0);
+    });
+
+    it('should return a positive number if level a > level b', () => {
+      const comparison = ValidationResult.compareLevels('info', 'debug');
+      expect(comparison).toBeGreaterThan(0);
+    });
+
+    it('should treat a null value as higher than any log level', () => {
+      expect(
+        ValidationResult.compareLevels('error', null)
+      ).toBeLessThan(0);
+      expect(
+        ValidationResult.compareLevels(null, 'error')
+      ).toBeGreaterThan(0);
+    });
+  });
+
   describe('errors', () => {
     it("should be an alias for getEvents('error')", () => {
       const vr = new ValidationResult();
