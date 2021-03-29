@@ -34,6 +34,15 @@ describe('ValidationResult()', () => {
         ValidationResult.compareLevels(null, 'error')
       ).toBeGreaterThan(0);
     });
+
+    it('should treat undefined as lower than any log level', () => {
+      expect(
+        ValidationResult.compareLevels('debug', undefined)
+      ).toBeGreaterThan(0);
+      expect(
+        ValidationResult.compareLevels(undefined, 'debug')
+      ).toBeLessThan(0);
+    });
   });
 
   describe('errors', () => {

@@ -1,6 +1,6 @@
 import type { Integer } from '@skypilot/common-types';
 
-import { capitalizeFirstWord, isNull, omitUndefinedEntries } from 'src/functions';
+import { capitalizeFirstWord, isNull, isUndefined, omitUndefinedEntries } from 'src/functions';
 
 interface AddValidationResultOptions {
   id?: Integer | string;
@@ -33,7 +33,7 @@ export class ValidationResult {
 
   events: ValidationEvent[] = [];
 
-  static compareLevels(a: LogLevel | null, b: LogLevel | null): Integer {
+  static compareLevels(a: LogLevel | null | undefined, b: LogLevel | null | undefined): Integer {
     if (a === b) {
       return 0;
     }
@@ -43,6 +43,13 @@ export class ValidationResult {
       return 1; // a > b
     } else if (isNull(b)) {
       return -1; // a < b
+    }
+
+    // Always consider `undefined` to have the lowest index
+    if (isUndefined(a)) {
+      return -1; // a > b
+    } else if (isUndefined(b)) {
+      return 1; // a < b
     }
 
     return ValidationResult.logLevels.indexOf(a) - ValidationResult.logLevels.indexOf(b);
