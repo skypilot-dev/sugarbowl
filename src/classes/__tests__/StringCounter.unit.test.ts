@@ -4,7 +4,7 @@ import type { ComparisonKey, MatchCount } from '../StringCounter';
 describe('StringCounter class', () => {
   describe('counts', () => {
     it('should return a dict of all values and their number of occurrences', () => {
-      const values = ['a', 'b', 'b'];
+      const values = ['b', 'a', 'b'];
       const expectedCounts = {
         a: 1,
         b: 2,
@@ -36,17 +36,6 @@ describe('StringCounter class', () => {
           'lessThanOrEqual': true,
         },
         {
-          'pattern': 'CreateEvent:OK',
-          'target': 2,
-          'actual': 4,
-
-          'equal': false,
-          'greaterThan': true,
-          'greaterThanOrEqual': true,
-          'lessThan': false,
-          'lessThanOrEqual': false,
-        },
-        {
           'pattern': 'CreateEvent:Failed',
           'actual': 1,
           'target': 2,
@@ -56,6 +45,17 @@ describe('StringCounter class', () => {
           'greaterThanOrEqual': false,
           'lessThan': true,
           'lessThanOrEqual': true,
+        },
+        {
+          'pattern': 'CreateEvent:OK',
+          'target': 2,
+          'actual': 4,
+
+          'equal': false,
+          'greaterThan': true,
+          'greaterThanOrEqual': true,
+          'lessThan': false,
+          'lessThanOrEqual': false,
         },
       ];
 
