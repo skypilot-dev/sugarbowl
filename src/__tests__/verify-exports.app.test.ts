@@ -99,6 +99,7 @@ const intendedExports: string[] = [
   'trimRight',
 
   /* Classes */
+  'StringCounter',
   'ValidationResult',
 ];
 
