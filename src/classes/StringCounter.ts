@@ -59,7 +59,7 @@ export class StringCounter {
 
   // TODO: Add a method that optionally sorts by value or frequency, ascending or descending
   get counts(): Record<string, Integer> {
-    const uniqueValues = toUniqueArray(this.values);
+    const uniqueValues = toUniqueArray(this.values).sort((a, b) => a.localeCompare(b));
     return uniqueValues.reduce((acc, uniqueValue) => ({
       ...acc,
       [uniqueValue]: this.values.filter(value => value === uniqueValue).length,
@@ -68,6 +68,8 @@ export class StringCounter {
 
   get digests(): MatchDigest[] {
     return this.patternTargets
+      .slice(0)
+      .sort(([aPattern], [bPattern]) => aPattern.toString().localeCompare(bPattern.toString()))
       .map(patternTarget => {
         const [pattern, target] = patternTarget;
         const actual = this.countOccurrences(pattern);
