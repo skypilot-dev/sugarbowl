@@ -36,4 +36,10 @@ describe('isIndefinite(value: unknown)', () => {
     expect(isIndefinite(dict.a)).toBe(true);
     expect(isIndefinite(dict.b)).toBe(true);
   });
+
+  it('should be usable as filter', () => {
+    const mixedArray = [null, undefined, 1, 'value'] as const;
+    const indefiniteArray = mixedArray.filter(isIndefinite);
+    expect(indefiniteArray).toStrictEqual([null, undefined]);
+  });
 });

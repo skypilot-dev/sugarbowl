@@ -52,7 +52,7 @@
     "json-beautify": "^1.1.1"
   },
   "devDependencies": {
-    "@skypilot/common-types": "^2.2.2",
+    "@skypilot/common-types": "^2.3.0",
     "@skypilot/toolchain": "^5.2.3"
   },
   "engines": {
