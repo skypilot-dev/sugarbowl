@@ -62,10 +62,12 @@ carry the overhead of checking argument types or handling type coercion.
 -   `pipe(...fnsToPipe: Function[])`
 -   `toMapFunction(...itemFns: Function[]): Function`
 
-### Indefinite-value functions
+### Truthy/falsy/defined functions
 
--   `isIndefinite(value: unknown): boolean`
+-   `isDefinite(value: T | null | undefined): value is T`
+-   `isIndefinite(value: unknown): value is null | undefined`
 -   `isNull(value: unknown): value is null`
+-   `isTruthy(value: T | Falsy): value is T`
 -   `isUndefined(value: unknown): value is undefined`
 
 ### Input/output functions

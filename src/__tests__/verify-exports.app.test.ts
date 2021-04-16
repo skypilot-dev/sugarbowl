@@ -45,9 +45,11 @@ const intendedExports: string[] = [
   'pipe',
   'toMapFunction',
 
-  /* Indefinite-value functions */
+  /* Truthy/falsy/defined functions */
+  'isDefinite',
   'isIndefinite',
   'isNull',
+  'isTruthy',
   'isUndefined',
 
   /* Input/output functions */
