@@ -84,6 +84,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 -   `entriesToKeyedItems(key: string, obj: object)`
 -   `filterLeavesByKey(key: string, obj: object, options)`
+-   `getObjectKeys(obj: object | Array): string[]`
 -   `getOrDefault(obj: object, key: string, default: any)`
 -   `isObject(value: any): boolean`
 -   `mergeIf(conditional: any, :object)`

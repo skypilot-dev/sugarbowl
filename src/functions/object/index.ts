@@ -1,5 +1,6 @@
 export { entriesToKeyedItems } from './entriesToKeyedItems';
 export { filterLeavesByKey } from './filterLeavesByKey';
+export { getObjectKeys } from './getObjectKeys';
 export { getOrDefault } from './getOrDefault';
 export { isObject } from './isObject';
 export { mergeIf } from './mergeIf';
