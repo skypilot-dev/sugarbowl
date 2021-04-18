@@ -71,6 +71,7 @@ const intendedExports: string[] = [
   /* Object functions */
   'entriesToKeyedItems',
   'filterLeavesByKey',
+  'getObjectKeys',
   'getOrDefault',
   'isObject',
   'mergeIf',
