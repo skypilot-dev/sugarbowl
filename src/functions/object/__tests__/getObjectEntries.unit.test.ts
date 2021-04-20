@@ -1,6 +1,6 @@
 import { getObjectEntries } from '../getObjectEntries';
 
-describe('getObjectEntries(obj: Object | Array)', () => {
+describe('getObjectEntries(obj: Object | Array | number | string)', () => {
   it("should return the object's entries", () => {
     const obj = { a: 1, b: 2 } as const;
     const expected = [
@@ -34,6 +34,33 @@ describe('getObjectEntries(obj: Object | Array)', () => {
     const expected = [] as const;
 
     const objectEntries = getObjectEntries(obj);
+    expect(objectEntries).toStrictEqual(expected);
+  });
+
+  it('given a string, should treat it as an array of characters', () => {
+    {
+      const arrayOfChars = 'abc';
+      const expected = [
+        ['0', 'a'], ['1', 'b'], ['2', 'c'],
+      ] as const;
+
+      const objectEntries = getObjectEntries(arrayOfChars);
+      expect(objectEntries).toStrictEqual(expected);
+    }
+    {
+      const arrayOfChars = '';
+      const expected = [] as const;
+
+      const objectEntries = getObjectEntries(arrayOfChars);
+      expect(objectEntries).toStrictEqual(expected);
+    }
+  });
+
+  it('given a number, should return an empty array', () => {
+    // Included because `Object.entries` does accept numbers
+    const expected = [] as const;
+
+    const objectEntries = getObjectEntries(1);
     expect(objectEntries).toStrictEqual(expected);
   });
 });
