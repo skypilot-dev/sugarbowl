@@ -71,7 +71,6 @@ const intendedExports: string[] = [
   /* Object functions */
   'entriesToKeyedItems',
   'filterLeavesByKey',
-  'getObjectKeys',
   'getOrDefault',
   'isObject',
   'mergeIf',
@@ -81,6 +80,7 @@ const intendedExports: string[] = [
   'omitUndefinedEntries',
   'setValueByPath',
   'swapKeysAndValues',
+  'TypedObject',
 
   /* String functions */
   'capitalizeAllWords',
