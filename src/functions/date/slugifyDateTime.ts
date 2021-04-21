@@ -51,6 +51,7 @@ const presetMap = new Map<SlugifyDateTimePresetCode, SlugifyDateTimeParams | und
   }],
 ]);
 
+/* @deprecated Use `makeDateTimeStamp` instead */
 export function slugifyDateTime(
   isoDateTime: string | Date,
   options: SlugifyDateTimeOptions | SlugifyDateTimePresetCode = 'slug'

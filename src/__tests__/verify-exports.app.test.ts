@@ -24,12 +24,14 @@ const intendedExports: string[] = [
 
   /* Date & time functions */
   'isValidDate',
+  'makeDateTimeStamp',
   'sleep',
-  'slugifyDateTime',
+  'slugifyDateTime', // deprecated in favor of `makeDateTimeStamp`
   'toUnixTime',
   'truncateIsoDateTime',
 
   /* Filesystem functions */
+  'composeFileName',
   'deleteFile',
   'findPackageFileDir',
   'findUpTree',

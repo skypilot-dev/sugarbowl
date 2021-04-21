@@ -38,6 +38,7 @@ carry the overhead of checking argument types or handling type coercion.
 ### Date & time functions
 
 -   `isValidDate`
+-   `makeDateTimeStamp`
 -   `sleep`
 -   `slugifyDateTime`
 -   `toUnixTime(:Date, decimalPlaces?: Integer): number`
@@ -46,6 +47,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 ### Filesystem functions
 
+-   `composeFileName`
 -   `deleteFile`
 -   `findPackageFileDir`
 -   `findUpTree`

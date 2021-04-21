@@ -1,3 +1,4 @@
+export { composeFileName } from './composeFileName';
 export { deleteFile } from './deleteFile';
 export { findPackageFileDir } from './findPackageFileDir';
 export { findUpTree } from './findUpTree';
