@@ -31,6 +31,7 @@ const intendedExports: string[] = [
   'truncateIsoDateTime',
 
   /* Filesystem functions */
+  'composeFileName',
   'deleteFile',
   'findPackageFileDir',
   'findUpTree',
