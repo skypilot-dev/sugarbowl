@@ -51,6 +51,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `deleteFile`
 -   `findPackageFileDir`
 -   `findUpTree`
+-   `listFilesSync`
 -   `makeTempDir`
 -   `readPackageFile`
 -   `wipeDir`
