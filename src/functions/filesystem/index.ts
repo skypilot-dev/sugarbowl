@@ -2,6 +2,8 @@ export { composeFileName } from './composeFileName';
 export { deleteFile } from './deleteFile';
 export { findPackageFileDir } from './findPackageFileDir';
 export { findUpTree } from './findUpTree';
+export { listFilesSync } from './listFilesSync';
+export type { ListFilesOptions } from './listFilesSync';
 export { makeTempDir } from './makeTempDir';
 export { readPackageFile } from './readPackageFile';
 export { wipeDir } from './wipeDir';
