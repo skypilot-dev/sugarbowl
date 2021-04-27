@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+
 import { makeTempDir } from '../makeTempDir';
 import { rmDir } from '../rmDir';
 import { wipeDir } from '../wipeDir';
@@ -18,6 +19,15 @@ describe('makeTempDir(relativePath:string, options)', () => {
 
     expect(subDirPath).toBe(path.resolve(tmpDir, subDirPath));
     expect(subDirPath.endsWith(subDirName)).toBe(true);
+  });
+
+  it('when a dateTimeFormat is given, should add a timestamp to the directory name', () => {
+    const relativeDirName = 'random';
+    const subDirPath = makeTempDir(relativeDirName, { baseDir, dateTimeFormat: 'compact' });
+    const subDirName = path.basename(subDirPath);
+
+    expect(subDirPath.startsWith(path.join(tmpDir, subDirName))).toBe(true);
+    expect(subDirName).toMatch(/random_[0-9]{8}-[0-9]{6}/);
   });
 
   it('when `addRandomSuffix:true`, should add a random suffix to the name of the directory', () => {
