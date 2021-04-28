@@ -1,22 +1,25 @@
 import fs from 'fs';
-import os from 'os';
 import path from 'path';
+
+import { Directory } from 'src/classes';
+import { makeTestRunDir, makeTestsDir } from 'src/functions';
 import { wipeDir } from '../wipeDir';
 
-const testDirPath = path.join(os.tmpdir(), 'wipeDir-unit-test');
+const testRunDir = makeTestRunDir(makeTestsDir(), 'wipeDir.unit');
+const testDir = new Directory('wipeDir', { baseDir: testRunDir });
 
-describe('', () => {
-  beforeAll(() => {
-    fs.mkdirSync(testDirPath, { recursive: true });
-  });
+beforeAll(() => {
+  testDir.makeSync();
+});
 
-  afterAll(() => {
-    fs.rmdirSync(testDirPath);
-  });
+afterAll(() => {
+  testDir.removeSync();
+});
 
+describe('wipeDir', () => {
   it('should delete all files and directories in the directory but not the directory itself', async () => {
     /* Create a subdir */
-    const subDirPath = path.join(testDirPath, 'subdir');
+    const subDirPath = path.join(testDir.fullPath, 'subdir');
     const filePath = path.join(subDirPath, 'test.file.txt');
     fs.mkdirSync(subDirPath, { recursive: true });
 
@@ -31,7 +34,7 @@ describe('', () => {
     expect(fs.existsSync(filePath)).toBe(true);
 
     /* Wipe the directory */
-    await wipeDir(testDirPath, { recursive: true });
+    await wipeDir(testDir.fullPath, { recursive: true });
 
     expect(fs.existsSync(filePath)).toBe(false);
     expect(fs.existsSync(subDirPath)).toBe(false);

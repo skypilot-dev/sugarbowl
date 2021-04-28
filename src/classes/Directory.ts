@@ -6,6 +6,7 @@ import { wipeDir } from 'src/functions';
 import type { WipeDirOptions } from 'src/functions';
 import { isDefined } from 'src/functions/indefinite/isDefined';
 import { rmDir } from 'src/functions/filesystem/rmDir';
+import { rmDirSync } from 'src/functions/filesystem/rmDirSync';
 
 export type DirectoryLike = string | string [] | Directory;
 
@@ -105,7 +106,7 @@ export class Directory {
   }
 
   removeSync(): void {
-    return fs.rmdirSync(this.dirPathRoot, { recursive: true });
+    return rmDirSync(this.dirPathRoot);
   }
 
   async wipe(options: WipeDirOptions = {}): Promise<void> {

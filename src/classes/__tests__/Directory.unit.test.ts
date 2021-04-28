@@ -6,7 +6,6 @@ import { makeTestRunDir, makeTestsDir } from 'src/functions';
 import { Directory } from '../Directory';
 
 const testRunDir = makeTestRunDir(makeTestsDir(), 'Directory.unit');
-const testRunDirPath = testRunDir.fullPath;
 
 afterAll(() => {
   testRunDir.removeSync();
@@ -17,7 +16,7 @@ describe('Directory class', () => {
     it('should correctly set dirPath, fullPath & baseDirPath upon instantiation', async () => {
       const testDir = new Directory('instantiation', { baseDir: testRunDir });
       expect(testDir.baseName).toBe('instantiation');
-      expect(testDir.baseDirPath).toBe(testRunDirPath);
+      expect(testDir.baseDirPath).toBe(testRunDir.fullPath);
       expect(testDir.dirPath).toBe('instantiation');
       expect(testDir.fullPath).toBe(path.resolve(testRunDir.fullPath, 'instantiation'));
     });
@@ -151,7 +150,7 @@ describe('Directory class', () => {
       const relPath = ['dirPathRoot', 'pathChild'];
       const dir = new Directory(relPath, { baseDir: testRunDir });
 
-      expect(dir.dirPathRoot).toBe(path.resolve(testRunDirPath, 'dirPathRoot'));
+      expect(dir.dirPathRoot).toBe(path.resolve(testRunDir.fullPath, 'dirPathRoot'));
     });
 
     it("given an initial path of '.', should return the baseDir", () => {

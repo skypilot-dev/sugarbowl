@@ -6,7 +6,10 @@ const readDir = util.promisify(fs.readdir);
 const removeDir = util.promisify(fs.rmdir);
 const unlink = util.promisify(fs.unlink);
 
-/* Remove the directory and all its contents */
+/* INTERNAL FUNCTION. Remove the directory and all its contents.
+   This emulates `fs.rmdir(path, { recursive: true })`, available in Node v12+.
+   TODO: Remove when Sugarbowl no longer supports Node v10.x
+ */
 export async function rmDir(dirPath: string): Promise<void> {
 
   if (!fs.existsSync(dirPath)) {
