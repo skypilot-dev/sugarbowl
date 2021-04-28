@@ -126,7 +126,13 @@ carry the overhead of checking argument types or handling type coercion.
 -   `trimLeft`
 -   `trimRight`
 
+### Test helpers
+
+-   `makeTestRunDir`
+-   `makeTestsDir`
+
 ### Classes
 
+-   `Directory`
 -   `StringCounter`
 -   `ValidationResult`

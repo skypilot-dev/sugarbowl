@@ -15,18 +15,19 @@ interface MakeTempDirOptions {
   separator?: string;
 }
 
-export function makeTempDir(relativePath: string, options: MakeTempDirOptions = {}): string {
+export function makeTempDir(relativePath = '', options: MakeTempDirOptions = {}): string {
+  const { baseDir = [], dateTimeFormat, disallowExisting, addRandomSuffix, separator = '_' } = options;
+
   /* TODO: Validate the relative path */
-  if (!relativePath) {
-    throw new Error('The relative path cannot be an empty string');
+  if (!relativePath && !dateTimeFormat && !addRandomSuffix) {
+    throw new Error('The relative path cannot be empty unless a time stamp or random suffix is added');
   }
 
-  const { baseDir = [], dateTimeFormat, disallowExisting, addRandomSuffix, separator = '_' } = options;
   const basePaths = toArray(baseDir);
 
   const tmpDir = os.tmpdir();
   const subDir = composeFileName([
-    relativePath,
+    ...(relativePath ? [relativePath] : []),
     ...(dateTimeFormat ? [makeDateTimeStamp(dateTimeFormat)] : []),
     ...(addRandomSuffix ? [randomAlphanumeric()] : []),
   ], { separator });

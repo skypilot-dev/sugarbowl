@@ -1,9 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
-import { rmDir } from './rmDir';
 
-type WipeDirOptions = {
+export type WipeDirOptions = {
   recursive?: boolean;
 }
 
@@ -22,7 +21,7 @@ export async function wipeDir(dirPath: string, options: WipeDirOptions = {}): Pr
     childNames.map(childName => {
       const childPath = path.join(dirPath, childName);
       return fs.lstatSync(childPath).isDirectory()
-        ? (recursive ? rmDir(childPath) : undefined)
+        ? (recursive ? fs.rmdirSync(childPath, { recursive }) : undefined)
         : unlink(childPath);
     })
   );

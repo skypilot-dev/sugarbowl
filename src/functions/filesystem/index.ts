@@ -7,5 +7,6 @@ export type { ListFilesOptions } from './listFilesSync';
 export { makeTempDir } from './makeTempDir';
 export { readPackageFile } from './readPackageFile';
 export { wipeDir } from './wipeDir';
+export type { WipeDirOptions } from './wipeDir';
 export { writeDataFile } from './writeDataFile';
 export { writePackageFile } from './writePackageFile';

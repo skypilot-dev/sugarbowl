@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 import { makeTempDir } from '../makeTempDir';
-import { rmDir } from '../rmDir';
 import { wipeDir } from '../wipeDir';
 
 const baseDir = 'makeTempDir';
@@ -10,7 +9,7 @@ const baseDir = 'makeTempDir';
 /* Create a single directory in which to create any other directories */
 const tmpDir = makeTempDir(baseDir);
 beforeAll(() => fs.existsSync(tmpDir) && wipeDir(tmpDir));
-afterAll(() => fs.existsSync(tmpDir) && rmDir(tmpDir));
+afterAll(() => fs.existsSync(tmpDir) && fs.rmdirSync(tmpDir, { recursive: true }));
 
 describe('makeTempDir(relativePath:string, options)', () => {
   it('should create a temporary directory and return the path to it', () => {
@@ -36,6 +35,17 @@ describe('makeTempDir(relativePath:string, options)', () => {
 
     expect(subDirPath.startsWith(path.join(tmpDir, subDirName))).toBe(true);
     expect(subDirPath.endsWith(subDirName)).toBe(false);
+  });
+
+  it('can have no relative path, if a random suffix or time stamp is enabled', () => {
+    expect(() => makeTempDir('', { baseDir, addRandomSuffix: true })).not.toThrow();
+    expect(() => makeTempDir('', { baseDir, dateTimeFormat: 'compact' })).not.toThrow();
+  });
+
+  it('when the relative path is empty and the random-suffix & time-stamp options are disabled, should throw', () => {
+    expect(() => {
+      makeTempDir('', { baseDir });
+    }).toThrow();
   });
 
   it('when `disallowExisting: true` and the directory already exists, should throw an error', () => {
