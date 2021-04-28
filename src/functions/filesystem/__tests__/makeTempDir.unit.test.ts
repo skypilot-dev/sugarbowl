@@ -38,6 +38,17 @@ describe('makeTempDir(relativePath:string, options)', () => {
     expect(subDirPath.endsWith(subDirName)).toBe(false);
   });
 
+  it('can have no relative path, if a random suffix or time stamp is enabled', () => {
+    expect(() => makeTempDir('', { baseDir, addRandomSuffix: true })).not.toThrow();
+    expect(() => makeTempDir('', { baseDir, dateTimeFormat: 'compact' })).not.toThrow();
+  });
+
+  it('when the relative path is empty and the random-suffix & time-stamp options are disabled, should throw', () => {
+    expect(() => {
+      makeTempDir('', { baseDir });
+    }).toThrow();
+  });
+
   it('when `disallowExisting: true` and the directory already exists, should throw an error', () => {
     const subDirName = 'test2';
 
