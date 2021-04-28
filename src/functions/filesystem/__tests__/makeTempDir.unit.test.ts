@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 import { makeTempDir } from '../makeTempDir';
-import { rmDir } from '../rmDir';
 import { wipeDir } from '../wipeDir';
 
 const baseDir = 'makeTempDir';
@@ -10,7 +9,7 @@ const baseDir = 'makeTempDir';
 /* Create a single directory in which to create any other directories */
 const tmpDir = makeTempDir(baseDir);
 beforeAll(() => fs.existsSync(tmpDir) && wipeDir(tmpDir));
-afterAll(() => fs.existsSync(tmpDir) && rmDir(tmpDir));
+afterAll(() => fs.existsSync(tmpDir) && fs.rmdirSync(tmpDir, { recursive: true }));
 
 describe('makeTempDir(relativePath:string, options)', () => {
   it('should create a temporary directory and return the path to it', () => {

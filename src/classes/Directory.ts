@@ -5,8 +5,6 @@ import util from 'util';
 import { wipeDir } from 'src/functions';
 import type { WipeDirOptions } from 'src/functions';
 import { isDefined } from 'src/functions/indefinite/isDefined';
-import { rmDir } from 'src/functions/filesystem/rmDir';
-import { rmDirSync } from 'src/functions/filesystem/rmDirSync';
 
 export type DirectoryLike = string | string [] | Directory;
 
@@ -102,11 +100,11 @@ export class Directory {
   }
 
   async remove(): Promise<void> {
-    return rmDir(this.fullPath);
+    return util.promisify(fs.rmdir)(this.fullPath, { recursive: true });
   }
 
   removeSync(): void {
-    return rmDirSync(this.dirPathRoot);
+    return fs.rmdirSync(this.dirPathRoot, { recursive: true });
   }
 
   async wipe(options: WipeDirOptions = {}): Promise<void> {
