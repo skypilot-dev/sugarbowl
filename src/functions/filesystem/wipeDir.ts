@@ -3,7 +3,7 @@ import path from 'path';
 import util from 'util';
 import { rmDir } from './rmDir';
 
-type WipeDirOptions = {
+export type WipeDirOptions = {
   recursive?: boolean;
 }
 

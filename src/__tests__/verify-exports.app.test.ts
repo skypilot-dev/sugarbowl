@@ -103,7 +103,12 @@ const intendedExports: string[] = [
   'trimLeft',
   'trimRight',
 
+  /* Test helpers */
+  'makeTestsDir',
+  'makeTestRunDir',
+
   /* Classes */
+  'Directory',
   'StringCounter',
   'ValidationResult',
 ];
