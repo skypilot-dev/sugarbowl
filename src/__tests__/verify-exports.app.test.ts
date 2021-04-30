@@ -37,6 +37,7 @@ const intendedExports: string[] = [
   'deleteFile',
   'findPackageFileDir',
   'findUpTree',
+  'getFileSystemRoot',
   'listFilesSync',
   'makeTempDir',
   'readPackageFile',

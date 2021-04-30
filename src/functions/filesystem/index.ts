@@ -5,6 +5,7 @@ export { composeFileName } from './composeFileName';
 export { deleteFile } from './deleteFile';
 export { findPackageFileDir } from './findPackageFileDir';
 export { findUpTree } from './findUpTree';
+export { getFileSystemRoot } from './getFileSystemRoot';
 export { listFilesSync } from './listFilesSync';
 export type { ListFilesOptions } from './listFilesSync';
 export { makeTempDir } from './makeTempDir';

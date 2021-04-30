@@ -53,6 +53,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `deleteFile`
 -   `findPackageFileDir`
 -   `findUpTree`
+-   `getFileSystemRoot`
 -   `listFilesSync`
 -   `makeTempDir`
 -   `readPackageFile`
