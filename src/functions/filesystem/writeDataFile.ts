@@ -2,10 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import { beautify } from 'src/functions/string/beautify';
 import type { BeautifyOptions } from 'src/functions/string/beautify';
-import { pushIf } from '../array';
-import { slugifyDateTime } from '../date/slugifyDateTime';
-import type { SlugifyDateTimeOptions, SlugifyDateTimePresetCode } from '../date/slugifyDateTime';
-import { inflectByNumber } from '../string';
+import { inflectByNumber, pushIf } from 'src/functions';
+import { slugifyDateTime } from 'src/functions/date/slugifyDateTime';
+import type { SlugifyDateTimeOptions, SlugifyDateTimePresetCode } from 'src/functions/date/slugifyDateTime';
 
 export type WriteDataFileOptions = {
   basePath?: string;
