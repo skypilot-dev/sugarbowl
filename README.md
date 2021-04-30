@@ -48,6 +48,7 @@ carry the overhead of checking argument types or handling type coercion.
 ### Filesystem functions
 
 -   `checkIsChildPath(targetPath: string | string[], referencePath: string | string[]): boolean`
+-   `checkIsInBoundary(targetPath: string | string[], boundaryPath: string | string[], scope): boolean`
 -   `composeFileName`
 -   `deleteFile`
 -   `findPackageFileDir`

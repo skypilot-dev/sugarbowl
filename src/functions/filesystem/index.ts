@@ -1,4 +1,5 @@
 export { checkIsChildPath } from './checkIsChildPath';
+export { checkIsInBoundary } from './checkIsInBoundary';
 export { composeFileName } from './composeFileName';
 export { deleteFile } from './deleteFile';
 export { findPackageFileDir } from './findPackageFileDir';

@@ -32,6 +32,7 @@ const intendedExports: string[] = [
 
   /* Filesystem functions */
   'checkIsChildPath',
+  'checkIsInBoundary',
   'composeFileName',
   'deleteFile',
   'findPackageFileDir',
