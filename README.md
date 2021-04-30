@@ -56,8 +56,10 @@ carry the overhead of checking argument types or handling type coercion.
 -   `listFilesSync`
 -   `makeTempDir`
 -   `readPackageFile`
+-   `safeWipe`
+-   `safeWipeSync`
 -   `toPath(pathLike: string | string[]): string`
--   `wipeDir`
+-   `wipeDir` **deprecated**
 -   `writeDataFile`
 -   `writePackageFile`
 
@@ -131,6 +133,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 ### Test helpers
 
+-   `makeTestDir`
 -   `makeTestRunDir`
 -   `makeTestsDir`
 

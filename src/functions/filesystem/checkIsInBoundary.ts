@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { toArray } from '../array';
+import { includeIf, toArray } from '../array';
 import { checkIsChildPath } from './checkIsChildPath';
 import { PathLike, toPath } from './toPath';
 
@@ -12,9 +12,13 @@ export interface FileSystemBoundary {
 
 export type FileSystemScope = 'children' | 'self';
 
-export function checkIsInBoundary(
-  targetPath: PathLike, boundary: FileSystemBoundary
-): boolean {
+function boundariesToString(boundaries: FileSystemBoundary[]): string {
+  return boundaries.length === 1
+    ? boundaries[0].path
+    : `${boundaries.map(boundary => `\n  ${describeBoundary(boundary)}`).join('')}`;
+}
+
+function checkBoundary(targetPath: PathLike, boundary: FileSystemBoundary): boolean {
   // Normalize arguments
   const boundaryFullPath = toPath(boundary.path);
   const targetFullPath = toPath(targetPath);
@@ -29,9 +33,19 @@ export function checkIsInBoundary(
   return false;
 }
 
-// For use in error messages, for example
-export function boundariesToString(boundaries: FileSystemBoundary[]): string {
-  return boundaries.length === 1
-    ? boundaries[0].path
-    : `[${boundaries.map(boundary => `\n\t${boundary.path}`)}\n]`;
+function describeBoundary(boundary: FileSystemBoundary): string {
+  const boundaryPath = path.resolve(boundary.path);
+  return [
+    ...includeIf(boundary.scope?.includes('self'), boundaryPath),
+    ...includeIf(boundary.scope?.includes('children'), `${boundaryPath}/*`),
+  ].join(' ');
+}
+
+export function makeBoundaryErrorMessage(dirPath: string, operation: string, boundaries: FileSystemBoundary[]): string {
+  return `Cannot ${operation} '${dirPath}'; the path is outside the permitted boundary: ${boundariesToString(boundaries)}`;
+}
+
+export function checkIsInBoundary(targetPath: PathLike, boundary: FileSystemBoundary | FileSystemBoundary[]): boolean {
+  const boundaries = toArray(boundary);
+  return boundaries.some(b => checkBoundary(targetPath, b));
 }

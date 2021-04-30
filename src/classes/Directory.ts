@@ -2,23 +2,35 @@ import fs from 'fs';
 import path from 'path';
 import util from 'util';
 
-import { wipeDir } from 'src/functions';
-import type { WipeDirOptions } from 'src/functions';
+import { safeWipe, safeWipeSync } from 'src/functions';
+import type { FileSystemBoundary, PathLike, SafeWipeOptions, SafeWipeResult } from 'src/functions';
 import { isDefined } from 'src/functions/indefinite/isDefined';
+import { defaultSafeWipeBoundaries } from '../functions/filesystem/_constants';
 
-export type DirectoryLike = string | string [] | Directory;
+export type DirectoryLike = PathLike | Directory;
 
 interface DirectoryOptions {
   baseDir?: DirectoryLike;
+  protect?: boolean;
+  safeWipeBoundaries?: FileSystemBoundary[];
 }
 
+export interface DirectoryProtectionOptions {
+  unprotect?: boolean;
+}
+
+export type DirectoryWipeOptions = SafeWipeOptions & DirectoryProtectionOptions;
+
 export class Directory {
+  isProtected: boolean; // if true, protect from wiping and deletion unless `force: true` is passed
+  safeWipeBoundaries: FileSystemBoundary[];
+
   private readonly _baseDirPath: string; // path to `baseDir`
   private readonly _dirPath: string; // as originally specified relative to `baseDir`
   private readonly _fullPath: string;
 
   constructor(dirPath: DirectoryLike, options: DirectoryOptions = {}) {
-    const { baseDir } = options;
+    const { baseDir, protect = false, safeWipeBoundaries = defaultSafeWipeBoundaries } = options;
 
     const stringDirPath = Directory.toPath(dirPath);
     if (!stringDirPath) {
@@ -31,6 +43,8 @@ export class Directory {
     this._baseDirPath = basePath;
     this._dirPath = stringDirPath;
     this._fullPath = path.resolve(basePath, stringDirPath);
+    this.isProtected = protect;
+    this.safeWipeBoundaries = safeWipeBoundaries;
   }
 
   static resolve(dir: DirectoryLike): string {
@@ -69,6 +83,10 @@ export class Directory {
     return this._fullPath;
   }
 
+  get relativePath(): string {
+    return path.relative(path.resolve(), this.fullPath);
+  }
+
   get shortestPathFromBaseDir(): string {
     const relativePath = path.relative(this._baseDirPath, this._fullPath);
     return this._fullPath.length < relativePath.length ? this._fullPath
@@ -89,6 +107,10 @@ export class Directory {
     return fs.existsSync(this.fullPath);
   }
 
+  join(targetPath: DirectoryLike): string {
+    return path.join(this.fullPath, Directory.toPath(targetPath));
+  }
+
   async make(): Promise<Directory> {
     await util.promisify(fs.mkdir)(this.fullPath, { recursive: true });
     return this;
@@ -99,15 +121,31 @@ export class Directory {
     return this;
   }
 
-  async remove(): Promise<void> {
-    return util.promisify(fs.rmdir)(this.fullPath, { recursive: true });
+  resolve(targetPath: DirectoryLike): string {
+    return path.resolve(this.fullPath, Directory.toPath(targetPath));
   }
 
-  removeSync(): void {
-    return fs.rmdirSync(this.dirPathRoot, { recursive: true });
+  async safeWipe(options: DirectoryWipeOptions = {}): Promise<SafeWipeResult> {
+    const { unprotect = false, ...safeWipeOptions } = options;
+    if (this.isProtected && !unprotect) {
+      const result = await safeWipe(this.fullPath, { dryRun: true });
+      return {
+        ...result,
+        status: result.status === 'dry run' ? 'protected' : result.status,
+      };
+    }
+    return safeWipe(this.fullPath, safeWipeOptions);
   }
 
-  async wipe(options: WipeDirOptions = {}): Promise<void> {
-    return wipeDir(this.fullPath, options);
+  safeWipeSync(options: DirectoryWipeOptions = {}): SafeWipeResult {
+    const { unprotect = false, ...safeWipeOptions } = options;
+    if (this.isProtected && !unprotect) {
+      const result = safeWipeSync(this.fullPath, { dryRun: true });
+      return {
+        ...result,
+        status: result.status === 'dry run' ? 'protected' : result.status,
+      };
+    }
+    return safeWipeSync(this.fullPath, safeWipeOptions);
   }
 }

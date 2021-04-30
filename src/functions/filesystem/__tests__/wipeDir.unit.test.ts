@@ -1,42 +1,21 @@
 import fs from 'fs';
-import path from 'path';
 
-import { Directory } from 'src/classes';
-import { makeTestRunDir, makeTestsDir } from 'src/functions';
+import { makeTestRunDir } from 'src/functions';
 import { wipeDir } from '../wipeDir';
+import { makeDirForSafeWipe } from './helpers/makeDirForSafeWipe';
 
-const testRunDir = makeTestRunDir(makeTestsDir(), 'wipeDir.unit');
-const testDir = new Directory('wipeDir', { baseDir: testRunDir });
+const testRunDir = makeTestRunDir('wipeDir.unit');
 
-beforeAll(() => {
-  testDir.makeSync();
-});
+// This test is skipped because it lacks the safety features of the replacement function, `safeWipe`
 
-afterAll(() => {
-  testDir.removeSync();
-});
-
-describe('wipeDir', () => {
+describe.skip('wipeDir', () => {
   it('should delete all files and directories in the directory but not the directory itself', async () => {
-    /* Create a subdir */
-    const subDirPath = path.join(testDir.fullPath, 'subdir');
-    const filePath = path.join(subDirPath, 'test.file.txt');
-    fs.mkdirSync(subDirPath, { recursive: true });
-
-    /* Write some data to a file */
-    if (!fs.existsSync(filePath)) {
-      fs.writeFileSync(
-        filePath, 'test data for src/functions/filesystem/__tests__/wipeDir.unit.test.ts'
-      );
-    }
-
-    /* Check that the file exists */
-    expect(fs.existsSync(filePath)).toBe(true);
+    const { baseDir, baseFilePath, subDir } = makeDirForSafeWipe('basic', testRunDir);
 
     /* Wipe the directory */
-    await wipeDir(testDir.fullPath, { recursive: true });
+    await wipeDir(baseDir.fullPath, { recursive: true });
 
-    expect(fs.existsSync(filePath)).toBe(false);
-    expect(fs.existsSync(subDirPath)).toBe(false);
+    expect(fs.existsSync(baseFilePath)).toBe(false);
+    expect(fs.existsSync(subDir.fullPath)).toBe(false);
   });
 });

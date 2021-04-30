@@ -40,6 +40,8 @@ const intendedExports: string[] = [
   'listFilesSync',
   'makeTempDir',
   'readPackageFile',
+  'safeWipe',
+  'safeWipeSync',
   'toPath',
   'wipeDir',
   'writeDataFile',
@@ -107,6 +109,7 @@ const intendedExports: string[] = [
   'trimRight',
 
   /* Test helpers */
+  'makeTestDir',
   'makeTestsDir',
   'makeTestRunDir',
 

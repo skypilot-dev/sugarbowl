@@ -1,5 +1,6 @@
 export { checkIsChildPath } from './checkIsChildPath';
 export { checkIsInBoundary } from './checkIsInBoundary';
+export type { FileSystemBoundary } from './checkIsInBoundary';
 export { composeFileName } from './composeFileName';
 export { deleteFile } from './deleteFile';
 export { findPackageFileDir } from './findPackageFileDir';
@@ -10,7 +11,9 @@ export { makeTempDir } from './makeTempDir';
 export { toPath } from './toPath';
 export type { PathLike } from './toPath';
 export { readPackageFile } from './readPackageFile';
+export { safeWipe } from './safeWipe';
+export type { SafeWipeOptions, SafeWipeResult } from './safeWipe';
+export { safeWipeSync } from './safeWipeSync';
 export { wipeDir } from './wipeDir';
-export type { WipeDirOptions } from './wipeDir';
 export { writeDataFile } from './writeDataFile';
 export { writePackageFile } from './writePackageFile';
