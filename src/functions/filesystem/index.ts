@@ -14,6 +14,5 @@ export { readPackageFile } from './readPackageFile';
 export { safeWipe } from './safeWipe';
 export type { SafeWipeOptions, SafeWipeResult } from './safeWipe';
 export { safeWipeSync } from './safeWipeSync';
-export { wipeDir } from './wipeDir';
 export { writeDataFile } from './writeDataFile';
 export { writePackageFile } from './writePackageFile';

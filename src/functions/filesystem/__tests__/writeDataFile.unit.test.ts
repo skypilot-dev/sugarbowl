@@ -1,7 +1,7 @@
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
-import { wipeDir } from '../wipeDir';
+import { safeWipe } from '../safeWipe';
 import { writeDataFile } from '../writeDataFile';
 
 /* TODO: Test output by mocking stdout. */
@@ -9,12 +9,12 @@ import { writeDataFile } from '../writeDataFile';
 const tmpDir = path.join(os.tmpdir(), 'writeDataFile-test');
 
 beforeEach(async () => {
-  await wipeDir(tmpDir, { recursive: true });
+  await safeWipe(tmpDir, { recursive: true });
   await fs.promises.mkdir(tmpDir, { recursive: true });
 });
 
 afterAll(async () => {
-  await wipeDir(tmpDir, { recursive: true });
+  await safeWipe(tmpDir, { recursive: true });
 });
 
 describe('writeDataFile(data, filePath, options?)', () => {

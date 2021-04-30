@@ -43,7 +43,6 @@ const intendedExports: string[] = [
   'safeWipe',
   'safeWipeSync',
   'toPath',
-  'wipeDir',
   'writeDataFile',
   'writePackageFile',
 

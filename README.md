@@ -59,7 +59,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `safeWipe`
 -   `safeWipeSync`
 -   `toPath(pathLike: string | string[]): string`
--   `wipeDir` **deprecated**
+-   `wipeDir` **Removed in v4.0.0**
 -   `writeDataFile`
 -   `writePackageFile`
 
