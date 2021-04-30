@@ -31,6 +31,7 @@ const intendedExports: string[] = [
   'truncateIsoDateTime',
 
   /* Filesystem functions */
+  'checkIsChildPath',
   'composeFileName',
   'deleteFile',
   'findPackageFileDir',
@@ -38,6 +39,7 @@ const intendedExports: string[] = [
   'listFilesSync',
   'makeTempDir',
   'readPackageFile',
+  'toPath',
   'wipeDir',
   'writeDataFile',
   'writePackageFile',

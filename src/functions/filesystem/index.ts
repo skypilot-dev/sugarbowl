@@ -1,3 +1,4 @@
+export { checkIsChildPath } from './checkIsChildPath';
 export { composeFileName } from './composeFileName';
 export { deleteFile } from './deleteFile';
 export { findPackageFileDir } from './findPackageFileDir';
@@ -5,6 +6,8 @@ export { findUpTree } from './findUpTree';
 export { listFilesSync } from './listFilesSync';
 export type { ListFilesOptions } from './listFilesSync';
 export { makeTempDir } from './makeTempDir';
+export { toPath } from './toPath';
+export type { PathLike } from './toPath';
 export { readPackageFile } from './readPackageFile';
 export { wipeDir } from './wipeDir';
 export type { WipeDirOptions } from './wipeDir';

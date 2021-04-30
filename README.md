@@ -47,6 +47,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 ### Filesystem functions
 
+-   `checkIsChildPath(targetPath: string | string[], referencePath: string | string[]): boolean`
 -   `composeFileName`
 -   `deleteFile`
 -   `findPackageFileDir`
@@ -54,6 +55,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `listFilesSync`
 -   `makeTempDir`
 -   `readPackageFile`
+-   `toPath(pathLike: string | string[]): string`
 -   `wipeDir`
 -   `writeDataFile`
 -   `writePackageFile`
