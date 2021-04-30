@@ -152,19 +152,4 @@ describe('writeDataFile(data, filePath, options?)', () => {
       overwrite: true,
     })).resolves.not.toThrow();
   });
-
-  it('should overwrite a file that exists if `wipeDir: true`', async () => {
-    const data = ['a'];
-
-    await writeDataFile(data, '/parent-dir/fileName', {
-      basePath: tmpDir,
-    });
-
-    return expect(writeDataFile(data, '/parent-dir/fileName', {
-      dateTimeFormat: 'humanized',
-      basePath: tmpDir,
-      label: 'survey-response',
-      wipeDir: true,
-    })).resolves.not.toThrow();
-  });
 });

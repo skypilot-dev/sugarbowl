@@ -6,7 +6,6 @@ import { pushIf } from '../array';
 import { slugifyDateTime } from '../date/slugifyDateTime';
 import type { SlugifyDateTimeOptions, SlugifyDateTimePresetCode } from '../date/slugifyDateTime';
 import { inflectByNumber } from '../string';
-import { safeWipe } from './safeWipe';
 
 export type WriteDataFileOptions = {
   basePath?: string;
@@ -17,7 +16,6 @@ export type WriteDataFileOptions = {
   label?: string;
   overwrite?: boolean;
   verbose?: boolean;
-  wipeDir?: boolean;
 }
 
 export type WriteDataFileResult<T> = {
@@ -53,7 +51,6 @@ export async function writeDataFile<T>(
     label,
     overwrite,
     verbose,
-    wipeDir,
   } = options;
 
   const unresolvedFilePath = `${basePath}${filePath}`;
@@ -64,9 +61,6 @@ export async function writeDataFile<T>(
   const dirPath = path.resolve(baseDirPath);
 
   if (!dryRun) {
-    if (wipeDir) {
-      await safeWipe(dirPath, { recursive: true });
-    }
     await fs.promises.mkdir(dirPath, { recursive: true });
   }
 
