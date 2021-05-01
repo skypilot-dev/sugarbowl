@@ -9,8 +9,8 @@ export function unixPathToOsPath(filePath: PathLike): string {
   const isAbsolute = unixPath.startsWith('/');
 
   const elements = isAbsolute
-    ? unixPath.split('/')
-    : unixPath.slice(1).split('/');
+    ? unixPath.slice(1).split('/')
+    : unixPath.split('/');
 
   return [
     ...includeIf(isAbsolute, getFileSystemRoot()),
