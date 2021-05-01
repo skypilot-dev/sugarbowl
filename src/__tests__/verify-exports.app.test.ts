@@ -31,16 +31,21 @@ const intendedExports: string[] = [
   'truncateIsoDateTime',
 
   /* Filesystem functions */
+  'checkIsChildPath',
+  'checkIsInBoundary',
   'composeFileName',
-  'deleteFile',
+  'deleteFileSync',
   'findPackageFileDir',
   'findUpTree',
+  'getFileSystemRoot',
   'listFilesSync',
   'makeTempDir',
-  'readPackageFile',
-  'wipeDir',
+  'readPackageFileSync',
+  'safeWipe',
+  'safeWipeSync',
+  'toPath',
   'writeDataFile',
-  'writePackageFile',
+  'writePackageFileSync',
 
   /* Higher-order functions */
   'curry',
@@ -104,6 +109,7 @@ const intendedExports: string[] = [
   'trimRight',
 
   /* Test helpers */
+  'makeTestDir',
   'makeTestsDir',
   'makeTestRunDir',
 

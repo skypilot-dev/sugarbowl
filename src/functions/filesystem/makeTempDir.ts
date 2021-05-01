@@ -1,22 +1,33 @@
+/* eslint-disable no-console */
+
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
 
-import { toArray } from '../array';
-import { DateTimeStampOptions, DateTimeStampPresetCode, makeDateTimeStamp } from '../date';
-import { randomAlphanumeric } from '../string';
-import { composeFileName } from './composeFileName';
+import { composeFileName, makeDateTimeStamp, randomAlphanumeric, toArray, toPath } from 'src/functions';
+import type { DateTimeStampOptions, DateTimeStampPresetCode, PathLike } from 'src/functions';
 
 interface MakeTempDirOptions {
   addRandomSuffix?: boolean;
-  baseDir?: string | string[];
+  baseDir?: PathLike;
   dateTimeFormat?: DateTimeStampPresetCode | DateTimeStampOptions | null | undefined;
   disallowExisting?: boolean;
+  dryRun?: boolean;
   separator?: string;
+  verbose?: boolean;
 }
 
-export function makeTempDir(relativePath = '', options: MakeTempDirOptions = {}): string {
-  const { baseDir = [], dateTimeFormat, disallowExisting, addRandomSuffix, separator = '_' } = options;
+// Create a directory in the operating system's temporary-files directory and return its full path
+export function makeTempDir(relativePath: PathLike = '', options: MakeTempDirOptions = {}): string {
+  const {
+    addRandomSuffix,
+    baseDir = [],
+    dateTimeFormat,
+    disallowExisting,
+    dryRun = false,
+    separator = '_',
+    verbose = false,
+  } = options;
 
   /* TODO: Validate the relative path */
   if (!relativePath && !dateTimeFormat && !addRandomSuffix) {
@@ -27,9 +38,9 @@ export function makeTempDir(relativePath = '', options: MakeTempDirOptions = {})
 
   const tmpDir = os.tmpdir();
   const subDir = composeFileName([
-    ...(relativePath ? [relativePath] : []),
+    ...(relativePath ? [toPath(relativePath)] : []),
     ...(dateTimeFormat ? [makeDateTimeStamp(dateTimeFormat)] : []),
-    ...(addRandomSuffix ? [randomAlphanumeric()] : []),
+    ...(addRandomSuffix ? [randomAlphanumeric(4)] : []),
   ], { separator });
   const dirPath = path.resolve(
     tmpDir,
@@ -37,12 +48,22 @@ export function makeTempDir(relativePath = '', options: MakeTempDirOptions = {})
     subDir
   );
 
-  if (fs.existsSync(dirPath)) {
+  const dirExists = fs.existsSync(dirPath);
+  if (dirExists) {
     if (disallowExisting) {
       throw new Error(`The subdirectory '${subDir}' already exists`);
     }
   } else {
-    fs.mkdirSync(dirPath, { recursive: true });
+    if (!dryRun) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
+  }
+  if (verbose) {
+    if (dirExists) {
+      console.info(`Reusing temporary directory: '${dirPath}'`);
+    } else {
+      console.info(`Temporary directory created: '${dirPath}'`);
+    }
   }
   return dirPath;
 }

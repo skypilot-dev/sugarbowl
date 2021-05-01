@@ -1,23 +1,25 @@
 import fs from 'fs';
 import path from 'path';
+
+import { Directory } from 'src/classes';
+import type { DirectoryLike } from 'src/classes';
+import type { DateTimeStampOptions, DateTimeStampPresetCode, PathLike } from 'src/functions';
 import { beautify } from 'src/functions/string/beautify';
 import type { BeautifyOptions } from 'src/functions/string/beautify';
-import { pushIf } from '../array';
-import { slugifyDateTime } from '../date/slugifyDateTime';
-import type { SlugifyDateTimeOptions, SlugifyDateTimePresetCode } from '../date/slugifyDateTime';
-import { inflectByNumber } from '../string';
-import { wipeDir } from './wipeDir';
+import { composeFileName, inflectByNumber, makeDateTimeStamp, pushIf } from 'src/functions';
+
+// TODO: Harmonize with the `WriteFileResult` interface
 
 export type WriteDataFileOptions = {
+  baseDir?: DirectoryLike;
   basePath?: string;
   beautifyOptions?: BeautifyOptions;
-  dateTimeFormat?: SlugifyDateTimeOptions | SlugifyDateTimePresetCode;
+  dateTimeFormat?: DateTimeStampOptions | DateTimeStampPresetCode;
   dryRun?: boolean;
   identifier?: string;
   label?: string;
   overwrite?: boolean;
   verbose?: boolean;
-  wipeDir?: boolean;
 }
 
 export type WriteDataFileResult<T> = {
@@ -34,7 +36,7 @@ export type WriteDataFileResult<T> = {
 
 /* Given a blob of data, write it to a standardized location under a standardized file name. */
 export async function writeDataFile<T>(
-  data: T, filePath: string, options: WriteDataFileOptions = {}
+  data: T, filePath: PathLike, options: WriteDataFileOptions = {}
 ): Promise<WriteDataFileResult<T>> {
   if (!filePath) {
     throw new Error('`filePath` cannot be empty');
@@ -45,7 +47,7 @@ export async function writeDataFile<T>(
   }
 
   const {
-    basePath = '',
+    baseDir,
     beautifyOptions,
     dateTimeFormat,
     dryRun,
@@ -53,51 +55,53 @@ export async function writeDataFile<T>(
     label,
     overwrite,
     verbose,
-    wipeDir: wipeRequested,
   } = options;
 
-  const unresolvedFilePath = `${basePath}${filePath}`;
+  const pathElements = [
+    Directory.toPath(baseDir || path.resolve()),
+    Directory.toPath(filePath),
+  ];
 
-  const bareFileName = path.basename(unresolvedFilePath, '.json');
-  const baseDirPath = path.dirname(unresolvedFilePath);
-
-  const dirPath = path.resolve(baseDirPath);
+  const initialFullPath = path.resolve(...pathElements);
+  const initialFileName = path.basename(initialFullPath);
+  const dirPath = path.dirname(initialFullPath);
 
   if (!dryRun) {
-    if (wipeRequested) {
-      await wipeDir(dirPath, { recursive: true });
-    }
     await fs.promises.mkdir(dirPath, { recursive: true });
   }
 
   /* Construct a file name that optionally includes an identifier and/or timestamp. */
-  const fileNameElements: string[] = [bareFileName];
+  const fileNameElements: string[] = [initialFileName];
   const isoDateTime = new Date().toISOString();
   if (identifier) {
     fileNameElements.push(identifier);
   }
   if (dateTimeFormat) {
-    fileNameElements.push(slugifyDateTime(new Date(), dateTimeFormat));
+    const dateTimeOptions = typeof dateTimeFormat === 'string'
+      ? { dateTime: isoDateTime, presetCode: dateTimeFormat }
+      : { dateTime: isoDateTime, ...dateTimeFormat };
+    fileNameElements.push(makeDateTimeStamp(dateTimeOptions));
   }
 
-  /* TODO: Support other file formats, including JavaScript and TypeScript. */
+  /* TODO: Support other file formats, including CSV, JavaScript & TypeScript. */
   const extension = '.json';
+  fileNameElements.push(extension);
 
-  const finalFileName = `${fileNameElements.join('-')}${extension}`;
-  const finalFilePath = path.join(path.resolve(dirPath), finalFileName);
-  const relativePath = path.relative(path.resolve(), finalFilePath);
-  const shortestPath = relativePath.length < finalFilePath.length ? relativePath : finalFilePath;
+  const finalFileName = composeFileName(fileNameElements);
+  const finalFullPath = path.join(dirPath, finalFileName);
+  const relativePath = path.relative(path.resolve(), finalFullPath);
+  const shortestPath = relativePath.length < finalFullPath.length ? relativePath : finalFullPath;
 
   let overwritten = false;
   if (!dryRun) {
-    if (fs.existsSync(finalFilePath)) {
+    if (fs.existsSync(finalFullPath)) {
       if (overwrite) {
         overwritten = true;
       } else {
         return Promise.reject(new Error(`The file '${shortestPath}' already exists`));
       }
     }
-    await fs.promises.writeFile(finalFilePath, beautify(data, beautifyOptions), { encoding: 'utf-8' });
+    await fs.promises.writeFile(finalFullPath, beautify(data, beautifyOptions), { encoding: 'utf-8' });
   }
 
   const descriptionElements: string[] = [];
@@ -119,12 +123,12 @@ export async function writeDataFile<T>(
   return {
     data,
     fileName: finalFileName,
-    fullPath: finalFilePath,
+    fullPath: finalFullPath,
     isoDateTime,
     operation,
     operationWithPath,
     overwritten,
-    relativePath: path.relative(path.resolve(), finalFilePath),
+    relativePath: path.relative(path.resolve(), finalFullPath),
     shortestPath,
   };
 }

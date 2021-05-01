@@ -2,23 +2,20 @@ import fs from 'fs';
 import path from 'path';
 import util from 'util';
 
-import { makeTestRunDir, makeTestsDir } from 'src/functions';
+import { makeTestDir, makeTestRunDir } from 'src/functions';
+import { makeDirForSafeWipe } from 'src/functions/filesystem/__tests__/helpers/makeDirForSafeWipe';
 import { Directory } from '../Directory';
 
-const testRunDir = makeTestRunDir(makeTestsDir(), 'Directory.unit');
-
-afterAll(() => {
-  testRunDir.removeSync();
-});
+const testRunDir = makeTestRunDir('Directory.unit');
 
 describe('Directory class', () => {
   describe('instantiation', () => {
     it('should correctly set dirPath, fullPath & baseDirPath upon instantiation', async () => {
-      const testDir = new Directory('instantiation', { baseDir: testRunDir });
-      expect(testDir.baseName).toBe('instantiation');
-      expect(testDir.baseDirPath).toBe(testRunDir.fullPath);
-      expect(testDir.dirPath).toBe('instantiation');
-      expect(testDir.fullPath).toBe(path.resolve(testRunDir.fullPath, 'instantiation'));
+      const dir = new Directory('dir', { baseDir: testRunDir });
+      expect(dir.baseName).toBe('dir');
+      expect(dir.baseDirPath).toBe(testRunDir.fullPath);
+      expect(dir.dirPath).toBe('dir');
+      expect(dir.fullPath).toBe(path.resolve(testRunDir.fullPath, 'dir'));
     });
 
     it('given an empty dirPath, should throw', async () => {
@@ -57,7 +54,8 @@ describe('Directory class', () => {
 
   describe('make()', () => {
     it('should create the directory asynchronously', async () => {
-      const dir = await new Directory('make', { baseDir: testRunDir }).make();
+      const testDir = makeTestDir('make', testRunDir);
+      const dir = await new Directory('dir', { baseDir: testDir }).make();
       await expect(util.promisify(fs.exists)(dir.fullPath)).resolves.toBe(true);
       await expect(dir.exists()).resolves.toBe(true);
     });
@@ -65,63 +63,50 @@ describe('Directory class', () => {
 
   describe('makeSync()', () => {
     it('should create the directory synchronously', async () => {
-      const dir = new Directory('make-sync', { baseDir: testRunDir }).makeSync();
+      const testDir = makeTestDir('makeSync', testRunDir);
+      const dir = new Directory('dir', { baseDir: testDir }).makeSync();
       expect(fs.existsSync(dir.fullPath)).toBe(true);
       expect(dir.existsSync()).toBe(true);
     });
   });
 
-  describe('remove()', () => {
-    it('should remove the directory asynchronously', async () => {
-      const dir = await new Directory('remove', { baseDir: testRunDir }).make();
-      await expect(
-        util.promisify(fs.exists)(dir.fullPath)
-      ).resolves.toBe(true);
-      await expect(
-        dir.exists()
-      ).resolves.toBe(true);
+  describe('safeWipe(:SafeWipeOptions)', () => {
+    it("unless `recursive?: false`, should remove the directory's files but not its subdirectories", async () => {
+      // Create a directory & subdirectory
+      const { baseDir, baseFilePath, subDir, subFilePath } = makeDirForSafeWipe('safeWipe', testRunDir);
+
+      // Wipe the directory
+      await baseDir.safeWipe();
+
+      expect(fs.existsSync(baseFilePath)).toBe(false);
+      expect(fs.existsSync(subFilePath)).toBe(true);
+
+      // Wipe the directory recursively
+      await baseDir.safeWipe({ recursive: true });
+
+      expect(fs.existsSync(baseDir.fullPath)).toBe(true);
+      expect(fs.existsSync(baseFilePath)).toBe(false);
+      expect(fs.existsSync(subDir.fullPath)).toBe(false);
     });
   });
 
-  describe('wipe(:WipeDirOptions)', () => {
-    it('should delete all files, but not directories, in the directory, unless `recursive: true`', async () => {
+  describe('safeWipeSync(:SafeWipeOptions)', () => {
+    it("unless `recursive?: false`, should remove the directory's files but not its subdirectories", () => {
       // Create a directory & subdirectory
-      const dir = await new Directory('wipe', { baseDir: testRunDir }).make();
-      const subDir = await new Directory('subdir', { baseDir: dir }).make();
-
-      // Create files in the directory & subdirectory
-      const dirFilePaths = [path.join(dir.fullPath, 'file1.txt')];
-      const subDirFilePaths = [path.join(subDir.fullPath, 'file2.txt'), path.join(subDir.fullPath, 'file3.txt')];
-      const filePaths = [dirFilePaths, subDirFilePaths].flat();
-
-      expect.assertions(11);
-
-      filePaths.forEach(filePath => {
-        fs.writeFileSync(filePath, 'sample content');
-        expect(fs.existsSync(filePath)).toBe(true);
-      });
-
+      const { baseDir, baseFilePath, subDir, subFilePath } = makeDirForSafeWipe('safeWipeSync', testRunDir);
 
       // Wipe the directory
-      await dir.wipe();
+      baseDir.safeWipeSync();
 
-      // Confirm that the files in the directory no longer exists, but the files in the subdirectory do
-      dirFilePaths.forEach(filePath => {
-        expect(fs.existsSync(filePath)).toBe(false);
-      });
-      subDirFilePaths.forEach(filePath => {
-        expect(fs.existsSync(filePath)).toBe(true);
-      });
+      expect(fs.existsSync(baseFilePath)).toBe(false);
+      expect(fs.existsSync(subFilePath)).toBe(true);
 
       // Wipe the directory recursively
-      await dir.wipe({ recursive: true });
+      baseDir.safeWipeSync({ recursive: true });
 
-      // Confirm that neither the subdirectory nor the files exist
+      expect(fs.existsSync(baseDir.fullPath)).toBe(true);
+      expect(fs.existsSync(baseFilePath)).toBe(false);
       expect(fs.existsSync(subDir.fullPath)).toBe(false);
-      expect(subDir.existsSync()).toBe(false);
-      filePaths.forEach(filePath => {
-        expect(fs.existsSync(filePath)).toBe(false);
-      });
     });
   });
 
@@ -140,10 +125,18 @@ describe('Directory class', () => {
 
   describe('dirPathRoot', () => {
     it('should return the full path to the first segment in the path', () => {
-      const relPath = ['dirPathRoot', 'pathChild'];
-      const dir = new Directory(relPath);
+      {
+        const relPath = 'dirPathRoot';
+        const dir = new Directory(relPath);
 
-      expect(dir.dirPathRoot).toBe(path.resolve('dirPathRoot'));
+        expect(dir.dirPathRoot).toBe(path.resolve('dirPathRoot'));
+      }
+      {
+        const relPath = ['dirPathRoot', 'pathChild'];
+        const dir = new Directory(relPath);
+
+        expect(dir.dirPathRoot).toBe(path.resolve('dirPathRoot'));
+      }
     });
 
     it('given a baseDir, should include it in the full path to the first segment', () => {

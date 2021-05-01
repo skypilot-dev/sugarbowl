@@ -1,40 +1,38 @@
 import fs from 'fs';
-import os from 'os';
 import path from 'path';
-import { wipeDir } from '../wipeDir';
+
+import { getFileSystemRoot, makeTestDir, makeTestRunDir } from 'src/functions';
+import { unixPathToOsPath } from 'src/functions/filesystem/unixPathToOsPath';
 import { writeDataFile } from '../writeDataFile';
 
 /* TODO: Test output by mocking stdout. */
 
-const tmpDir = path.join(os.tmpdir(), 'writeDataFile-test');
-
-beforeEach(async () => {
-  await wipeDir(tmpDir, { recursive: true });
-  await fs.promises.mkdir(tmpDir, { recursive: true });
-});
-
-afterAll(async () => {
-  await wipeDir(tmpDir, { recursive: true });
-});
+const fileSystemRoot = getFileSystemRoot();
+const testRunDir = makeTestRunDir('writeDataFile.unit');
 
 describe('writeDataFile(data, filePath, options?)', () => {
   it('should return the data it was given', async () => {
     const originalData = ['a', 'b'];
+    const filePath = 'fileName';
+    const options = { dryRun: true };
 
-    const { data } = await writeDataFile(originalData, 'fileName.json', { dryRun: true });
+    const { data } = await writeDataFile(originalData, filePath, options);
 
     expect(data).toBe(originalData);
   });
 
   it('should return the results', async () => {
     const data = ['a'];
+    const fileName = 'fileName';
+    const filePath = [fileSystemRoot, 'var', 'tmp', fileName];
+    const options = { dryRun: true };
 
-    const result = await writeDataFile(data, '/var/fileName', { dryRun: true });
+    const result = await writeDataFile(data, filePath, options);
 
     const expected = {
       fileName: 'fileName.json',
-      fullPath: '/var/fileName.json',
-      shortestPath: '/var/fileName.json',
+      fullPath: unixPathToOsPath('/var/tmp/fileName.json'),
+      shortestPath: unixPathToOsPath('/var/tmp/fileName.json'),
     };
     expect(result).toMatchObject(expected);
   });
@@ -52,119 +50,62 @@ describe('writeDataFile(data, filePath, options?)', () => {
     expect(result).toMatchObject(expected);
   });
 
-  it('given a basePath with a trailing slash, should treat it as a directory', async () => {
+  it('given a baseDir, should resolve filePath relative to it', async () => {
+    const baseDir = unixPathToOsPath('/var/tmp');
     const data = ['a'];
-
-    const result = await writeDataFile(data, 'fileName', {
-      basePath: 'base-path/',
-      dryRun: true,
-    });
-
+    const fileName = 'fileName';
+    const options = { baseDir, dryRun: true };
     const expected = {
       fileName: 'fileName.json',
-      fullPath: path.join(path.resolve(), 'base-path/fileName.json'),
+      fullPath: unixPathToOsPath('/var/tmp/fileName.json'),
     };
-    expect(result).toMatchObject(expected);
-  });
 
-  it('given a basePath with no trailing slash, should concatenate it with the fileName', async () => {
-    const data = ['a'];
+    const actual = await writeDataFile(data, fileName, options);
 
-    const result = await writeDataFile(data, 'fileName', {
-      basePath: 'base-path-',
-      dryRun: true,
-    });
-
-    const expected = {
-      fileName: 'base-path-fileName.json',
-      fullPath: path.join(path.resolve(), 'base-path-fileName.json'),
-    };
-    expect(result).toMatchObject(expected);
-  });
-
-  it('given a basePath with no trailing slash, should concatenate it with the fileName', async () => {
-    const data = ['a'];
-
-    const result = await writeDataFile(data, 'fileName', {
-      basePath: 'base-path-',
-      dryRun: true,
-    });
-
-    const expected = {
-      fileName: 'base-path-fileName.json',
-      fullPath: path.join(path.resolve(), 'base-path-fileName.json'),
-    };
-    expect(result).toMatchObject(expected);
-  });
-
-  it('given a basePath & a fileName with a preceding slash, should concatenate them', async () => {
-    const data = ['a'];
-
-    const result = await writeDataFile(data, '/fileName', {
-      basePath: 'base-path',
-      dryRun: true,
-    });
-
-    const expected = {
-      fileName: 'fileName.json',
-      fullPath: path.join(path.resolve(), 'base-path/fileName.json'),
-    };
-    expect(result).toMatchObject(expected);
+    expect(actual).toMatchObject(expected);
   });
 
   it('should automatically create the directory path', async () => {
+    const testDir = makeTestDir('automatically-create-directory', testRunDir);
     const data = ['a'];
-
-    const result = await writeDataFile(data, '/parent-dir/fileName', {
-      basePath: tmpDir,
-    });
-
-    const expectedFilePath = path.join(path.resolve(tmpDir), 'parent-dir/fileName.json');
+    const options = { baseDir: [testDir.fullPath, 'dir'] };
+    const filePath = ['subdir', 'fileName'];
     const expected = {
       fileName: 'fileName.json',
-      fullPath: expectedFilePath,
+      fullPath: path.resolve(testDir.fullPath, 'dir', 'subdir', 'fileName.json'),
     };
-    expect(fs.existsSync(expectedFilePath)).toBe(true);
-    expect(result).toMatchObject(expected);
+
+    const actual = await writeDataFile(data, filePath, options);
+
+    expect(fs.existsSync(expected.fullPath)).toBe(true);
+    expect(actual).toMatchObject(expected);
   });
 
-  it('should not overwrite a file that exists', async () => {
+  it('if the file exists and `overwrite?: false`, should reject', async () => {
+    const testDir = makeTestDir(['overwrite', 'false'], testRunDir);
     const data = ['a'];
+    const filePath = 'fileName';
+    const options = { baseDir: testDir };
 
-    await writeDataFile(data, '/parent-dir/fileName', {
-      basePath: tmpDir,
-    });
+    // Write the file once
+    await writeDataFile(data, filePath, options);
 
-    return expect(
-      writeDataFile(data, '/parent-dir/fileName', { basePath: tmpDir })
+    // Attempt to write it again
+    await expect(
+      writeDataFile(data, filePath, options)
     ).rejects.toThrow();
   });
 
-  it('should overwrite a file that exists if `overwrite: true`', async () => {
+  it('if the file exists and `overwrite: true`, should overwrite', async () => {
+    const testDir = makeTestDir(['overwrite', 'true'], testRunDir);
     const data = {};
+    const filePath = 'fileName';
+    const options = { baseDir: testDir, overwrite: true };
 
-    await writeDataFile(data, '/parent-dir/fileName', {
-      basePath: tmpDir,
-    });
+    await writeDataFile(data, filePath, options);
 
-    return expect(writeDataFile(data, '/parent-dir/fileName', {
-      basePath: tmpDir,
-      overwrite: true,
-    })).resolves.not.toThrow();
-  });
-
-  it('should overwrite a file that exists if `wipeDir: true`', async () => {
-    const data = ['a'];
-
-    await writeDataFile(data, '/parent-dir/fileName', {
-      basePath: tmpDir,
-    });
-
-    return expect(writeDataFile(data, '/parent-dir/fileName', {
-      dateTimeFormat: 'humanized',
-      basePath: tmpDir,
-      label: 'survey-response',
-      wipeDir: true,
-    })).resolves.not.toThrow();
+    // Attempt to write the file again
+    await expect(writeDataFile(data, filePath, options))
+      .resolves.not.toThrow();
   });
 });

@@ -47,16 +47,25 @@ carry the overhead of checking argument types or handling type coercion.
 
 ### Filesystem functions
 
+-   `checkIsChildPath(targetPath: string | string[], referencePath: string | string[]): boolean`
+-   `checkIsInBoundary(targetPath: string | string[], boundaryPath: string | string[], scope): boolean`
 -   `composeFileName`
--   `deleteFile`
+-   `deleteFile` **Replaced by `deleteFileSync` in v4.0.0**
+-   `deleteFileSync`
 -   `findPackageFileDir`
 -   `findUpTree`
+-   `getFileSystemRoot`
 -   `listFilesSync`
 -   `makeTempDir`
--   `readPackageFile`
--   `wipeDir`
+-   `readPackageFile` **Replaced by `readPackageFileSync` in v4.0.0**
+-   `readPackageFileSync`
+-   `safeWipe`
+-   `safeWipeSync`
+-   `toPath(pathLike: string | string[]): string`
+-   `wipeDir` **Removed in v4.0.0**
 -   `writeDataFile`
--   `writePackageFile`
+-   `writePackageFile` **Replaced by `writePackageFileSync` in v4.0.0**
+-   `writePackageFileSync`
 
 ### Higher-order functions
 
@@ -128,6 +137,7 @@ carry the overhead of checking argument types or handling type coercion.
 
 ### Test helpers
 
+-   `makeTestDir`
 -   `makeTestRunDir`
 -   `makeTestsDir`
 
