@@ -2,7 +2,7 @@ export { checkIsChildPath } from './checkIsChildPath';
 export { checkIsInBoundary } from './checkIsInBoundary';
 export type { FileSystemBoundary } from './checkIsInBoundary';
 export { composeFileName } from './composeFileName';
-export { deleteFile } from './deleteFile';
+export { deleteFileSync } from './deleteFileSync';
 export { findPackageFileDir } from './findPackageFileDir';
 export { findUpTree } from './findUpTree';
 export { getFileSystemRoot } from './getFileSystemRoot';

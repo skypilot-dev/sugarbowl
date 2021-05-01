@@ -34,7 +34,7 @@ const intendedExports: string[] = [
   'checkIsChildPath',
   'checkIsInBoundary',
   'composeFileName',
-  'deleteFile',
+  'deleteFileSync',
   'findPackageFileDir',
   'findUpTree',
   'getFileSystemRoot',

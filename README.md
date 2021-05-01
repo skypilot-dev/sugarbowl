@@ -50,7 +50,8 @@ carry the overhead of checking argument types or handling type coercion.
 -   `checkIsChildPath(targetPath: string | string[], referencePath: string | string[]): boolean`
 -   `checkIsInBoundary(targetPath: string | string[], boundaryPath: string | string[], scope): boolean`
 -   `composeFileName`
--   `deleteFile`
+-   `deleteFile` **Replaced by `deleteFileSync` in v4.0.0**
+-   `deleteFileSync`
 -   `findPackageFileDir`
 -   `findUpTree`
 -   `getFileSystemRoot`
