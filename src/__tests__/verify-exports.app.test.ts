@@ -40,12 +40,12 @@ const intendedExports: string[] = [
   'getFileSystemRoot',
   'listFilesSync',
   'makeTempDir',
-  'readPackageFile',
+  'readPackageFileSync',
   'safeWipe',
   'safeWipeSync',
   'toPath',
   'writeDataFile',
-  'writePackageFile',
+  'writePackageFileSync',
 
   /* Higher-order functions */
   'curry',

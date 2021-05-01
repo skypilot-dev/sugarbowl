@@ -57,13 +57,15 @@ carry the overhead of checking argument types or handling type coercion.
 -   `getFileSystemRoot`
 -   `listFilesSync`
 -   `makeTempDir`
--   `readPackageFile`
+-   `readPackageFile` **Replaced by `readPackageFileSync` in v4.0.0**
+-   `readPackageFileSync`
 -   `safeWipe`
 -   `safeWipeSync`
 -   `toPath(pathLike: string | string[]): string`
 -   `wipeDir` **Removed in v4.0.0**
 -   `writeDataFile`
--   `writePackageFile`
+-   `writePackageFile` **Replaced by `writePackageFileSync` in v4.0.0**
+-   `writePackageFileSync`
 
 ### Higher-order functions
 

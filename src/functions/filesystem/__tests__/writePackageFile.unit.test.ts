@@ -1,29 +1,29 @@
-import fs from 'fs';
-import os from 'os';
-import path from 'path';
+import { makeTestDir, makeTestRunDir } from 'src/functions';
 
-import { readPackageFile } from '../readPackageFile';
-import { writePackageFile } from '../writePackageFile';
+import { readPackageFileSync } from '../readPackageFileSync';
+import { writePackageFileSync } from '../writePackageFileSync';
 
-const pathToFile = path.join(os.tmpdir(), 'writePackageFile.package.json');
+const testRunDir = makeTestRunDir('writePackageFileSync.unit');
 
-beforeAll(() => {
-  if (fs.existsSync(pathToFile)) {
-    fs.unlinkSync(pathToFile);
-  }
-});
-
-afterAll(() => {
-  fs.unlinkSync(pathToFile);
-});
-
-describe('writePackageFile()', () => {
+describe('writePackageFileSync()', () => {
   it('should write the object to a JSON file', () => {
+    const testDir = makeTestDir('basic', testRunDir);
+    const filePath = testDir.join('package-file.json');
     const content = { version: '9.9.9' };
+    const params = {
+      content,
+      filePath,
+    };
+    const expected = {
+      fullPath: filePath,
+      overwritten: false,
+      status: 'OK',
+    };
 
-    writePackageFile({ content, pathToFile });
+    const actual = writePackageFileSync(params);
+    expect(actual).toStrictEqual(expected);
 
-    const readData = readPackageFile({ pathToFile });
+    const readData = readPackageFileSync({ filePath });
     expect(readData).toEqual(content);
     expect(readData).not.toBe(content);
   });
