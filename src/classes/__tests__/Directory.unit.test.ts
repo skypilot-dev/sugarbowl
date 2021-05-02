@@ -2,8 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import util from 'util';
 
-import { makeTestDir, makeTestRunDir } from 'src/functions';
+import { getFileSystemRoot, makeTestDir, makeTestRunDir } from 'src/functions';
 import { makeDirForSafeWipe } from 'src/functions/filesystem/__tests__/helpers/makeDirForSafeWipe';
+import { unixPathToOsPath } from '../../functions/filesystem/unixPathToOsPath';
 import { Directory } from '../Directory';
 
 const testRunDir = makeTestRunDir('Directory.unit');
@@ -52,6 +53,43 @@ describe('Directory class', () => {
     });
   });
 
+  describe('join()', () => {
+    it("should join path segments to the Directory's path", () => {
+      const baseDir = new Directory([getFileSystemRoot(), 'var', 'tmp']);
+      {
+        const relativePath = 'child';
+        const expected = unixPathToOsPath('/var/tmp/child');
+
+        const actual = baseDir.join(relativePath);
+        expect(actual).toBe(expected);
+      }
+      {
+        const relativePath = './child';
+        const expected = unixPathToOsPath('/var/tmp/child');
+
+        const actual = baseDir.join(relativePath);
+        expect(actual).toBe(expected);
+      }
+    });
+
+    it('given an absolute path, should treat it as a path segment (identically to path.join)', () => {
+      const baseDir = new Directory(unixPathToOsPath('/var/tmp'));
+      const absolutePath = '/sibling';
+      const expected = unixPathToOsPath('/var/tmp/sibling');
+
+      const actual = baseDir.join(absolutePath);
+      expect(actual).toBe(expected);
+    });
+
+    it('should accept a series of PathLike elements', () => {
+      const baseDir = new Directory(unixPathToOsPath('/var/tmp'));
+
+      const actual = baseDir.join('level1', ['level2', 'level3'], '/level4');
+      const expected = unixPathToOsPath('/var/tmp/level1/level2/level3/level4');
+      expect(actual).toBe(expected);
+    });
+  });
+
   describe('make()', () => {
     it('should create the directory asynchronously', async () => {
       const testDir = makeTestDir('make', testRunDir);
@@ -67,6 +105,110 @@ describe('Directory class', () => {
       const dir = new Directory('dir', { baseDir: testDir }).makeSync();
       expect(fs.existsSync(dir.fullPath)).toBe(true);
       expect(dir.existsSync()).toBe(true);
+    });
+  });
+
+  describe('relativeExists(targetPath: DirectoryLike)', () => {
+    it("should return true if targetPath exists relative to the Directory's path, otherwise false", async () => {
+      const baseDir = makeTestDir('relativeExists', testRunDir);
+      const childDir = new Directory('child', { baseDir }).makeSync();
+      const siblingDir = new Directory('sibling', { baseDir }).makeSync();
+
+      // Check child
+      const childDirs = ['child', './child', ['./child'], childDir.fullPath];
+      for (const child of childDirs) {
+        await expect(baseDir.relativeExists(child)).resolves.toBe(true);
+        expect(baseDir.relativeExistsSync(child)).toBe(true);
+      }
+
+      // Check parent
+      const parentDirs = ['..', ['..'], baseDir.fullPath];
+      for (const parent of parentDirs) {
+        await expect(childDir.relativeExists(parent)).resolves.toBe(true);
+        expect(childDir.relativeExistsSync(parent)).toBe(true);
+      }
+
+      // Check sibling
+      const siblingDirs = ['../sibling', ['../sibling'], siblingDir.fullPath];
+      for (const sibling of siblingDirs) {
+        await expect(childDir.relativeExists(sibling)).resolves.toBe(true);
+        expect(childDir.relativeExistsSync(sibling)).toBe(true);
+      }
+
+      // Check self
+      const selfDirs = ['.', '../child', ['.'], childDir.fullPath];
+      for (const self of selfDirs) {
+        await expect(childDir.relativeExists(self)).resolves.toBe(true);
+        expect(childDir.relativeExistsSync(self)).toBe(true);
+      }
+    });
+
+    describe('relativeFrom(targetPath: DirectoryLike)', () => {
+      it("should return the relative path from the targetPath to the Directory's path", () => {
+        const dir = new Directory(unixPathToOsPath('/var/tmp'));
+        {
+          const targetPath = unixPathToOsPath('/var/tmp/child1');
+          const expected = '..';
+
+          const actual = dir.relativeFrom(targetPath);
+          expect(actual).toBe(expected);
+        }
+        {
+          const targetPath = unixPathToOsPath('/var');
+          const expected = 'tmp';
+
+          const actual = dir.relativeFrom(targetPath);
+          expect(actual).toBe(expected);
+        }
+        {
+          const targetPath = unixPathToOsPath('/var/child2');
+          const expected = '../tmp';
+
+          const actual = dir.relativeFrom(targetPath);
+          expect(actual).toBe(expected);
+        }
+        {
+          const targetPath = unixPathToOsPath('/sibling');
+          const expected = '../var/tmp';
+
+          const actual = dir.relativeFrom(targetPath);
+          expect(actual).toBe(expected);
+        }
+      });
+    });
+
+    describe('relativeTo(targetPath: DirectoryLike)', () => {
+      it("should return the relative path from the Directory's path to targetPath", () => {
+        const dir = new Directory(unixPathToOsPath('/var/tmp'));
+        {
+          const targetPath = unixPathToOsPath('/var/tmp/child1');
+          const expected = 'child1';
+
+          const actual = dir.relativeTo(targetPath);
+          expect(actual).toBe(expected);
+        }
+        {
+          const targetPath = unixPathToOsPath('/var');
+          const expected = '..';
+
+          const actual = dir.relativeTo(targetPath);
+          expect(actual).toBe(expected);
+        }
+        {
+          const targetPath = unixPathToOsPath('/var/child2');
+          const expected = '../child2';
+
+          const actual = dir.relativeTo(targetPath);
+          expect(actual).toBe(expected);
+        }
+        {
+          const targetPath = unixPathToOsPath('/sibling');
+          const expected = '../../sibling';
+
+          const actual = dir.relativeTo(targetPath);
+          expect(actual).toBe(expected);
+        }
+      });
     });
   });
 

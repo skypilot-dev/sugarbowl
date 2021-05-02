@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import util from 'util';
 
-import { safeWipe, safeWipeSync } from 'src/functions';
+import { safeWipe, safeWipeSync, toPath } from 'src/functions';
 import type { FileSystemBoundary, PathLike, SafeWipeOptions, SafeWipeResult } from 'src/functions';
 import { isDefined } from 'src/functions/indefinite/isDefined';
 import { defaultSafeWipeBoundaries } from '../functions/filesystem/_constants';
@@ -107,8 +107,10 @@ export class Directory {
     return fs.existsSync(this.fullPath);
   }
 
-  join(targetPath: DirectoryLike): string {
-    return path.join(this.fullPath, Directory.toPath(targetPath));
+  // TODO: Support a series of arguments, as `path.join` does
+  join(...targetPaths: PathLike[]): string {
+    const elements = targetPaths.map(element => toPath(element));
+    return path.join(this.fullPath, ...elements);
   }
 
   async make(): Promise<Directory> {
@@ -119,6 +121,22 @@ export class Directory {
   makeSync(): Directory {
     fs.mkdirSync(this.fullPath, { recursive: true });
     return this;
+  }
+
+  relativeExists(relativePath: PathLike): Promise<boolean> {
+    return util.promisify(fs.exists)(this.resolve(toPath(relativePath)));
+  }
+
+  relativeExistsSync(relativePath: PathLike): boolean {
+    return fs.existsSync(this.resolve(toPath(relativePath)));
+  }
+
+  relativeFrom(targetPath: DirectoryLike): string {
+    return path.relative(Directory.toPath(targetPath), this.fullPath);
+  }
+
+  relativeTo(targetPath: DirectoryLike): string {
+    return path.relative(this.fullPath, Directory.toPath(targetPath));
   }
 
   resolve(targetPath: DirectoryLike): string {
