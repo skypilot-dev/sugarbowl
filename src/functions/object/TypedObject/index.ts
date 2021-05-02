@@ -1,0 +1,1 @@
+export { TypedObject } from './TypedObject';

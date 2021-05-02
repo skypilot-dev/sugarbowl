@@ -80,6 +80,7 @@ const intendedExports: string[] = [
   'omitUndefinedEntries',
   'setValueByPath',
   'swapKeysAndValues',
+  'TypedObject',
 
   /* String functions */
   'capitalizeAllWords',

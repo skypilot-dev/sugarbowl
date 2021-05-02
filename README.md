@@ -105,6 +105,8 @@ carry the overhead of checking argument types or handling type coercion.
 -   `omitUndefinedEntries(obj: object): object`
 -   `setValueByPath(path: string | string[], value: any, target: object, options?)`
 -   `swapKeysAndValues(obj: object): object`
+-   `TypedObject.entries(obj: object | Array | number | string): [key: string, value][]`
+-   `TypedObject.keys(obj: object | Array | number | string): string[]`
 
 ### String functions
 

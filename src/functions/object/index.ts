@@ -9,3 +9,4 @@ export { omitFalsyEntries } from './omitFalsyEntries';
 export { omitUndefinedEntries } from './omitUndefinedEntries';
 export { setValueByPath } from './setValueByPath';
 export { swapKeysAndValues } from './swapKeysAndValues';
+export { TypedObject } from './TypedObject';
