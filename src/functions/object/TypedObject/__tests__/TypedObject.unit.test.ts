@@ -123,3 +123,62 @@ describe('TypeObject.keys(obj: Object | Array | number | string)', () => {
     expect(actual).toStrictEqual(expected);
   });
 });
+
+describe('TypedObject.values(obj: Object)', () => {
+  it("should return the object's values", () => {
+    const obj = { a: 1, b: 2 } as const;
+    const expected = [1, 2];
+
+    const objectValues = TypedObject.values(obj);
+    expect(objectValues).toStrictEqual(expected);
+  });
+
+  it('given an empty object, should return an empty array', () => {
+    const obj = {} as const;
+    const expected = [] as const;
+
+    const objectValues = TypedObject.values(obj);
+    expect(objectValues).toStrictEqual(expected);
+  });
+
+  it('given an array, should return its items', () => {
+    const obj = [1, 2] as const;
+    const expected = [1, 2];
+
+    const objectValues = TypedObject.values(obj);
+    expect(objectValues).toStrictEqual(expected);
+  });
+
+  it('given an empty array, should return an empty array', () => {
+    const obj = [] as const;
+    const expected = [] as const;
+
+    const objectValues = TypedObject.values(obj);
+    expect(objectValues).toStrictEqual(expected);
+  });
+
+  it('given a string, should treat it as an array of characters', () => {
+    {
+      const arrayOfChars = 'abc';
+      const expected = ['a', 'b', 'c'] as const;
+
+      const objectValues = TypedObject.values(arrayOfChars);
+      expect(objectValues).toStrictEqual(expected);
+    }
+    {
+      const arrayOfChars = '';
+      const expected = [] as const;
+
+      const objectValues = TypedObject.values(arrayOfChars);
+      expect(objectValues).toStrictEqual(expected);
+    }
+  });
+
+  it('given a number, should return an empty array', () => {
+    // Included because `Object.values` does accept numbers
+    const expected = [] as const;
+
+    const objectValues = TypedObject.values(1);
+    expect(objectValues).toStrictEqual(expected);
+  });
+});
