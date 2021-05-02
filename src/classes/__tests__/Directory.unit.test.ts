@@ -52,6 +52,35 @@ describe('Directory class', () => {
     });
   });
 
+  describe('join()', () => {
+    it("should join path segments to the Directory's path", () => {
+      const baseDir = new Directory([getFileSystemRoot(), 'var', 'tmp']);
+      {
+        const relativePath = 'child';
+        const expected = unixPathToOsPath('/var/tmp/child');
+
+        const actual = baseDir.join(relativePath);
+        expect(actual).toBe(expected);
+      }
+      {
+        const relativePath = './child';
+        const expected = unixPathToOsPath('/var/tmp/child');
+
+        const actual = baseDir.join(relativePath);
+        expect(actual).toBe(expected);
+      }
+    });
+
+    it('given an absolute path, should treat it as a path segment (identically to path.join)', () => {
+      const baseDir = new Directory(unixPathToOsPath('/var/tmp'));
+      const absolutePath = '/sibling';
+      const expected = unixPathToOsPath('/var/tmp/sibling');
+
+      const actual = baseDir.join(absolutePath);
+      expect(actual).toBe(expected);
+    });
+  });
+
   describe('make()', () => {
     it('should create the directory asynchronously', async () => {
       const testDir = makeTestDir('make', testRunDir);

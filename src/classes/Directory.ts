@@ -107,8 +107,9 @@ export class Directory {
     return fs.existsSync(this.fullPath);
   }
 
-  join(targetPath: DirectoryLike): string {
-    return path.join(this.fullPath, Directory.toPath(targetPath));
+  // TODO: Support a series of arguments, as `path.join` does
+  join(targetPath: PathLike): string {
+    return path.join(this.fullPath, toPath(targetPath));
   }
 
   async make(): Promise<Directory> {
