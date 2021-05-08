@@ -35,6 +35,10 @@ carry the overhead of checking argument types or handling type coercion.
 -   `toArray<T>(T | T[]): T[]`
 -   `toUniqueArray`
 
+#### Array-function factories
+
+-   `Slice(startAt?: Integer, stopBefore?: Integer)`
+
 ### Date & time functions
 
 -   `isValidDate`

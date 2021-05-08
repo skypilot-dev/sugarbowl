@@ -19,6 +19,9 @@ const intendedExports: string[] = [
   'toArray',
   'toUniqueArray',
 
+  // Array-function factories
+  'Slice',
+
   /* Array sort functions */
   'sorterOnDigits',
 

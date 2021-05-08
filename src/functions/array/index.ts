@@ -11,6 +11,7 @@ export { pickRandomItem } from './pickRandomItem';
 export { pickRandomItems } from './pickRandomItems';
 export { pushIf } from './pushIf';
 export { shuffle } from './shuffle';
+export { Slice } from './Slice';
 export { range } from './range';
 export { sorterOnDigits } from './sorters/sorterOnDigits';
 export { toArray } from './toArray';
