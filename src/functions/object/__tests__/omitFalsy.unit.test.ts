@@ -2,7 +2,7 @@ import { omitFalsy } from '../omitFalsy';
 
 describe('omitFalsy(:object)', () => {
   it('given an object, should return a new object having only the truthy values of the original', () => {
-    const originalObj = { a: 1, b: null, c: undefined };
+    const originalObj = { a: 1, b: null, c: undefined, d: 0, e: '' };
 
     const noFalsy = omitFalsy(originalObj);
 
