@@ -1,10 +1,12 @@
-import { JsonMap } from '@skypilot/common-types';
+/*
+  TODO: Improve the return type so that falsy values are excluded
+  TODO: Optionally, recursively omit nested entries with falsy values.
+ */
 
 /**
  * @description Remove keys whose values are falsy and return as a new object
- * @deprecated Use `omitFalsy`
  */
-export function omitFalsyEntries<T = JsonMap, Compacted = Partial<T>>(obj: T): Compacted {
+export function omitFalsy<T extends Record<string, V>, V>(obj: T): Partial<T> {
   return Object.entries(obj).reduce((compactedObj, entry) => {
     const [key, value] = entry;
     if (!value) {
@@ -14,5 +16,5 @@ export function omitFalsyEntries<T = JsonMap, Compacted = Partial<T>>(obj: T): C
       ...compactedObj,
       [key]: value,
     };
-  }, {}) as Compacted;
+  }, {} as Partial<T>);
 }

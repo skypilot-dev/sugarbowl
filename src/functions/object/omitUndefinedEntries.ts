@@ -2,7 +2,10 @@
 
 import { omitEntriesByValue } from './omitEntriesByValue';
 
-/* Given an object, return a new object with the same entries minus those with undefined values. */
+/**
+ * @description Remove keys whose values are undefined and return as a new object
+ * @deprecated Use `omitUndefined`
+ */
 export function omitUndefinedEntries<T = Record<string, unknown>, Compacted = Partial<T>>(obj: T): Compacted {
   return omitEntriesByValue(undefined, obj);
 }
