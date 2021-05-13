@@ -3,10 +3,15 @@
   TODO: Optionally, recursively omit nested entries with falsy values.
  */
 
+import { Falsy } from '@skypilot/common-types';
+import { ConditionalExcept, JsonObject } from 'type-fest';
+
+type NoFalsy<T> = ConditionalExcept<T, Falsy>
+
 /**
  * @description Remove keys whose values are falsy and return as a new object
  */
-export function omitFalsy<T extends Record<string, V>, V>(obj: T): Partial<T> {
+export function omitFalsy<T extends JsonObject>(obj: T): NoFalsy<T> {
   return Object.entries(obj).reduce((compactedObj, entry) => {
     const [key, value] = entry;
     if (!value) {
@@ -16,5 +21,5 @@ export function omitFalsy<T extends Record<string, V>, V>(obj: T): Partial<T> {
       ...compactedObj,
       [key]: value,
     };
-  }, {} as Partial<T>);
+  }, {} as NoFalsy<T>);
 }
