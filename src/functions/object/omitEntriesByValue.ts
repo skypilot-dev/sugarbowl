@@ -1,5 +1,7 @@
-/* Given an object, return a new object with the same entries minus those with the value */
-/* TODO: Recursively omit nested entries having the value. */
+/**
+ * @description Remove keys whose values are equal to the value and return as a new object
+ * @deprecated Use `omitByValue`
+ */
 export function omitEntriesByValue<T = Record<string, unknown>, Compacted = Partial<T>>(
   value: unknown, obj: T
 ): Compacted {

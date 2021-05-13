@@ -103,10 +103,13 @@ carry the overhead of checking argument types or handling type coercion.
 -   `getOrDefault(obj: object, key: string, default: any)`
 -   `isObject(value: any): boolean`
 -   `mergeIf(conditional: any, :object)`
--   `omitEmptyArrays(obj: object): object`
--   `omitEntriesByValue(value: any, obj: object): object`
--   `omitFalsyEntries(obj: object): object`
--   `omitUndefinedEntries(obj: object): object`
+-   `omitByValue<TValues, TValue extends TValues>(value: TValue, obj: Record<string, TValues>): Record<string, TValues>`
+-   `omitEmptyArrays<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, []>>`
+-   `omitEntriesByValue(value: any, obj: object): object` **deprecated; use `omitByValue`**
+-   `omitFalsy<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, null | undefined | '' | 0>'>`
+-   `omitUndefined<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, undefined>`
+-   `omitFalsyEntries(obj: object): object` **deprecated; use `omitFalsy`**
+-   `omitUndefinedEntries(obj: object): object` **deprecated; use `omitUndefined`**
 -   `setValueByPath(path: string | string[], value: any, target: object, options?)`
 -   `swapKeysAndValues(obj: object): object`
 -   `TypedObject.entries(obj: object | Array | number | string): [key: string, value][]`

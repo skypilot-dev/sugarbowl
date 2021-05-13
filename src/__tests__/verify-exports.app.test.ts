@@ -77,10 +77,13 @@ const intendedExports: string[] = [
   'getOrDefault',
   'isObject',
   'mergeIf',
+  'omitByValue',
   'omitEmptyArrays',
-  'omitEntriesByValue',
-  'omitFalsyEntries',
-  'omitUndefinedEntries',
+  'omitEntriesByValue', // deprecated
+  'omitFalsy',
+  'omitFalsyEntries', // deprecated
+  'omitUndefined',
+  'omitUndefinedEntries', // deprecated
   'setValueByPath',
   'swapKeysAndValues',
   'TypedObject',
@@ -124,7 +127,6 @@ const intendedExports: string[] = [
 ];
 
 describe('Export verification', () => {
-
   const actualExportNames = Object.keys(actualExports);
 
   it('exports should include all intended exports', () => {
@@ -132,7 +134,6 @@ describe('Export verification', () => {
       expect(actualExportNames).toContain(exportName);
     }
   });
-
 
   it('exports should not include any unintended exports', () => {
     for (const exportName of actualExportNames) {
