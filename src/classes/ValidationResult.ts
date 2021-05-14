@@ -1,10 +1,11 @@
 import type { Integer } from '@skypilot/common-types';
+import type { JsonObject } from 'type-fest';
 
-import { capitalizeFirstWord, isNull, isUndefined, omitUndefinedEntries } from 'src/functions';
+import { capitalizeFirstWord, isNull, isUndefined, omitUndefined } from 'src/functions';
 
 interface AddValidationResultOptions {
   id?: Integer | string;
-  data?: unknown;
+  data?: JsonObject;
 }
 
 export type LogLevel = typeof ValidationResult.logLevels[number];
@@ -18,7 +19,7 @@ interface ValidationResultInput extends AddValidationResultOptions {
 
 interface ValidationEvent {
   id?: Integer | string;
-  data?: unknown;
+  data?: JsonObject;
   level: LogLevel;
   message: string;
 }
@@ -77,9 +78,16 @@ export class ValidationResult {
     return this.getMessages();
   }
 
-  get success(): boolean {
+  get ok(): boolean {
     const { highestLevel } = this;
     return highestLevel === undefined || (ValidationResult.compareLevels(highestLevel, 'error') < 0);
+  }
+
+  /**
+   * @deprecated Use `ok`
+   */
+  get success(): boolean {
+    return this.ok;
   }
 
   get warningMessages(): string[] {
@@ -90,17 +98,32 @@ export class ValidationResult {
     return this.getEvents('warn');
   }
 
+  /**
+   * @deprecated Use `addEvent` or `error`, `warn`, `info`, `debug`
+   */
   add(level: LogLevel, message: string, options: AddValidationResultOptions = {}): ValidationEvent {
+    return this.addEvent(level, message, options);
+  }
+
+  addEvent(level: LogLevel, message: string, options: AddValidationResultOptions = {}): ValidationEvent {
     const { id, data } = options;
 
     const validationMessage = {
       level,
       message,
-      ...omitUndefinedEntries({ id, data }),
+      ...omitUndefined({ id, data }),
     };
     this.events.push(validationMessage);
 
     return validationMessage;
+  }
+
+  debug(message: string, options: AddValidationResultOptions = {}): ValidationEvent {
+    return this.addEvent('debug', message, options);
+  }
+
+  error(message: string, options: AddValidationResultOptions = {}): ValidationEvent {
+    return this.addEvent('error', message, options);
   }
 
   getEvents(): Array<ValidationEvent>;
@@ -126,5 +149,13 @@ export class ValidationResult {
   has(level: LogLevel): boolean;
   has(level?: LogLevel): boolean {
     return (level === undefined ? this.getEvents() : this.getEvents(level)).length > 0;
+  }
+
+  info(message: string, options: AddValidationResultOptions = {}): ValidationEvent {
+    return this.addEvent('info', message, options);
+  }
+
+  warn(message: string, options: AddValidationResultOptions = {}): ValidationEvent {
+    return this.addEvent('warn', message, options);
   }
 }
