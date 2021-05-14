@@ -8,6 +8,11 @@ interface AddValidationResultOptions {
   data?: JsonObject;
 }
 
+export interface FilterEventsParams {
+  maxLevel?: LogLevel;
+  minLevel?: LogLevel;
+}
+
 export type LogLevel = typeof ValidationResult.logLevels[number];
 
 /*
@@ -32,7 +37,7 @@ export class ValidationResult {
     'error',
   ] as const;
 
-  events: ValidationEvent[] = [];
+  private _events: ValidationEvent[] = [];
 
   static compareLevels(a: LogLevel | null | undefined, b: LogLevel | null | undefined): Integer {
     if (a === b) {
@@ -56,53 +61,44 @@ export class ValidationResult {
     return ValidationResult.logLevels.indexOf(a) - ValidationResult.logLevels.indexOf(b);
   }
 
-  get errorMessages(): string[] {
-    return this.getMessages('error');
+  static formatEventMessage(event: ValidationEvent): string {
+    return [
+      event.level === 'warn' ? 'Warning' : capitalizeFirstWord(event.level),
+      event.message,
+    ].join(': ');
   }
 
-  get errors(): Array<ValidationEvent & { level: 'error' }> {
-    return this.getEvents('error');
+  get events(): Record<LogLevel, ValidationEvent[]> {
+    return {
+      error: this.getEvents('error'),
+      warn: this.getEvents('warn'),
+      info: this.getEvents('info'),
+      debug: this.getEvents('debug'),
+    };
   }
 
   get highestLevel(): LogLevel | undefined {
-    if (!this.events.length) {
+    if (!this._events.length) {
       return undefined;
     }
 
-    return this.events
+    return this._events
       .sort((a, b) => ValidationResult.compareLevels(a.level, b.level))
       .reverse()[0].level;
   }
 
-  get messages(): string[] {
-    return this.getMessages();
+  get messages(): Record<LogLevel, string[]> {
+    return {
+      error: this.getMessages('error'),
+      warn: this.getMessages('warn'),
+      info: this.getMessages('info'),
+      debug: this.getMessages('debug'),
+    };
   }
 
   get ok(): boolean {
     const { highestLevel } = this;
     return highestLevel === undefined || (ValidationResult.compareLevels(highestLevel, 'error') < 0);
-  }
-
-  /**
-   * @deprecated Use `ok`
-   */
-  get success(): boolean {
-    return this.ok;
-  }
-
-  get warningMessages(): string[] {
-    return this.getMessages('warn');
-  }
-
-  get warnings(): Array<ValidationEvent & { level: 'warn' }> {
-    return this.getEvents('warn');
-  }
-
-  /**
-   * @deprecated Use `addEvent` or `error`, `warn`, `info`, `debug`
-   */
-  add(level: LogLevel, message: string, options: AddValidationResultOptions = {}): ValidationEvent {
-    return this.addEvent(level, message, options);
   }
 
   addEvent(level: LogLevel, message: string, options: AddValidationResultOptions = {}): ValidationEvent {
@@ -113,7 +109,7 @@ export class ValidationResult {
       message,
       ...omitUndefined({ id, data }),
     };
-    this.events.push(validationMessage);
+    this._events.push(validationMessage);
 
     return validationMessage;
   }
@@ -126,15 +122,33 @@ export class ValidationResult {
     return this.addEvent('error', message, options);
   }
 
+  filterEvents(params: FilterEventsParams = {}): ValidationEvent[] {
+    const { minLevel, maxLevel } = params;
+    return this._events.filter(event => (
+      (
+        isUndefined(minLevel)
+        || ValidationResult.logLevels.indexOf(event.level) >= ValidationResult.logLevels.indexOf(minLevel)
+      ) && (
+        isUndefined(maxLevel)
+        || ValidationResult.logLevels.indexOf(event.level) <= ValidationResult.logLevels.indexOf(maxLevel))
+      )
+    );
+  }
+
+  filterMessages(params: FilterEventsParams = {}): string[] {
+    return this.filterEvents(params)
+      .map(event => ValidationResult.formatEventMessage(event));
+  }
+
   getEvents(): Array<ValidationEvent>;
   getEvents<L extends LogLevel>(level: L): Array<ValidationEvent & { level: L }>;
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
   getEvents(level?: LogLevel | undefined) {
     if (level === undefined) {
-      return this.events;
+      return this._events;
     }
-    return this.events.filter(message => message.level === level);
+    return this._events.filter(message => message.level === level);
   }
 
   getMessages(level?: LogLevel): string[] {

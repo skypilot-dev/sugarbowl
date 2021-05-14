@@ -7,8 +7,8 @@ describe('ValidationResult()', () => {
 
       vr.addEvent('error', 'An error occurred');
 
-      expect(vr.events).toHaveLength(1);
-      expect(vr.events[0]).toMatchObject({
+      expect(vr.events.error).toHaveLength(1);
+      expect(vr.events.error[0]).toMatchObject({
         level: 'error',
         message: 'An error occurred',
       });
@@ -45,12 +45,43 @@ describe('ValidationResult()', () => {
     });
   });
 
-  describe('errors', () => {
+  describe('events.error', () => {
     it("should be an alias for getEvents('error')", () => {
       const vr = new ValidationResult();
       vr.error('Error event');
 
-      expect(vr.getEvents('error')).toStrictEqual(vr.errors);
+      expect(vr.getEvents('error')).toStrictEqual(vr.events.error);
+    });
+  });
+
+  describe('filterEvents({ minLevel: LogLevel, maxLevel: LogLevel )', () => {
+    it('should return the events meeting the constraints', () => {
+      const vr = new ValidationResult();
+      vr.debug('Debug event');
+      vr.info('Info event');
+      vr.warn('Warn event');
+      vr.error('Error event');
+
+      const sets = [
+        {
+          params: { minLevel: 'warn' } as const,
+          expectedMessages :['Warning: Warn event', 'Error: Error event'],
+        },
+        {
+          params: { minLevel: 'debug', maxLevel: 'info' } as const,
+          expectedMessages: ['Debug: Debug event', 'Info: Info event'],
+        },
+        {
+          params: { maxLevel: 'debug' } as const,
+          expectedMessages: ['Debug: Debug event'],
+        },
+      ];
+      sets.forEach(( { params, expectedMessages }) => {
+        expect(vr.filterEvents(params).map(
+          event => ValidationResult.formatEventMessage(event)
+        )).toStrictEqual(expectedMessages);
+        expect(vr.filterMessages(params)).toStrictEqual(expectedMessages);
+      });
     });
   });
 
@@ -75,10 +106,10 @@ describe('ValidationResult()', () => {
   describe('getMessages()', () => {
     it('should return the messages from the events', () => {
       const vr = new ValidationResult();
-      vr.addEvent('debug', 'Debug event');
-      vr.addEvent('error', 'Error event');
-      vr.addEvent('info', 'Info event');
-      vr.addEvent('warn', 'Warn event');
+      vr.debug('Debug event');
+      vr.error('Error event');
+      vr.info('Info event');
+      vr.warn('Warn event');
 
       expect(vr.getMessages()).toStrictEqual([
         'Debug: Debug event',
@@ -90,8 +121,8 @@ describe('ValidationResult()', () => {
 
     it('if logLevel is given, should return messages only of that level', () => {
       const vr = new ValidationResult();
-      vr.addEvent('warn', 'Warn event');
-      vr.addEvent('error', 'Error event');
+      vr.warn('Warn event');
+      vr.error('Error event');
 
       expect(vr.getMessages('error')).toStrictEqual([
         'Error: Error event',
@@ -99,32 +130,35 @@ describe('ValidationResult()', () => {
     });
   });
 
-  describe('errorMessages, warnMessages', () => {
-    it('should return the array of corresponding messages', () => {
+  describe('messages', () => {
+    it('should return a dictionary of messages of all levels', () => {
       const vr = new ValidationResult();
-      vr.addEvent('error', 'Error event 1');
-      vr.addEvent('warn', 'Warn event');
-      vr.addEvent('error', 'Error event 2');
+      vr.error('Error event 1');
+      vr.warn('Warn event');
+      vr.error('Error event 2');
 
-      expect(vr.errorMessages).toStrictEqual([
+      expect(vr.messages.error).toStrictEqual([
         'Error: Error event 1',
         'Error: Error event 2',
       ]);
-      expect(vr.warningMessages).toStrictEqual([
+      expect(vr.messages.warn).toStrictEqual([
         'Warning: Warn event',
       ]);
     });
 
     it('if there are no messages, should return an empty array', () => {
       const vr = new ValidationResult();
-      expect(vr.messages).toStrictEqual([]);
+      expect(vr.messages.error).toStrictEqual([]);
+      expect(vr.messages.warn).toStrictEqual([]);
+      expect(vr.messages.info).toStrictEqual([]);
+      expect(vr.messages.debug).toStrictEqual([]);
     });
   });
 
   describe('has(:LogLevel)', () => {
     it('should return true if there are any events', () => {
       const vr = new ValidationResult();
-      vr.addEvent('info', 'Info event');
+      vr.info('Info event');
       expect(vr.has()).toBe(true);
     });
 
@@ -135,7 +169,7 @@ describe('ValidationResult()', () => {
 
     it('if logLevel is given, should ignore events having a different level', () => {
       const vr = new ValidationResult();
-      vr.addEvent('info', 'Info event');
+      vr.info('Info event');
 
       expect(vr.has()).toBe(true);
       expect(vr.has('info')).toBe(true);
@@ -150,7 +184,7 @@ describe('ValidationResult()', () => {
 
     it('if logLevel is given, should return false if there are no events of that level', () => {
       const vr = new ValidationResult();
-      vr.addEvent('info', 'Info event');
+      vr.info('Info event');
 
       expect(vr.has('info')).toBe(true);
       const absentLogLevels = ['debug', 'error', 'warn'] as const;
@@ -161,8 +195,8 @@ describe('ValidationResult()', () => {
 
     it('if logLevel is given, should return true if there are any events of that level', () => {
       const vr = new ValidationResult();
-      vr.addEvent('info', 'Info event');
-      vr.addEvent('warn', 'Warn event');
+      vr.info('Info event');
+      vr.warn('Warn event');
 
       expect(vr.has('error')).toBe(false);
     });
@@ -172,9 +206,9 @@ describe('ValidationResult()', () => {
     it('should return the highest level among all events', () => {
       const vr = new ValidationResult();
 
-      vr.addEvent('info', 'Info event');
-      vr.addEvent('warn', 'Warn event');
-      vr.addEvent('debug', 'Debug event');
+      vr.info('Info event');
+      vr.warn('Warn event');
+      vr.debug('Debug event');
 
       expect(vr.highestLevel).toBe('warn');
     });
@@ -186,13 +220,13 @@ describe('ValidationResult()', () => {
     });
   });
 
-  describe('messages', () => {
+  describe('getMessages', () => {
     it('should return the array of all messages', () => {
       const vr = new ValidationResult();
-      vr.addEvent('error', 'Error event');
-      vr.addEvent('debug', 'Debug event');
+      vr.error('Error event');
+      vr.debug('Debug event');
 
-      expect(vr.messages).toStrictEqual([
+      expect(vr.getMessages()).toStrictEqual([
         'Error: Error event',
         'Debug: Debug event',
       ]);
@@ -200,7 +234,7 @@ describe('ValidationResult()', () => {
 
     it('if there are no messages, should return an empty array', () => {
       const vr = new ValidationResult();
-      expect(vr.messages).toStrictEqual([]);
+      expect(vr.getMessages()).toStrictEqual([]);
     });
   });
 
@@ -212,16 +246,16 @@ describe('ValidationResult()', () => {
 
     it('should return true if no errors occurred', () => {
       const vr = new ValidationResult();
-      vr.addEvent('debug', 'Debug event');
-      vr.addEvent('info', 'Info event');
-      vr.addEvent('warn', 'Warn event');
+      vr.debug('Debug event');
+      vr.info('Info event');
+      vr.warn('Warn event');
 
       expect(vr.ok).toBe(true);
     });
 
     it('should return false if any errors occurred', () => {
       const vr = new ValidationResult();
-      vr.addEvent('error', 'Error event');
+      vr.error('Error event');
 
       expect(vr.ok).toBe(false);
     });
