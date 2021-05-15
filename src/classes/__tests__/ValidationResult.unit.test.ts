@@ -49,11 +49,11 @@ describe('ValidationResult()', () => {
         .error('Error event 2');
 
       expect(vr.messages.error).toStrictEqual([
-        'Error: Error event 1',
-        'Error: Error event 2',
+        'Error event 1',
+        'Error event 2',
       ]);
       expect(vr.messages.warn).toStrictEqual([
-        'Warning: Warn event',
+        'Warn event',
       ]);
     });
 
@@ -91,7 +91,7 @@ describe('ValidationResult()', () => {
         'Debug: Chained debug',
         'Error: Chained error',
         'Info: Chained info',
-        'Warning: Chained warning',
+        'Warn: Chained warning',
       ];
 
       const actualMessages = vr.getMessages();
@@ -99,7 +99,7 @@ describe('ValidationResult()', () => {
     });
   });
 
-  describe('filterEvents({ minLevel: LogLevel, maxLevel: LogLevel )', () => {
+  describe('filterEvents({ minLevel: LogLevel, maxLevel: LogLevel, omitLevel: boolean )', () => {
     it('should return the events meeting the constraints', () => {
       const vr = new ValidationResult();
       vr.debug('Debug event');
@@ -110,22 +110,24 @@ describe('ValidationResult()', () => {
       const sets = [
         {
           params: { minLevel: 'warn' } as const,
-          expectedMessages :['Warning: Warn event', 'Error: Error event'],
+          expectedMessages : ['Warn event', 'Error event'],
         },
         {
           params: { minLevel: 'debug', maxLevel: 'info' } as const,
-          expectedMessages: ['Debug: Debug event', 'Info: Info event'],
+          expectedMessages : ['Debug event', 'Info event'],
         },
         {
           params: { maxLevel: 'debug' } as const,
-          expectedMessages: ['Debug: Debug event'],
+          expectedMessages : ['Debug event'],
         },
       ];
       sets.forEach(( { params, expectedMessages }) => {
         expect(vr.filterEvents(params).map(
-          event => ValidationResult.formatEventMessage(event)
+          event => event.message
         )).toStrictEqual(expectedMessages);
-        expect(vr.filterMessages(params)).toStrictEqual(expectedMessages);
+        expect(
+          vr.filterMessages(params, { omitLevel: true })
+        ).toStrictEqual(expectedMessages);
       });
     });
   });
@@ -160,7 +162,7 @@ describe('ValidationResult()', () => {
         'Debug: Debug event',
         'Error: Error event',
         'Info: Info event',
-        'Warning: Warn event',
+        'Warn: Warn event',
       ]);
     });
 

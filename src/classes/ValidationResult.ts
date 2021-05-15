@@ -15,6 +15,10 @@ export interface FilterEventsParams {
 
 export type LogLevel = typeof ValidationResult.logLevels[number];
 
+export interface EventMessageOptions {
+  omitLevel?: boolean; // if true, don't prepend the level to the message
+}
+
 /*
 interface ValidationResultInput extends AddValidationResultOptions {
   level?: LogLevel;
@@ -61,11 +65,8 @@ export class ValidationResult {
     return ValidationResult.logLevels.indexOf(a) - ValidationResult.logLevels.indexOf(b);
   }
 
-  static formatEventMessage(event: ValidationEvent): string {
-    return [
-      event.level === 'warn' ? 'Warning' : capitalizeFirstWord(event.level),
-      event.message,
-    ].join(': ');
+  private static formatEventMessage(event: ValidationEvent): string {
+    return `${capitalizeFirstWord(event.level)}: ${event.message}`;
   }
 
   get events(): Record<LogLevel, ValidationEvent[]> {
@@ -89,10 +90,10 @@ export class ValidationResult {
 
   get messages(): Record<LogLevel, string[]> {
     return {
-      error: this.getMessages('error'),
-      warn: this.getMessages('warn'),
-      info: this.getMessages('info'),
-      debug: this.getMessages('debug'),
+      error: this.getMessages('error', { omitLevel: true }),
+      warn: this.getMessages('warn', { omitLevel: true }),
+      info: this.getMessages('info', { omitLevel: true }),
+      debug: this.getMessages('debug', { omitLevel: true }),
     };
   }
 
@@ -124,8 +125,9 @@ export class ValidationResult {
     return this;
   }
 
-  filterEvents(params: FilterEventsParams = {}): ValidationEvent[] {
+  filterEvents(params: FilterEventsParams): ValidationEvent[] {
     const { minLevel, maxLevel } = params;
+
     return this._events.filter(event => (
       (
         isUndefined(minLevel)
@@ -136,9 +138,10 @@ export class ValidationResult {
     ));
   }
 
-  filterMessages(params: FilterEventsParams = {}): string[] {
+  filterMessages(params: FilterEventsParams, options: EventMessageOptions = {}): string[] {
+    const { omitLevel = false } = options;
     return this.filterEvents(params)
-      .map(event => ValidationResult.formatEventMessage(event));
+      .map(event => omitLevel ? event.message : ValidationResult.formatEventMessage(event));
   }
 
   getEvents(): Array<ValidationEvent>;
@@ -152,12 +155,10 @@ export class ValidationResult {
     return this._events.filter(message => message.level === level);
   }
 
-  getMessages(level?: LogLevel): string[] {
+  getMessages(level?: LogLevel, options: EventMessageOptions = {}): string[] {
+    const {  omitLevel = false } = options;
     return (level === undefined ? this.getEvents() : this.getEvents(level))
-      .map(event => [
-        event.level === 'warn' ? 'Warning' : capitalizeFirstWord(event.level),
-        event.message,
-      ].join(': '));
+      .map(event => omitLevel ? event.message : ValidationResult.formatEventMessage(event));
   }
 
   has(): boolean;
