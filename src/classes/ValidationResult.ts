@@ -114,12 +114,14 @@ export class ValidationResult {
     return validationEvent;
   }
 
-  debug(message: string, options: AddValidationResultOptions = {}): ValidationEvent {
-    return this.addEvent('debug', message, options);
+  debug(message: string, options: AddValidationResultOptions = {}): ValidationResult {
+    this.addEvent('debug', message, options);
+    return this;
   }
 
-  error(message: string, options: AddValidationResultOptions = {}): ValidationEvent {
-    return this.addEvent('error', message, options);
+  error(message: string, options: AddValidationResultOptions = {}): ValidationResult {
+    this.addEvent('error', message, options);
+    return this;
   }
 
   filterEvents(params: FilterEventsParams = {}): ValidationEvent[] {
@@ -131,8 +133,7 @@ export class ValidationResult {
       ) && (
         isUndefined(maxLevel)
         || ValidationResult.logLevels.indexOf(event.level) <= ValidationResult.logLevels.indexOf(maxLevel))
-      )
-    );
+    ));
   }
 
   filterMessages(params: FilterEventsParams = {}): string[] {
@@ -165,11 +166,13 @@ export class ValidationResult {
     return (level === undefined ? this.getEvents() : this.getEvents(level)).length > 0;
   }
 
-  info(message: string, options: AddValidationResultOptions = {}): ValidationEvent {
-    return this.addEvent('info', message, options);
+  info(message: string, options: AddValidationResultOptions = {}): ValidationResult {
+    this.addEvent('info', message, options);
+    return this;
   }
 
-  warn(message: string, options: AddValidationResultOptions = {}): ValidationEvent {
-    return this.addEvent('warn', message, options);
+  warn(message: string, options: AddValidationResultOptions = {}): ValidationResult {
+    this.addEvent('warn', message, options);
+    return this;
   }
 }

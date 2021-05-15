@@ -42,10 +42,11 @@ describe('ValidationResult()', () => {
 
   describe('get messages', () => {
     it('should return a dictionary of messages of all levels', () => {
-      const vr = new ValidationResult();
-      vr.error('Error event 1');
-      vr.warn('Warn event');
-      vr.error('Error event 2');
+      // Example of method chaining
+      const vr = new ValidationResult()
+        .error('Error event 1')
+        .warn('Warn event')
+        .error('Error event 2');
 
       expect(vr.messages.error).toStrictEqual([
         'Error: Error event 1',
@@ -76,6 +77,25 @@ describe('ValidationResult()', () => {
         level: 'error',
         message: 'An error occurred',
       });
+    });
+  });
+
+  describe('debug(), error(), info() & warn()', () => {
+    it('should be a shorthand for addEvent() but return the instance to allow chaining', () => {
+      const vr = new ValidationResult()
+        .debug('Chained debug')
+        .error('Chained error')
+        .info('Chained info')
+        .warn('Chained warning');
+      const expectedMessages = [
+        'Debug: Chained debug',
+        'Error: Chained error',
+        'Info: Chained info',
+        'Warning: Chained warning',
+      ];
+
+      const actualMessages = vr.getMessages();
+      expect(actualMessages).toStrictEqual(expectedMessages);
     });
   });
 
