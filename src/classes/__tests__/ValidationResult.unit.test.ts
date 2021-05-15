@@ -1,21 +1,7 @@
 import { ValidationResult } from '../ValidationResult';
 
 describe('ValidationResult()', () => {
-  describe('addEvent()', () => {
-    it('should add the event to the ValidationResult', () => {
-      const vr = new ValidationResult();
-
-      vr.addEvent('error', 'An error occurred');
-
-      expect(vr.events.error).toHaveLength(1);
-      expect(vr.events.error[0]).toMatchObject({
-        level: 'error',
-        message: 'An error occurred',
-      });
-    });
-  });
-
-  describe('compareLevels(a: LogLevel | null, b: logLevel | null)', () => {
+  describe('static compareLevels(a: LogLevel | null, b: logLevel | null)', () => {
     it('should return a negative number if level a < level b', () => {
       const comparison = ValidationResult.compareLevels('warn', 'error');
       expect(comparison).toBeLessThan(0);
@@ -45,12 +31,51 @@ describe('ValidationResult()', () => {
     });
   });
 
-  describe('events.error', () => {
+  describe('get events.error', () => {
     it("should be an alias for getEvents('error')", () => {
       const vr = new ValidationResult();
       vr.error('Error event');
 
       expect(vr.getEvents('error')).toStrictEqual(vr.events.error);
+    });
+  });
+
+  describe('get messages', () => {
+    it('should return a dictionary of messages of all levels', () => {
+      const vr = new ValidationResult();
+      vr.error('Error event 1');
+      vr.warn('Warn event');
+      vr.error('Error event 2');
+
+      expect(vr.messages.error).toStrictEqual([
+        'Error: Error event 1',
+        'Error: Error event 2',
+      ]);
+      expect(vr.messages.warn).toStrictEqual([
+        'Warning: Warn event',
+      ]);
+    });
+
+    it('if there are no messages, should return an empty array', () => {
+      const vr = new ValidationResult();
+      expect(vr.messages.error).toStrictEqual([]);
+      expect(vr.messages.warn).toStrictEqual([]);
+      expect(vr.messages.info).toStrictEqual([]);
+      expect(vr.messages.debug).toStrictEqual([]);
+    });
+  });
+
+  describe('addEvent()', () => {
+    it('should add the event to the ValidationResult', () => {
+      const vr = new ValidationResult();
+
+      vr.addEvent('error', 'An error occurred');
+
+      expect(vr.events.error).toHaveLength(1);
+      expect(vr.events.error[0]).toMatchObject({
+        level: 'error',
+        message: 'An error occurred',
+      });
     });
   });
 
@@ -119,6 +144,11 @@ describe('ValidationResult()', () => {
       ]);
     });
 
+    it('if there are no messages, should return an empty array', () => {
+      const vr = new ValidationResult();
+      expect(vr.getMessages()).toStrictEqual([]);
+    });
+
     it('if logLevel is given, should return messages only of that level', () => {
       const vr = new ValidationResult();
       vr.warn('Warn event');
@@ -127,31 +157,6 @@ describe('ValidationResult()', () => {
       expect(vr.getMessages('error')).toStrictEqual([
         'Error: Error event',
       ]);
-    });
-  });
-
-  describe('messages', () => {
-    it('should return a dictionary of messages of all levels', () => {
-      const vr = new ValidationResult();
-      vr.error('Error event 1');
-      vr.warn('Warn event');
-      vr.error('Error event 2');
-
-      expect(vr.messages.error).toStrictEqual([
-        'Error: Error event 1',
-        'Error: Error event 2',
-      ]);
-      expect(vr.messages.warn).toStrictEqual([
-        'Warning: Warn event',
-      ]);
-    });
-
-    it('if there are no messages, should return an empty array', () => {
-      const vr = new ValidationResult();
-      expect(vr.messages.error).toStrictEqual([]);
-      expect(vr.messages.warn).toStrictEqual([]);
-      expect(vr.messages.info).toStrictEqual([]);
-      expect(vr.messages.debug).toStrictEqual([]);
     });
   });
 
@@ -217,24 +222,6 @@ describe('ValidationResult()', () => {
       const vr = new ValidationResult();
 
       expect(vr.highestLevel).toBeUndefined();
-    });
-  });
-
-  describe('getMessages', () => {
-    it('should return the array of all messages', () => {
-      const vr = new ValidationResult();
-      vr.error('Error event');
-      vr.debug('Debug event');
-
-      expect(vr.getMessages()).toStrictEqual([
-        'Error: Error event',
-        'Debug: Debug event',
-      ]);
-    });
-
-    it('if there are no messages, should return an empty array', () => {
-      const vr = new ValidationResult();
-      expect(vr.getMessages()).toStrictEqual([]);
     });
   });
 

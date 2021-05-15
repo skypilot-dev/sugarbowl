@@ -104,14 +104,14 @@ export class ValidationResult {
   addEvent(level: LogLevel, message: string, options: AddValidationResultOptions = {}): ValidationEvent {
     const { id, data } = options;
 
-    const validationMessage = {
+    const validationEvent = {
       level,
       message,
       ...omitUndefined({ id, data }),
     };
-    this._events.push(validationMessage);
+    this._events.push(validationEvent);
 
-    return validationMessage;
+    return validationEvent;
   }
 
   debug(message: string, options: AddValidationResultOptions = {}): ValidationEvent {
