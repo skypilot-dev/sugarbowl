@@ -65,6 +65,17 @@ export class ValidationResult {
     return ValidationResult.logLevels.indexOf(a) - ValidationResult.logLevels.indexOf(b);
   }
 
+  /**
+   * @description Merge multiple `ValidationResult` objects into one
+   */
+  static merge(validationResults: ValidationResult[]): ValidationResult {
+    const mergedValidationResult = new ValidationResult();
+    validationResults.forEach(validationResult => {
+      mergedValidationResult.addEvents(validationResult.getEvents());
+    });
+    return mergedValidationResult;
+  }
+
   private static formatEventMessage(event: ValidationEvent): string {
     return `${capitalizeFirstWord(event.level)}: ${event.message}`;
   }
@@ -113,6 +124,16 @@ export class ValidationResult {
     this._events.push(validationEvent);
 
     return validationEvent;
+  }
+
+  /**
+   * @description Add the events from another ValidationResult to this one and return this one
+   */
+  concat(...validationResults: ValidationResult[]): ValidationResult {
+    validationResults.forEach(validationResult => {
+      this._events.push(...validationResult.getEvents());
+    });
+    return this;
   }
 
   debug(message: string, options: AddValidationResultOptions = {}): ValidationResult {
@@ -175,5 +196,9 @@ export class ValidationResult {
   warn(message: string, options: AddValidationResultOptions = {}): ValidationResult {
     this.addEvent('warn', message, options);
     return this;
+  }
+
+  private addEvents(validationEvents: ValidationEvent[]): void {
+    this._events.push(...validationEvents);
   }
 }

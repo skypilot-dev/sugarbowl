@@ -31,6 +31,24 @@ describe('ValidationResult()', () => {
     });
   });
 
+  describe('static merge(:ValidationResult)', () => {
+    it('should return a new ValidationResult containing all events from the ValidationResult instances in the array', () => {
+      const vr1 = new ValidationResult()
+        .error('VR 1 error')
+        .warn('VR 1 warning');
+      const vr2 = new ValidationResult()
+        .warn('VR 2 warning');
+      const expectedMessages = [
+        'Error: VR 1 error',
+        'Warn: VR 1 warning',
+        'Warn: VR 2 warning',
+      ];
+
+      const mergedVr = ValidationResult.merge([vr1, vr2]);
+      expect(mergedVr.getMessages()).toStrictEqual(expectedMessages);
+    });
+  });
+
   describe('get events.error', () => {
     it("should be an alias for getEvents('error')", () => {
       const vr = new ValidationResult();
@@ -77,6 +95,27 @@ describe('ValidationResult()', () => {
         level: 'error',
         message: 'An error occurred',
       });
+    });
+  });
+
+  describe('concat(...validationResult: ValidationResult[])', () => {
+    it('should return a new ValidationResult containing all events from the ValidationResult arguments', () => {
+      const vr1 = new ValidationResult()
+        .error('Second')
+        .warn('Third');
+      const expectedMessages = [
+        'Warn: First',
+        'Error: Second',
+        'Warn: Third',
+        'Error: Last',
+      ];
+
+      const concatenated = new ValidationResult()
+        .warn('First')
+        .concat(vr1)
+        .error('Last');
+
+      expect(concatenated.getMessages()).toStrictEqual(expectedMessages);
     });
   });
 
