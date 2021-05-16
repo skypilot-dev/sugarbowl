@@ -2,10 +2,16 @@ import type { Integer } from '@skypilot/common-types';
 import type { JsonObject } from 'type-fest';
 
 import { capitalizeFirstWord, isNull, isUndefined, omitUndefined } from 'src/functions';
+import { isDefined } from '../functions/indefinite/isDefined';
 
 interface AddEventOptions {
   id?: Integer | string;
   data?: JsonObject;
+  type?: string;
+}
+
+export interface EventLogOptions {
+  type?: string; // default type to assign to new events
 }
 
 export interface FilterEventsParams {
@@ -34,7 +40,16 @@ export class EventLog {
     'error',
   ] as const;
 
+  defaultType?: string;
+
   private _events: Event[] = [];
+
+  constructor(options: EventLogOptions = {}) {
+    const { type } = options;
+    if (isDefined(type)) {
+      this.defaultType = type;
+    }
+  }
 
   static compareLevels(a: LogLevel | null | undefined, b: LogLevel | null | undefined): Integer {
     if (a === b) {
@@ -107,12 +122,12 @@ export class EventLog {
   }
 
   addEvent(level: LogLevel, message: string, options: AddEventOptions = {}): Event {
-    const { id, data } = options;
+    const { id, data, type = this.defaultType } = options;
 
     const event = {
       level,
       message,
-      ...omitUndefined({ id, data }),
+      ...omitUndefined({ id, data, type }),
     };
     this._events.push(event);
 
