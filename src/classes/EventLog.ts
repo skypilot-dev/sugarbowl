@@ -4,14 +4,25 @@ import type { JsonObject } from 'type-fest';
 import { capitalizeFirstWord, isNull, isUndefined, omitUndefined } from 'src/functions';
 import { isDefined } from '../functions/indefinite/isDefined';
 
-interface AddEventOptions {
+export interface AddEventOptions {
   id?: Integer | string;
   data?: JsonObject;
   type?: string;
 }
 
+export interface Event {
+  id?: Integer | string;
+  data?: JsonObject;
+  level: LogLevel;
+  message: string;
+}
+
 export interface EventLogOptions {
   type?: string; // default type to assign to new events
+}
+
+export interface EventMessageOptions {
+  omitLevel?: boolean; // if true, don't prepend the level to the message
 }
 
 export interface FilterEventsParams {
@@ -20,17 +31,6 @@ export interface FilterEventsParams {
 }
 
 export type LogLevel = typeof EventLog.logLevels[number];
-
-export interface EventMessageOptions {
-  omitLevel?: boolean; // if true, don't prepend the level to the message
-}
-
-interface Event {
-  id?: Integer | string;
-  data?: JsonObject;
-  level: LogLevel;
-  message: string;
-}
 
 export class EventLog {
   static readonly logLevels = [
