@@ -25,7 +25,7 @@ export interface EventMessageOptions {
   omitLevel?: boolean; // if true, don't prepend the level to the message
 }
 
-interface Event {
+export interface Event {
   id?: Integer | string;
   data?: JsonObject;
   level: LogLevel;
