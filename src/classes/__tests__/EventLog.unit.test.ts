@@ -34,7 +34,7 @@ describe('EventLog()', () => {
   describe('static merge(:EventLog)', () => {
     it('should return a new EventLog containing all events from the EventLog instances in the array', () => {
       const eventLog1 = new EventLog()
-        .error('First')
+        .error('First', { data: { key: 'sample data' } })
         .warn('Second');
       const eventLog2 = new EventLog()
         .warn('Last');
