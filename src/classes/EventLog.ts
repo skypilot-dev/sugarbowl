@@ -2,10 +2,16 @@ import type { Integer } from '@skypilot/common-types';
 import type { JsonObject } from 'type-fest';
 
 import { capitalizeFirstWord, isNull, isUndefined, omitUndefined } from 'src/functions';
+import { isDefined } from '../functions/indefinite/isDefined';
 
-interface AddValidationResultOptions {
+interface AddEventOptions {
   id?: Integer | string;
   data?: JsonObject;
+  type?: string;
+}
+
+export interface EventLogOptions {
+  type?: string; // default type to assign to new events
 }
 
 export interface FilterEventsParams {
@@ -13,27 +19,20 @@ export interface FilterEventsParams {
   minLevel?: LogLevel;
 }
 
-export type LogLevel = typeof ValidationResult.logLevels[number];
+export type LogLevel = typeof EventLog.logLevels[number];
 
 export interface EventMessageOptions {
   omitLevel?: boolean; // if true, don't prepend the level to the message
 }
 
-/*
-interface ValidationResultInput extends AddValidationResultOptions {
-  level?: LogLevel;
-  message: string;
-}
- */
-
-interface ValidationEvent {
+interface Event {
   id?: Integer | string;
   data?: JsonObject;
   level: LogLevel;
   message: string;
 }
 
-export class ValidationResult {
+export class EventLog {
   static readonly logLevels = [
     'debug',
     'info',
@@ -41,7 +40,16 @@ export class ValidationResult {
     'error',
   ] as const;
 
-  private _events: ValidationEvent[] = [];
+  defaultType?: string;
+
+  private _events: Event[] = [];
+
+  constructor(options: EventLogOptions = {}) {
+    const { type } = options;
+    if (isDefined(type)) {
+      this.defaultType = type;
+    }
+  }
 
   static compareLevels(a: LogLevel | null | undefined, b: LogLevel | null | undefined): Integer {
     if (a === b) {
@@ -62,14 +70,25 @@ export class ValidationResult {
       return 1; // a < b
     }
 
-    return ValidationResult.logLevels.indexOf(a) - ValidationResult.logLevels.indexOf(b);
+    return EventLog.logLevels.indexOf(a) - EventLog.logLevels.indexOf(b);
   }
 
-  private static formatEventMessage(event: ValidationEvent): string {
+  /**
+   * @description Merge multiple `EventLog` objects into one
+   */
+  static merge(eventLogs: EventLog[]): EventLog {
+    const mergedEventLog = new EventLog();
+    eventLogs.forEach(eventLog => {
+      mergedEventLog.addEvents(eventLog.getEvents());
+    });
+    return mergedEventLog;
+  }
+
+  private static formatEventMessage(event: Event): string {
     return `${capitalizeFirstWord(event.level)}: ${event.message}`;
   }
 
-  get events(): Record<LogLevel, ValidationEvent[]> {
+  get events(): Record<LogLevel, Event[]> {
     return {
       error: this.getEvents('error'),
       warn: this.getEvents('warn'),
@@ -84,7 +103,7 @@ export class ValidationResult {
     }
 
     return this._events
-      .sort((a, b) => ValidationResult.compareLevels(a.level, b.level))
+      .sort((a, b) => EventLog.compareLevels(a.level, b.level))
       .reverse()[0].level;
   }
 
@@ -99,53 +118,63 @@ export class ValidationResult {
 
   get ok(): boolean {
     const { highestLevel } = this;
-    return highestLevel === undefined || (ValidationResult.compareLevels(highestLevel, 'error') < 0);
+    return highestLevel === undefined || (EventLog.compareLevels(highestLevel, 'error') < 0);
   }
 
-  addEvent(level: LogLevel, message: string, options: AddValidationResultOptions = {}): ValidationEvent {
-    const { id, data } = options;
+  addEvent(level: LogLevel, message: string, options: AddEventOptions = {}): Event {
+    const { id, data, type = this.defaultType } = options;
 
-    const validationEvent = {
+    const event = {
       level,
       message,
-      ...omitUndefined({ id, data }),
+      ...omitUndefined({ id, data, type }),
     };
-    this._events.push(validationEvent);
+    this._events.push(event);
 
-    return validationEvent;
+    return event;
   }
 
-  debug(message: string, options: AddValidationResultOptions = {}): ValidationResult {
+  /**
+   * @description Append the events from one or more EventLog instances to this one and return this one
+   */
+  append(...eventLogs: EventLog[]): EventLog {
+    eventLogs.forEach(eventLog => {
+      this._events.push(...eventLog.getEvents());
+    });
+    return this;
+  }
+
+  debug(message: string, options: AddEventOptions = {}): EventLog {
     this.addEvent('debug', message, options);
     return this;
   }
 
-  error(message: string, options: AddValidationResultOptions = {}): ValidationResult {
+  error(message: string, options: AddEventOptions = {}): EventLog {
     this.addEvent('error', message, options);
     return this;
   }
 
-  filterEvents(params: FilterEventsParams): ValidationEvent[] {
+  filterEvents(params: FilterEventsParams): Event[] {
     const { minLevel, maxLevel } = params;
 
     return this._events.filter(event => (
       (
         isUndefined(minLevel)
-        || ValidationResult.logLevels.indexOf(event.level) >= ValidationResult.logLevels.indexOf(minLevel)
+        || EventLog.logLevels.indexOf(event.level) >= EventLog.logLevels.indexOf(minLevel)
       ) && (
         isUndefined(maxLevel)
-        || ValidationResult.logLevels.indexOf(event.level) <= ValidationResult.logLevels.indexOf(maxLevel))
+        || EventLog.logLevels.indexOf(event.level) <= EventLog.logLevels.indexOf(maxLevel))
     ));
   }
 
   filterMessages(params: FilterEventsParams, options: EventMessageOptions = {}): string[] {
     const { omitLevel = false } = options;
     return this.filterEvents(params)
-      .map(event => omitLevel ? event.message : ValidationResult.formatEventMessage(event));
+      .map(event => omitLevel ? event.message : EventLog.formatEventMessage(event));
   }
 
-  getEvents(): Array<ValidationEvent>;
-  getEvents<L extends LogLevel>(level: L): Array<ValidationEvent & { level: L }>;
+  getEvents(): Array<Event>;
+  getEvents<L extends LogLevel>(level: L): Array<Event & { level: L }>;
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
   getEvents(level?: LogLevel | undefined) {
@@ -158,7 +187,7 @@ export class ValidationResult {
   getMessages(level?: LogLevel, options: EventMessageOptions = {}): string[] {
     const {  omitLevel = false } = options;
     return (level === undefined ? this.getEvents() : this.getEvents(level))
-      .map(event => omitLevel ? event.message : ValidationResult.formatEventMessage(event));
+      .map(event => omitLevel ? event.message : EventLog.formatEventMessage(event));
   }
 
   has(): boolean;
@@ -167,13 +196,17 @@ export class ValidationResult {
     return (level === undefined ? this.getEvents() : this.getEvents(level)).length > 0;
   }
 
-  info(message: string, options: AddValidationResultOptions = {}): ValidationResult {
+  info(message: string, options: AddEventOptions = {}): EventLog {
     this.addEvent('info', message, options);
     return this;
   }
 
-  warn(message: string, options: AddValidationResultOptions = {}): ValidationResult {
+  warn(message: string, options: AddEventOptions = {}): EventLog {
     this.addEvent('warn', message, options);
     return this;
+  }
+
+  private addEvents(events: Event[]): void {
+    this._events.push(...events);
   }
 }

@@ -122,8 +122,8 @@ const intendedExports: string[] = [
 
   /* Classes */
   'Directory',
+  'EventLog',
   'StringCounter',
-  'ValidationResult',
 ];
 
 describe('Export verification', () => {
