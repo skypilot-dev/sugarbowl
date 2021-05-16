@@ -153,5 +153,5 @@ carry the overhead of checking argument types or handling type coercion.
 ### Classes
 
 -   `Directory`
+-   `EventLog`
 -   `StringCounter`
--   `ValidationResult`

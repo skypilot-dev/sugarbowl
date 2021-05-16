@@ -1,5 +1,5 @@
 export { Directory } from './Directory';
 export type { DirectoryLike } from './Directory';
-export type { LogLevel } from './ValidationResult';
+export { EventLog } from './EventLog';
+export type { LogLevel } from './EventLog';
 export { StringCounter } from './StringCounter';
-export { ValidationResult } from './ValidationResult';
