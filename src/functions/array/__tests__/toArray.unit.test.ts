@@ -1,10 +1,11 @@
 import { toArray } from '../toArray';
 
 describe('toArray(value | value[])', () => {
-  it('if the value is an array, should return the value', () => {
+  it('if the value is an array, should return a new array containing the same items', () => {
     const value: unknown[] = [];
     const array = toArray(value);
-    expect(array).toBe(value);
+    expect(array).toStrictEqual(value);
+    expect(array).not.toBe(value);
   });
 
   it('should accept a read-only array', () => {
