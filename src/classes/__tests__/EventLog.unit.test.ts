@@ -49,6 +49,9 @@ describe('EventLog()', () => {
     });
   });
 
+  describe('constructor()', () => {
+  });
+
   describe('get events.error', () => {
     it("should be an alias for getEvents('error')", () => {
       const eventLog = new EventLog();
@@ -97,6 +100,26 @@ describe('EventLog()', () => {
         level: 'error',
         message: 'An error occurred',
       });
+    });
+
+    it('should use a type option passed to the constructor', () => {
+      const eventLog = new EventLog({ type: 'validation' })
+        .error('Message');
+      const expectedEvent = { message: 'Message', type: 'validation' };
+
+      const actualEvents = eventLog.getEvents();
+      expect(actualEvents).toHaveLength(1);
+      expect(actualEvents[0]).toMatchObject(expectedEvent);
+    });
+
+    it('given a type option, should override the default type passed to the constructor', () => {
+      const eventLog = new EventLog({ type: 'validation' })
+        .error('Message', { type: 'not validation' });
+      const expectedEvent = { message: 'Message', type: 'not validation' };
+
+      const actualEvents = eventLog.getEvents();
+      expect(actualEvents).toHaveLength(1);
+      expect(actualEvents[0]).toMatchObject(expectedEvent);
     });
   });
 
