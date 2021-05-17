@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-console */
 
 import type { Integer } from '@skypilot/common-types';
 
@@ -11,6 +12,12 @@ export interface AddEventOptions<TData = any> {
   type?: string;
 }
 
+export interface EchoOptions {
+  event?: boolean;
+  message?: boolean;
+  minLevel?: LogLevel;
+}
+
 export interface Event<TData = any> {
   id?: Integer | string;
   data?: TData;
@@ -19,6 +26,7 @@ export interface Event<TData = any> {
 }
 
 export interface EventLogOptions {
+  echo?: EchoOptions;
   type?: string; // default type to assign to new events
 }
 
@@ -42,11 +50,15 @@ export class EventLog {
   ] as const;
 
   defaultType?: string;
+  echoOptions: EchoOptions;
 
   private _events: Event[] = [];
 
   constructor(options: EventLogOptions = {}) {
-    const { type } = options;
+    const { echo = {}, type } = options;
+    const { event = false, message = false, minLevel = 'error' } = echo;
+    this.echoOptions = { event, message, minLevel };
+
     if (isDefined(type)) {
       this.defaultType = type;
     }
@@ -116,7 +128,7 @@ export class EventLog {
       .reverse()[0].level;
   }
 
-  get messages(): Record<LogLevel, string[]> {
+  get messages(): Record<Exclude<LogLevel, 'off'>, string[]> {
     return {
       error: this.getMessages('error', { omitLevel: true }),
       warn: this.getMessages('warn', { omitLevel: true }),
@@ -139,6 +151,15 @@ export class EventLog {
       ...omitUndefined({ id, data, type }),
     };
     this._events.push(event);
+
+    if (EventLog.compareLevels(level, this.echoOptions.minLevel) >= 0) {
+      if (this.echoOptions.message) {
+        console[level](message);
+      }
+      if (this.echoOptions.event) {
+        console[level](event);
+      }
+    }
 
     return event;
   }
