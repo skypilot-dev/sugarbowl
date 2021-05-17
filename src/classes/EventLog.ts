@@ -89,6 +89,10 @@ export class EventLog {
     return `${capitalizeFirstWord(event.level)}: ${event.message}`;
   }
 
+  get count(): Integer {
+    return this._events.length;
+  }
+
   get events(): Record<LogLevel, Event[]> {
     return {
       error: this.getEvents('error'),
@@ -96,6 +100,10 @@ export class EventLog {
       info: this.getEvents('info'),
       debug: this.getEvents('debug'),
     };
+  }
+
+  get hasEvents(): boolean {
+    return this._events.length > 0;
   }
 
   get highestLevel(): LogLevel | undefined {

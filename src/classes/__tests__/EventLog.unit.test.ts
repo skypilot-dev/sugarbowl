@@ -92,9 +92,13 @@ describe('EventLog()', () => {
   describe('addEvent()', () => {
     it('should add the event to the EventLog', () => {
       const eventLog = new EventLog();
+      expect(eventLog.count).toBe(0);
+      expect(eventLog.hasEvents).toBe(false);
 
       eventLog.addEvent('error', 'An error occurred');
 
+      expect(eventLog.count).toBe(1);
+      expect(eventLog.hasEvents).toBe(true);
       expect(eventLog.events.error).toHaveLength(1);
       expect(eventLog.events.error[0]).toMatchObject({
         level: 'error',
@@ -161,6 +165,8 @@ describe('EventLog()', () => {
 
       const actualMessages = eventLog.getMessages();
       expect(actualMessages).toStrictEqual(expectedMessages);
+      expect(eventLog.count).toBe(4);
+      expect(eventLog.hasEvents).toBe(true);
     });
   });
 
