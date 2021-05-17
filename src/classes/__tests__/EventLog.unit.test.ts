@@ -199,9 +199,19 @@ describe('EventLog()', () => {
 
   describe('getEvents()', () => {
     it('should return all events', () => {
+      interface Data { key: string }
+      expect.assertions(2);
+
       const eventLog = new EventLog();
-      eventLog.info( 'Info event');
+      eventLog.info<Data>( 'Info event', { data: { key: 'typed value' } });
       eventLog.debug('Debug event');
+
+
+      const [firstEvent] = eventLog.getEvents<Data>();
+      if (firstEvent) {
+        const { key } = firstEvent.data || {};
+        expect(key).toBe('typed value');
+      }
 
       expect(eventLog.getEvents()).toHaveLength(2);
     });
