@@ -1,6 +1,10 @@
 import { Integer } from '@skypilot/common-types';
 
-import { TypedObject } from '../object';
+import { isUndefined, TypedObject } from 'src/functions';
+
+interface ZipToObjectsOptions {
+  omitUndefined?: boolean;
+}
 
 /*
     Combines the arrays mapped to an object into an array of objects with the same keys and values.
@@ -8,17 +12,22 @@ import { TypedObject } from '../object';
 
     TODO: Modify to allow any values
  */
+export function zipToObjects<O extends Record<string, string[]>>(
+  recordMap: O, options: ZipToObjectsOptions = {}
+): Record<keyof O, string>[] {
+  const { omitUndefined = false } = options;
 
-export function zipToObjects<O extends Record<string, string[]>>(recordMap: O): Record<keyof O, string>[] {
   const keys = TypedObject.keys(recordMap);
   const arrays = TypedObject.values(recordMap);
   const longestArray = arrays.reduce(
     (acc, array) => array.length > acc.length ? array : acc,
     [] as string[]
   );
-  return longestArray.map((_item, index) => keys.reduce(
-    (acc, key) => ({ ...acc, [key]: itemOrUndefined(recordMap[key], index) }),
-    {} as Record<keyof O, string>
+  return longestArray.map((_item, index) => keys.reduce((acc, key) => {
+    const value = itemOrUndefined(recordMap[key], index);
+    return (omitUndefined && isUndefined(value)) ? acc
+      : { ...acc, [key]: itemOrUndefined(recordMap[key], index) };
+  }, {} as Record<keyof O, string>
   ));
 }
 

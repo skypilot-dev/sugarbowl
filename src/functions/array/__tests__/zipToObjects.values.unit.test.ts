@@ -31,6 +31,21 @@ describe('zipToObjects', () => {
     expect(actual).toStrictEqual(expected);
   });
 
+  it('if `omitUndefined: true`, should omit entries whose values are undefined ', () => {
+    const options = { omitUndefined: true };
+    const recordMap = {
+      a: ['1', '2'],
+      b: ['3'],
+    };
+    const expected = [
+      { a: '1', b: '3' },
+      { a: '2' },
+    ];
+
+    const actual = zipToObjects(recordMap, options);
+    expect(actual).toStrictEqual(expected);
+  });
+
   it('given only empty arrays, should return an empty array', () => {
     const recordMap = {
       a: [],
