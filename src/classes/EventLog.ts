@@ -1,18 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import type { Integer } from '@skypilot/common-types';
-import type { JsonObject } from 'type-fest';
 
 import { capitalizeFirstWord, isNull, isUndefined, omitUndefined } from 'src/functions';
 import { isDefined } from '../functions/indefinite/isDefined';
 
-export interface AddEventOptions {
+export interface AddEventOptions<TData = any> {
   id?: Integer | string;
-  data?: JsonObject;
+  data?: TData;
   type?: string;
 }
 
-export interface Event {
+export interface Event<TData = any> {
   id?: Integer | string;
-  data?: JsonObject;
+  data?: TData;
   level: LogLevel;
   message: string;
 }
@@ -121,7 +122,7 @@ export class EventLog {
     return highestLevel === undefined || (EventLog.compareLevels(highestLevel, 'error') < 0);
   }
 
-  addEvent(level: LogLevel, message: string, options: AddEventOptions = {}): Event {
+  addEvent<TData>(level: LogLevel, message: string, options: AddEventOptions<TData> = {}): Event {
     const { id, data, type = this.defaultType } = options;
 
     const event = {
@@ -144,12 +145,12 @@ export class EventLog {
     return this;
   }
 
-  debug(message: string, options: AddEventOptions = {}): EventLog {
+  debug<TData>(message: string, options: AddEventOptions<TData> = {}): EventLog {
     this.addEvent('debug', message, options);
     return this;
   }
 
-  error(message: string, options: AddEventOptions = {}): EventLog {
+  error<TData>(message: string, options: AddEventOptions<TData> = {}): EventLog {
     this.addEvent('error', message, options);
     return this;
   }
@@ -173,8 +174,8 @@ export class EventLog {
       .map(event => omitLevel ? event.message : EventLog.formatEventMessage(event));
   }
 
-  getEvents(): Array<Event>;
-  getEvents<L extends LogLevel>(level: L): Array<Event & { level: L }>;
+  getEvents<TData>(): Array<Event<TData>>;
+  getEvents<TData, L extends LogLevel>(level: L): Array<Event<TData> & { level: L }>;
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
   getEvents(level?: LogLevel | undefined) {
@@ -196,12 +197,12 @@ export class EventLog {
     return (level === undefined ? this.getEvents() : this.getEvents(level)).length > 0;
   }
 
-  info(message: string, options: AddEventOptions = {}): EventLog {
-    this.addEvent('info', message, options);
+  info<TData>(message: string, options: AddEventOptions<TData> = {}): EventLog {
+    this.addEvent<TData>('info', message, options);
     return this;
   }
 
-  warn(message: string, options: AddEventOptions = {}): EventLog {
+  warn<TData>(message: string, options: AddEventOptions<TData> = {}): EventLog {
     this.addEvent('warn', message, options);
     return this;
   }
