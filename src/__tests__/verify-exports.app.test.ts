@@ -78,7 +78,9 @@ const intendedExports: string[] = [
   'isObject',
   'mergeIf',
   'omitByValue',
+  'omitEmpty',
   'omitEmptyArrays',
+  'omitEmptyObjects',
   'omitEntriesByValue', // deprecated
   'omitFalsy',
   'omitFalsyEntries', // deprecated

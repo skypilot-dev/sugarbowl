@@ -104,7 +104,9 @@ carry the overhead of checking argument types or handling type coercion.
 -   `isObject(value: any): boolean`
 -   `mergeIf(conditional: any, :object)`
 -   `omitByValue<TValues, TValue extends TValues>(value: TValue, obj: Record<string, TValues>): Record<string, TValues>`
+-   `omitEmpty<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, {} | []>>`
 -   `omitEmptyArrays<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, []>>`
+-   `omitEmptyObjects<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, {}>>`
 -   `omitEntriesByValue(value: any, obj: object): object` **deprecated; use `omitByValue`**
 -   `omitFalsy<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, null | undefined | '' | 0>'>`
 -   `omitUndefined<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, undefined>`
