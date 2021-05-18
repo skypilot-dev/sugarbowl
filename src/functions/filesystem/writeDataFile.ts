@@ -77,8 +77,8 @@ export async function writeDataFile<T>(
     fileNameElements.push(identifier);
   }
   if (dateTimeFormat) {
-    const dateTimeOptions = typeof dateTimeFormat === 'string'
-      ? { dateTime: isoDateTime, presetCode: dateTimeFormat }
+    const dateTimeOptions: DateTimeStampOptions = typeof dateTimeFormat === 'string'
+      ? { dateTime: isoDateTime, preset: dateTimeFormat }
       : { dateTime: isoDateTime, ...dateTimeFormat };
     fileNameElements.push(makeDateTimeStamp(dateTimeOptions));
   }
