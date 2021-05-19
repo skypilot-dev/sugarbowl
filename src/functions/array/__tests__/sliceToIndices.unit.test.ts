@@ -104,6 +104,24 @@ describe('sliceToIndices()', () => {
     }
   });
 
+  it('if startAt references an index higher than the index of the last item, should return [-1, -1]', () => {
+    const items = [1, 2, 3];
+    const [startAt, stopBefore] = [3, 4];
+    const expected = [-1, -1];
+
+    const actual = sliceToIndices(items, startAt, stopBefore);
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('if startAt references an index >= stopBefore, should return [-1, -1]', () => {
+    const items = [1, 2, 3];
+    const [startAt, stopBefore] = [2, -3];
+    const expected = [-1, -1];
+
+    const actual = sliceToIndices(items, startAt, stopBefore);
+    expect(actual).toStrictEqual(expected);
+  });
+
   it('given an empty array, should always return [-1, -1]', () => {
     const items: number[] = [];
     const expected = [-1, -1];

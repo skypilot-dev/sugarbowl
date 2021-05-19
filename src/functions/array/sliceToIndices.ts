@@ -18,6 +18,10 @@ export function sliceToIndices<T>(
   const definiteStartAt = isUndefined(startAt) ? 0 : startAt;
   const definiteStopBefore = isUndefined(stopBefore) ? arrayLength: stopBefore;
 
+  if (definiteStartAt >= arrayLength) {
+    return [-1, -1];
+  }
+
   const indexOfFirstItem = definiteStartAt >= 0
     ? Math.min(definiteStartAt, arrayLength - 1)
     : Math.max(0, arrayLength + definiteStartAt);
