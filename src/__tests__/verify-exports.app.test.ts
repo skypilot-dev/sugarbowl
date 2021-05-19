@@ -16,6 +16,7 @@ const intendedExports: string[] = [
   'pushIf',
   'range',
   'shuffle',
+  'sliceToIndices',
   'toArray',
   'toUniqueArray',
 
