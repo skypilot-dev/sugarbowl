@@ -3,6 +3,7 @@ import type { Integer } from '@skypilot/common-types';
 import { isUndefined } from 'src/functions/indefinite/isUndefined';
 
 /**
+ * @deprecated Use `resolveSlice`
  * @description Return the indices of the first & last items of the array range defined by the slice
  */
 export function sliceToIndices<T>(
