@@ -7,17 +7,24 @@ import { isUndefined } from 'src/functions/indefinite/isUndefined';
  */
 export function sliceToIndices<T>(
   items: T[], startAt: Integer | undefined, stopBefore: Integer | undefined
+): [Integer, Integer];
+export function sliceToIndices(
+  arrayLength: Integer, startAt: Integer | undefined, stopBefore: Integer | undefined
+): [Integer, Integer];
+export function sliceToIndices<T>(
+  arrayOrLength: T[] | Integer, startAt: Integer | undefined, stopBefore: Integer | undefined
 ): [Integer, Integer] {
+  const arrayLength = Array.isArray(arrayOrLength) ? arrayOrLength.length : arrayOrLength;
   const definiteStartAt = isUndefined(startAt) ? 0 : startAt;
-  const definiteStopBefore = isUndefined(stopBefore) ? items.length : stopBefore;
+  const definiteStopBefore = isUndefined(stopBefore) ? arrayLength: stopBefore;
 
   const indexOfFirstItem = definiteStartAt >= 0
-    ? Math.min(definiteStartAt, items.length - 1)
-    : Math.max(0, items.length + definiteStartAt);
+    ? Math.min(definiteStartAt, arrayLength - 1)
+    : Math.max(0, arrayLength + definiteStartAt);
 
   const indexOfLastItem = definiteStopBefore >= 0
-    ? Math.min(definiteStopBefore - 1, items.length - 1)
-    : Math.max(-1, items.length + definiteStopBefore - 1);
+    ? Math.min(definiteStopBefore - 1, arrayLength - 1)
+    : Math.max(-1, arrayLength + definiteStopBefore - 1);
 
   return indexOfLastItem < indexOfFirstItem
     ? [-1, -1]

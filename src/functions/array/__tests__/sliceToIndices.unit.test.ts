@@ -7,8 +7,10 @@ describe('sliceToIndices()', () => {
       const [startAt, stopBefore] = [0, 3];
       const expected = [0, 2];
 
-      const actual = sliceToIndices(items, startAt, stopBefore);
-      expect(actual).toStrictEqual(expected);
+      const arrayActual = sliceToIndices(items, startAt, stopBefore);
+      const lengthActual = sliceToIndices(3, startAt, stopBefore);
+      expect(arrayActual).toStrictEqual(expected);
+      expect(lengthActual).toStrictEqual(expected);
     }
     {
       const [startAt, stopBefore] = [2, 3];
