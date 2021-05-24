@@ -14,7 +14,6 @@ export { range } from './range';
 export { resolveSlice } from './resolveSlice';
 export { shuffle } from './shuffle';
 export { Slice } from './Slice';
-export { sliceToIndices } from './sliceToIndices';
 export { sorterOnDigits } from './sorters/sorterOnDigits';
 export { toArray } from './toArray';
 export { toUniqueArray } from './toUniqueArray';

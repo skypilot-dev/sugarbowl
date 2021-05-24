@@ -17,7 +17,6 @@ const intendedExports: string[] = [
   'range',
   'resolveSlice',
   'shuffle',
-  'sliceToIndices',
   'toArray',
   'toUniqueArray',
 
