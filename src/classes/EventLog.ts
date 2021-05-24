@@ -3,12 +3,13 @@
 
 import type { Integer } from '@skypilot/common-types';
 
-import { capitalizeFirstWord, isNull, isUndefined, omitUndefined } from 'src/functions';
+import { capitalizeFirstWord, isNull, isUndefined, mergeIf, omitUndefined } from 'src/functions';
 import { isDefined } from '../functions/indefinite/isDefined';
 
 export interface AddEventOptions<TData = any> {
   id?: Integer | string;
   data?: TData;
+  indentLevel?: Integer;
   type?: string;
 }
 
@@ -21,6 +22,7 @@ export interface EchoOptions {
 export interface Event<TData = any> {
   id?: Integer | string;
   data?: TData;
+  indentLevel?: Integer;
   level: LogLevel;
   message: string;
 }
@@ -143,21 +145,26 @@ export class EventLog {
   }
 
   addEvent<TData>(level: LogLevel, message: string, options: AddEventOptions<TData> = {}): Event {
-    const { id, data, type = this.defaultType } = options;
+    const { id, data, indentLevel, type = this.defaultType } = options;
 
     const event = {
+      ...mergeIf(isDefined(indentLevel), { indentLevel }),
       level,
       message,
       ...omitUndefined({ id, data, type }),
     };
     this._events.push(event);
 
+    function indent(text: string, indentLevel: Integer | undefined = 0): string {
+      return ['  '.repeat(indentLevel || 0), text].join('');
+    }
     if (EventLog.compareLevels(level, this.echoOptions.minLevel) >= 0) {
+      const indentedMessage = indent(message, indentLevel);
       if (this.echoOptions.message) {
-        console[level](message);
+        console[level](indentedMessage);
       }
       if (this.echoOptions.event) {
-        console[level](event);
+        console[level](indentedMessage);
       }
     }
 
