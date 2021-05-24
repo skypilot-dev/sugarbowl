@@ -53,6 +53,7 @@ export class EventLog {
 
   defaultType?: string;
   echoOptions: EchoOptions;
+  indentLevel: Integer | undefined = undefined;
 
   private _events: Event[] = [];
 
@@ -145,7 +146,7 @@ export class EventLog {
   }
 
   addEvent<TData>(level: LogLevel, message: string, options: AddEventOptions<TData> = {}): Event {
-    const { id, data, indentLevel, type = this.defaultType } = options;
+    const { id, data, indentLevel = this.indentLevel, type = this.defaultType } = options;
 
     const event = {
       ...mergeIf(isDefined(indentLevel), { indentLevel }),
