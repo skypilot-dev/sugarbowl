@@ -125,6 +125,61 @@ describe('EventLog()', () => {
       expect(actualEvents).toHaveLength(1);
       expect(actualEvents[0]).toMatchObject(expectedEvent);
     });
+
+    it('indentLevel for an event should default to the value set on the EventLog instance', () => {
+      const eventLog = new EventLog();
+      eventLog.addEvent('info', 'no indentLevel');
+      eventLog.indentLevel = 1;
+      eventLog.warn('has indentLevel');
+      const expectedEvents = [
+        {
+          level: 'info',
+          message: 'no indentLevel',
+        },
+        {
+          indentLevel: 1,
+          level: 'warn',
+          message: 'has indentLevel',
+        },
+      ];
+
+      const actualEvents = eventLog.getEvents();
+      expect(actualEvents).toStrictEqual(expectedEvents);
+    });
+
+    it('if indentLevel is not set, should not add it to the event', () => {
+      const eventLog = new EventLog();
+      eventLog.addEvent('info', 'no indentLevel');
+      const expectedEvent = {
+        level: 'info',
+        message: 'no indentLevel',
+      };
+
+      const actualEvents = eventLog.getEvents();
+      expect(actualEvents).toHaveLength(1);
+      expect(actualEvents[0]).toStrictEqual(expectedEvent);
+    });
+
+    it('if indentLevel is set, should add it to the event', () => {
+      const eventLog = new EventLog();
+      eventLog.addEvent('info', 'has indentLevel', { indentLevel: 0 });
+      eventLog.error('has indentLevel', { indentLevel: 1 });
+      const expectedEvents = [
+        {
+          indentLevel: 0,
+          level: 'info',
+          message: 'has indentLevel',
+        },
+        {
+          indentLevel: 1,
+          level: 'error',
+          message: 'has indentLevel',
+        },
+      ];
+
+      const actualEvents = eventLog.getEvents();
+      expect(actualEvents).toStrictEqual(expectedEvents);
+    });
   });
 
   describe('append(...eventLogs: EventLog[])', () => {
