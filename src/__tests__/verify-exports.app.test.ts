@@ -15,8 +15,8 @@ const intendedExports: string[] = [
   'pickRandomItems',
   'pushIf',
   'range',
+  'resolveSlice',
   'shuffle',
-  'sliceToIndices',
   'toArray',
   'toUniqueArray',
 
