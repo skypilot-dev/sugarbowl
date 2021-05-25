@@ -1,12 +1,12 @@
 import type { EmptyObject } from '@skypilot/common-types';
-import type { ConditionalExcept, JsonObject } from 'type-fest';
+import type { ConditionalExcept } from 'type-fest';
 
 // TODO: Make this function optionally recursive
 
 /**
  * @description Return a copy of the object, but omit any entries whose values are empty arrays
  */
-export function omitEmptyObjects<O extends JsonObject>(obj: O): ConditionalExcept<O, EmptyObject> {
+export function omitEmptyObjects<O extends { [key: string]: any }>(obj: O): ConditionalExcept<O, EmptyObject> {
   return Object.entries(obj).reduce((accObj, [key, value]) => {
     if (
       value instanceof Object

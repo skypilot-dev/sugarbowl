@@ -4,14 +4,14 @@
  */
 
 import { Falsy } from '@skypilot/common-types';
-import { ConditionalExcept, JsonObject } from 'type-fest';
+import { ConditionalExcept } from 'type-fest';
 
 type NoFalsy<T> = ConditionalExcept<T, Falsy>
 
 /**
  * @description Remove keys whose values are falsy and return as a new object
  */
-export function omitFalsy<T extends JsonObject>(obj: T): NoFalsy<T> {
+export function omitFalsy<T extends { [key: string]: any }>(obj: T): NoFalsy<T> {
   return Object.entries(obj).reduce((compactedObj, entry) => {
     const [key, value] = entry;
     if (!value) {
