@@ -12,7 +12,7 @@ describe('omitUndefined(:object)', () => {
   });
 
   it('given an object with all values defined, should return an equal but not identical object', () => {
-    const originalObj = { a: 1, b: 2 };
+    const originalObj = { a: 1, b: () => true };
 
     const noUndefined = omitUndefined(originalObj);
 
