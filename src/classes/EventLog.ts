@@ -29,6 +29,7 @@ export interface Event<TData = any> {
 
 export interface EventLogOptions {
   echo?: EchoOptions;
+  baseIndentLevel?: Integer;
   type?: string; // default type to assign to new events
 }
 
@@ -51,6 +52,7 @@ export class EventLog {
     'error',
   ] as const;
 
+  baseIndentLevel: Integer;
   defaultType?: string;
   echoOptions: EchoOptions;
   indentLevel: Integer | undefined = undefined;
@@ -58,8 +60,10 @@ export class EventLog {
   private _events: Event[] = [];
 
   constructor(options: EventLogOptions = {}) {
-    const { echo = {}, type } = options;
+    const { baseIndentLevel = 0, echo = {}, type } = options;
     const { event = false, message = false, minLevel = 'error' } = echo;
+
+    this.baseIndentLevel = baseIndentLevel;
     this.echoOptions = { event, message, minLevel };
 
     if (isDefined(type)) {
@@ -149,7 +153,10 @@ export class EventLog {
     const { id, data, indentLevel = this.indentLevel, type = this.defaultType } = options;
 
     const event = {
-      ...mergeIf(isDefined(indentLevel), { indentLevel }),
+      ...mergeIf(
+        isDefined(indentLevel) || this.baseIndentLevel,
+        { indentLevel: (indentLevel || 0) + this.baseIndentLevel }
+      ),
       level,
       message,
       ...omitUndefined({ id, data, type }),

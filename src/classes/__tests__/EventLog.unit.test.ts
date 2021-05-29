@@ -182,6 +182,34 @@ describe('EventLog()', () => {
     });
   });
 
+  it('if baseIndentLevel is set to anything but 0, should add it to the event', () => {
+    const eventLog = new EventLog({ baseIndentLevel: 1 });
+    eventLog.info('baseIndentLevel');
+    const expectedEvent = {
+      indentLevel: 1,
+      level: 'info',
+      message: 'baseIndentLevel',
+    };
+
+    const actualEvents = eventLog.getEvents();
+    expect(actualEvents).toHaveLength(1);
+    expect(actualEvents[0]).toStrictEqual(expectedEvent);
+  });
+
+  it('if both indentLevel and baseIndentLevel are set, should add their sum to the event', () => {
+    const eventLog = new EventLog({ baseIndentLevel: 1 });
+    eventLog.info('baseIndentLevel+indentLevel', { indentLevel: 1 });
+    const expectedEvent = {
+      indentLevel: 2,
+      level: 'info',
+      message: 'baseIndentLevel+indentLevel',
+    };
+
+    const actualEvents = eventLog.getEvents();
+    expect(actualEvents).toHaveLength(1);
+    expect(actualEvents[0]).toStrictEqual(expectedEvent);
+  });
+
   describe('append(...eventLogs: EventLog[])', () => {
     it('should return a new EventLog containing all events from the EventLog arguments', () => {
       const addendumLog = new EventLog()

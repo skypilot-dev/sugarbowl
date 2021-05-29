@@ -110,6 +110,7 @@ carry the overhead of checking argument types or handling type coercion.
 -   `omitEmptyObjects<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, {}>>`
 -   `omitEntriesByValue(value: any, obj: object): object` **deprecated; use `omitByValue`**
 -   `omitFalsy<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, null | undefined | '' | 0>'>`
+-   `omitNulls<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, null>`
 -   `omitUndefined<TValues>(obj: Record<string, TValues>): Record<string, Exclude<TValues, undefined>`
 -   `omitFalsyEntries(obj: object): object` **deprecated; use `omitFalsy`**
 -   `omitUndefinedEntries(obj: object): object` **deprecated; use `omitUndefined`**

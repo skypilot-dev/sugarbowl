@@ -10,6 +10,7 @@ export { omitEmptyObjects } from './omitEmptyObjects';
 export { omitEntriesByValue } from './omitEntriesByValue';
 export { omitFalsy } from './omitFalsy';
 export { omitFalsyEntries } from './omitFalsyEntries';
+export { omitNulls } from './omitNulls';
 export { omitUndefined } from './omitUndefined';
 export { omitUndefinedEntries } from './omitUndefinedEntries';
 export { setValueByPath } from './setValueByPath';

@@ -54,7 +54,7 @@
   "devDependencies": {
     "@skypilot/common-types": "^2.3.0",
     "@skypilot/toolchain": "^5.2.3",
-    "type-fest": "^1.1.1"
+    "type-fest": "^1.1.3"
   },
   "engines": {
     "node": ">=12.13.0"
