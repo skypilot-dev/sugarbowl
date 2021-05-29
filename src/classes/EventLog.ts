@@ -3,7 +3,7 @@
 
 import type { Integer } from '@skypilot/common-types';
 
-import { capitalizeFirstWord, isNull, isUndefined, mergeIf, omitUndefined } from 'src/functions';
+import { capitalizeFirstWord, isUndefined, mergeIf, omitUndefined } from 'src/functions';
 import { isDefined } from '../functions/indefinite/isDefined';
 import { isPlainObject } from '../functions/object/isPlainObject';
 
@@ -74,36 +74,11 @@ export class EventLog {
     }
   }
 
-  // Return a positive number if a > b; a negative number if a < b, or a 0 if they are equal. Higher = more severe
-  static compareLevels(a: EchoLevel | null | undefined, b: EchoLevel | null | undefined): Integer {
-    if (a === b) {
-      return 0;
+  static meetsThreshold(logLevel: LogLevel | undefined, threshold: EchoLevel | undefined): boolean {
+    if (isUndefined(logLevel) || isUndefined(threshold) || threshold === 'off') {
+      return false;
     }
-
-    function resolve(echoLevel: EchoLevel | null | undefined): EchoLevel {
-      if (isNull(echoLevel)) {
-        return 'error';
-      }
-      if (isUndefined(echoLevel)) {
-        return 'off';
-      }
-      return echoLevel;
-    }
-
-    const resolvedA = resolve(a);
-    const resolvedB = resolve(b);
-
-    if (resolvedA === 'off') {
-      return -1;
-    } else if (resolvedB === 'off') {
-      return 1;
-    }
-
-    return EventLog.logLevels.indexOf(resolvedA) - EventLog.logLevels.indexOf(resolvedB);
-  }
-
-  static meetsThreshold(echoLevel: EchoLevel | null | undefined, threshold: EchoLevel | null | undefined): boolean {
-    return this.compareLevels(echoLevel, threshold) >= 0;
+    return this.compareLevels(logLevel, threshold) >= 0;
   }
 
   /**
@@ -115,6 +90,19 @@ export class EventLog {
       mergedEventLog.addEvents(eventLog.getEvents());
     });
     return mergedEventLog;
+  }
+
+  // Return a positive number if a > b; a negative number if a < b, or a 0 if they are equal. Higher = more severe
+  private static compareLevels(a: LogLevel, b: LogLevel): Integer {
+    if (isUndefined(a)) {
+      return -1;
+    }
+
+    if (a === b) {
+      return 0;
+    }
+
+    return EventLog.logLevels.indexOf(a) - EventLog.logLevels.indexOf(b);
   }
 
   private static formatEventMessage(event: Event): string {

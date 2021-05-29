@@ -1,33 +1,34 @@
 import { EventLog } from '../EventLog';
 
 describe('EventLog()', () => {
-  describe('static compareLevels(a: LogLevel | null, b: logLevel | null)', () => {
-    it('should return a negative number if level a < level b', () => {
-      const comparison = EventLog.compareLevels('warn', 'error');
-      expect(comparison).toBeLessThan(0);
+  describe('static meetsThreshold(a: LogLevel | undefined, b: EchoLevel | undefined)', () => {
+    it('should return false if level a < level b', () => {
+      expect(
+        EventLog.meetsThreshold('warn', 'error')
+      ).toBe(false);
     });
 
-    it('should return a positive number if level a > level b', () => {
-      const comparison = EventLog.compareLevels('info', 'debug');
-      expect(comparison).toBeGreaterThan(0);
+    it('should return true if level a >= level b', () => {
+      expect(
+        EventLog.meetsThreshold('info', 'debug')
+      ).toBe(true);
     });
 
-    it("should treat a null value as 'error'", () => {
+    it("no value should meet the threshold of 'off'", () => {
       expect(
-        EventLog.compareLevels('error', null)
-      ).toBe(0);
-      expect(
-        EventLog.compareLevels(null, 'error')
-      ).toBe(0);
+        EventLog.meetsThreshold('error', undefined)
+      ).toBe(false);
     });
 
-    it("should treat undefined as 'off'", () => {
+    it('an undefined logLevel should never meet a threshold', () => {
       expect(
-        EventLog.compareLevels('debug', undefined)
-      ).toBeGreaterThan(0);
+        // Doesn't meet the lowest threshold
+        EventLog.meetsThreshold(undefined, 'debug')
+      ).toBe(false);
       expect(
-        EventLog.compareLevels(undefined, 'debug')
-      ).toBeLessThan(0);
+        // Doesn't meet the threshold of 'off'
+        EventLog.meetsThreshold(undefined, 'off')
+      ).toBe(false);
     });
   });
 
