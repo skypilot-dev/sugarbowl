@@ -5,6 +5,7 @@ import type { Integer } from '@skypilot/common-types';
 
 import { capitalizeFirstWord, isNull, isUndefined, mergeIf, omitUndefined } from 'src/functions';
 import { isDefined } from '../functions/indefinite/isDefined';
+import { isPlainObject } from '../functions/object/isPlainObject';
 
 export interface AddEventOptions<TData = any> {
   id?: Integer | string;
@@ -13,11 +14,9 @@ export interface AddEventOptions<TData = any> {
   type?: string;
 }
 
-export interface EchoOptions {
-  event?: boolean;
-  message?: boolean;
-  minLevel?: LogLevel;
-}
+export type EchoLevel = LogLevel | 'off';
+
+export type EchoDetail = 'message' | 'event';
 
 export interface Event<TData = any> {
   id?: Integer | string;
@@ -28,8 +27,10 @@ export interface Event<TData = any> {
 }
 
 export interface EventLogOptions {
-  echo?: EchoOptions;
+  echoDetail?: EchoDetail;
+  echoLevel?: EchoLevel;
   baseIndentLevel?: Integer;
+  logLevel?: LogLevel;
   type?: string; // default type to assign to new events
 }
 
@@ -54,17 +55,18 @@ export class EventLog {
 
   baseIndentLevel: Integer;
   defaultType?: string;
-  echoOptions: EchoOptions;
+  echoDetail: 'message' | 'event';
+  echoLevel: LogLevel | 'off';
   indentLevel: Integer | undefined = undefined;
 
   private _events: Event[] = [];
 
   constructor(options: EventLogOptions = {}) {
-    const { baseIndentLevel = 0, echo = {}, type } = options;
-    const { event = false, message = false, minLevel = 'error' } = echo;
+    const { baseIndentLevel = 0, echoLevel = 'off', echoDetail = 'message', type } = options;
 
     this.baseIndentLevel = baseIndentLevel;
-    this.echoOptions = { event, message, minLevel };
+    this.echoDetail = echoDetail;
+    this.echoLevel = echoLevel;
 
     if (isDefined(type)) {
       this.defaultType = type;
@@ -106,6 +108,34 @@ export class EventLog {
 
   private static formatEventMessage(event: Event): string {
     return `${capitalizeFirstWord(event.level)}: ${event.message}`;
+  }
+
+  private static formatEvent(event: Event): string {
+    function formatEntry(key: string, value: any, indentLevel = event.indentLevel || 0): string | string[] {
+      if (isUndefined(value)) {
+        return '';
+      }
+      if (isPlainObject(value)) {
+        return [
+          EventLog.indent(`${key}:`, indentLevel + 1),
+          ...Object.entries(value).map(
+            ([key, value]) => formatEntry(key, value, indentLevel + 1)
+          ).flat(),
+        ];
+      }
+      return EventLog.indent(
+        `${key}: ${JSON.stringify(value)}`, indentLevel + 1
+      );
+    }
+    return [
+      EventLog.indent(this.formatEventMessage(event), event.indentLevel),
+      formatEntry('id', event.id),
+      formatEntry('data', event.data),
+    ].flat().filter(Boolean).join('\n');
+  }
+
+  private static indent(text: string, indentLevel: Integer | undefined = 0): string {
+    return ['  '.repeat(indentLevel || 0), text].join('');
   }
 
   get count(): Integer {
@@ -163,16 +193,11 @@ export class EventLog {
     };
     this._events.push(event);
 
-    function indent(text: string, indentLevel: Integer | undefined = 0): string {
-      return ['  '.repeat(indentLevel || 0), text].join('');
-    }
-    if (EventLog.compareLevels(level, this.echoOptions.minLevel) >= 0) {
-      const indentedMessage = indent(message, indentLevel);
-      if (this.echoOptions.message) {
-        console[level](indentedMessage);
-      }
-      if (this.echoOptions.event) {
-        console[level](indentedMessage);
+    if (this.echoLevel !== 'off' && EventLog.compareLevels(level, this.echoLevel) >= 0) {
+      if (this.echoDetail === 'event') {
+        console[level](EventLog.formatEvent(event)); // TODO: Improve formatting; also allow a custom formatter
+      } else {
+        console[level](EventLog.formatEventMessage(event));
       }
     }
 
