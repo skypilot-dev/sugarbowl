@@ -108,6 +108,24 @@ export class EventLog {
     return `${capitalizeFirstWord(event.level)}: ${event.message}`;
   }
 
+  private static formatEvent(event: Event): string {
+    function formatEntry(key: string, value: any): string {
+      if (isUndefined(value)) {
+        return '';
+      }
+      return EventLog.indent(`${key}: ${JSON.stringify(value)}`, (event.indentLevel || 0) + 1);
+    }
+    return [
+      EventLog.indent(this.formatEventMessage(event), event.indentLevel),
+      formatEntry('id', event.id),
+      formatEntry('data', event.data),
+    ].filter(Boolean).join('\n');
+  }
+
+  private static indent(text: string, indentLevel: Integer | undefined = 0): string {
+    return ['  '.repeat(indentLevel || 0), text].join('');
+  }
+
   get count(): Integer {
     return this._events.length;
   }
@@ -163,16 +181,12 @@ export class EventLog {
     };
     this._events.push(event);
 
-    function indent(text: string, indentLevel: Integer | undefined = 0): string {
-      return ['  '.repeat(indentLevel || 0), text].join('');
-    }
     if (EventLog.compareLevels(level, this.echoOptions.minLevel) >= 0) {
-      const indentedMessage = indent(message, indentLevel);
       if (this.echoOptions.message) {
-        console[level](indentedMessage);
+        console[level](EventLog.formatEventMessage(event));
       }
       if (this.echoOptions.event) {
-        console[level](indentedMessage);
+        console[level](EventLog.formatEvent(event)); // TODO: Improve formatting; also allow a custom formatter
       }
     }
 
