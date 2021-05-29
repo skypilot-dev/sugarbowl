@@ -13,11 +13,9 @@ export interface AddEventOptions<TData = any> {
   type?: string;
 }
 
-export interface EchoOptions {
-  event?: boolean;
-  message?: boolean;
-  minLevel?: LogLevel;
-}
+export type EchoLevel = LogLevel | 'off';
+
+export type EchoDetail = 'message' | 'event';
 
 export interface Event<TData = any> {
   id?: Integer | string;
@@ -28,8 +26,10 @@ export interface Event<TData = any> {
 }
 
 export interface EventLogOptions {
-  echo?: EchoOptions;
+  echoDetail?: EchoDetail;
+  echoLevel?: EchoLevel;
   baseIndentLevel?: Integer;
+  logLevel?: LogLevel;
   type?: string; // default type to assign to new events
 }
 
@@ -54,17 +54,18 @@ export class EventLog {
 
   baseIndentLevel: Integer;
   defaultType?: string;
-  echoOptions: EchoOptions;
+  echoDetail: 'message' | 'event';
+  echoLevel: LogLevel | 'off';
   indentLevel: Integer | undefined = undefined;
 
   private _events: Event[] = [];
 
   constructor(options: EventLogOptions = {}) {
-    const { baseIndentLevel = 0, echo = {}, type } = options;
-    const { event = false, message = false, minLevel = 'error' } = echo;
+    const { baseIndentLevel = 0, echoLevel = 'off', echoDetail = 'message', type } = options;
 
     this.baseIndentLevel = baseIndentLevel;
-    this.echoOptions = { event, message, minLevel };
+    this.echoDetail = echoDetail;
+    this.echoLevel = echoLevel;
 
     if (isDefined(type)) {
       this.defaultType = type;
@@ -181,12 +182,11 @@ export class EventLog {
     };
     this._events.push(event);
 
-    if (EventLog.compareLevels(level, this.echoOptions.minLevel) >= 0) {
-      if (this.echoOptions.message) {
-        console[level](EventLog.formatEventMessage(event));
-      }
-      if (this.echoOptions.event) {
+    if (this.echoLevel !== 'off' && EventLog.compareLevels(level, this.echoLevel) >= 0) {
+      if (this.echoDetail === 'event') {
         console[level](EventLog.formatEvent(event)); // TODO: Improve formatting; also allow a custom formatter
+      } else {
+        console[level](EventLog.formatEventMessage(event));
       }
     }
 
