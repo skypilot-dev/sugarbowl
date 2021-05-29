@@ -10,6 +10,7 @@ import { isPlainObject } from '../functions/object/isPlainObject';
 export interface AddEventOptions<TData = any> {
   id?: Integer | string;
   data?: TData;
+  echoLevel?: EchoLevel;
   indentLevel?: Integer;
   type?: string;
 }
@@ -56,7 +57,7 @@ export class EventLog {
   baseIndentLevel: Integer;
   defaultType?: string;
   echoDetail: 'message' | 'event';
-  echoLevel: LogLevel | 'off';
+  echoLevel: EchoLevel;
   indentLevel: Integer | undefined = undefined;
 
   private _events: Event[] = [];
@@ -73,26 +74,36 @@ export class EventLog {
     }
   }
 
-  static compareLevels(a: LogLevel | null | undefined, b: LogLevel | null | undefined): Integer {
+  // Return a positive number if a > b; a negative number if a < b, or a 0 if they are equal. Higher = more severe
+  static compareLevels(a: EchoLevel | null | undefined, b: EchoLevel | null | undefined): Integer {
     if (a === b) {
       return 0;
     }
 
-    // Always consider `null` to have the highest index
-    if (isNull(a)) {
-      return 1; // a > b
-    } else if (isNull(b)) {
-      return -1; // a < b
+    function resolve(echoLevel: EchoLevel | null | undefined): EchoLevel {
+      if (isNull(echoLevel)) {
+        return 'error';
+      }
+      if (isUndefined(echoLevel)) {
+        return 'off';
+      }
+      return echoLevel;
     }
 
-    // Always consider `undefined` to have the lowest index
-    if (isUndefined(a)) {
-      return -1; // a > b
-    } else if (isUndefined(b)) {
-      return 1; // a < b
+    const resolvedA = resolve(a);
+    const resolvedB = resolve(b);
+
+    if (resolvedA === 'off') {
+      return -1;
+    } else if (resolvedB === 'off') {
+      return 1;
     }
 
-    return EventLog.logLevels.indexOf(a) - EventLog.logLevels.indexOf(b);
+    return EventLog.logLevels.indexOf(resolvedA) - EventLog.logLevels.indexOf(resolvedB);
+  }
+
+  static meetsThreshold(echoLevel: EchoLevel | null | undefined, threshold: EchoLevel | null | undefined): boolean {
+    return this.compareLevels(echoLevel, threshold) >= 0;
   }
 
   /**
@@ -180,7 +191,7 @@ export class EventLog {
   }
 
   addEvent<TData>(level: LogLevel, message: string, options: AddEventOptions<TData> = {}): Event {
-    const { id, data, indentLevel = this.indentLevel, type = this.defaultType } = options;
+    const { id, data, echoLevel = this.echoLevel, indentLevel = this.indentLevel, type = this.defaultType } = options;
 
     const event = {
       ...mergeIf(
@@ -193,7 +204,7 @@ export class EventLog {
     };
     this._events.push(event);
 
-    if (this.echoLevel !== 'off' && EventLog.compareLevels(level, this.echoLevel) >= 0) {
+    if (EventLog.meetsThreshold(level, echoLevel)) {
       if (this.echoDetail === 'event') {
         console[level](EventLog.formatEvent(event)); // TODO: Improve formatting; also allow a custom formatter
       } else {
@@ -209,7 +220,15 @@ export class EventLog {
    */
   append(...eventLogs: EventLog[]): EventLog {
     eventLogs.forEach(eventLog => {
-      this._events.push(...eventLog.getEvents());
+      eventLog.getEvents().forEach(event => {
+        const { level, message, ...options } = event;
+        // Echo only if the message is below the eventLog's threshold but at or above this log's threshold
+        const echoLevel = this.echoDetail === 'event' && eventLog.echoDetail === 'message' || (
+          !EventLog.meetsThreshold(level, eventLog.echoLevel)
+            && EventLog.meetsThreshold(level, this.echoLevel)
+        ) ? this.echoLevel : 'off';
+        this.addEvent(level, message, { ...options, echoLevel });
+      });
     });
     return this;
   }

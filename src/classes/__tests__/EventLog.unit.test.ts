@@ -12,16 +12,16 @@ describe('EventLog()', () => {
       expect(comparison).toBeGreaterThan(0);
     });
 
-    it('should treat a null value as higher than any log level', () => {
+    it("should treat a null value as 'error'", () => {
       expect(
         EventLog.compareLevels('error', null)
-      ).toBeLessThan(0);
+      ).toBe(0);
       expect(
         EventLog.compareLevels(null, 'error')
-      ).toBeGreaterThan(0);
+      ).toBe(0);
     });
 
-    it('should treat undefined as lower than any log level', () => {
+    it("should treat undefined as 'off'", () => {
       expect(
         EventLog.compareLevels('debug', undefined)
       ).toBeGreaterThan(0);
@@ -209,7 +209,7 @@ describe('EventLog()', () => {
 
   describe('append(...eventLogs: EventLog[])', () => {
     it('should return a new EventLog containing all events from the EventLog arguments', () => {
-      const addendumLog = new EventLog()
+      const addendumLog = new EventLog({ echoLevel: 'error' })
         .error('Second')
         .warn('Third');
       const expectedMessages = [
@@ -219,7 +219,7 @@ describe('EventLog()', () => {
         'Error: Last',
       ];
 
-      const baseLog = new EventLog()
+      const baseLog = new EventLog({ echoLevel: 'warn' })
         .warn('First')
         .append(addendumLog)
         .error('Last');
