@@ -33,13 +33,13 @@ describe('EventLog()', () => {
 
   describe('static merge(:EventLog)', () => {
     it('should return a new EventLog containing all events from the EventLog instances in the array', () => {
-      const eventLog1 = new EventLog()
-        .error('First', { data: { key: 'sample data' } })
+      const eventLog1 = new EventLog({ echoLevel: 'debug', echoDetail: 'event' })
+        .info('First', { id: 'any', data: { key: 'sample data', array: [1, 2], nested: { a: 1, b: 2 } } })
         .warn('Second');
       const eventLog2 = new EventLog()
         .warn('Last');
       const expectedMessages = [
-        'Error: First',
+        'Info: First',
         'Warn: Second',
         'Warn: Last',
       ];
@@ -47,9 +47,6 @@ describe('EventLog()', () => {
       const mergedEventLog = EventLog.merge([eventLog1, eventLog2]);
       expect(mergedEventLog.getMessages()).toStrictEqual(expectedMessages);
     });
-  });
-
-  describe('constructor()', () => {
   });
 
   describe('get events.error', () => {

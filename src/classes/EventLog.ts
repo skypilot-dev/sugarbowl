@@ -5,6 +5,7 @@ import type { Integer } from '@skypilot/common-types';
 
 import { capitalizeFirstWord, isNull, isUndefined, mergeIf, omitUndefined } from 'src/functions';
 import { isDefined } from '../functions/indefinite/isDefined';
+import { isPlainObject } from '../functions/object/isPlainObject';
 
 export interface AddEventOptions<TData = any> {
   id?: Integer | string;
@@ -110,17 +111,27 @@ export class EventLog {
   }
 
   private static formatEvent(event: Event): string {
-    function formatEntry(key: string, value: any): string {
+    function formatEntry(key: string, value: any, indentLevel = event.indentLevel || 0): string | string[] {
       if (isUndefined(value)) {
         return '';
       }
-      return EventLog.indent(`${key}: ${JSON.stringify(value)}`, (event.indentLevel || 0) + 1);
+      if (isPlainObject(value)) {
+        return [
+          EventLog.indent(`${key}:`, indentLevel + 1),
+          ...Object.entries(value).map(
+            ([key, value]) => formatEntry(key, value, indentLevel + 1)
+          ).flat(),
+        ];
+      }
+      return EventLog.indent(
+        `${key}: ${JSON.stringify(value)}`, indentLevel + 1
+      );
     }
     return [
       EventLog.indent(this.formatEventMessage(event), event.indentLevel),
       formatEntry('id', event.id),
       formatEntry('data', event.data),
-    ].filter(Boolean).join('\n');
+    ].flat().filter(Boolean).join('\n');
   }
 
   private static indent(text: string, indentLevel: Integer | undefined = 0): string {
