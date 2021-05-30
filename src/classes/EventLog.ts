@@ -137,8 +137,13 @@ export class EventLog {
     return ['  '.repeat(indentLevel || 0), text].join('');
   }
 
-  get count(): Integer {
-    return this._events.length;
+  get counts(): Record<LogLevel, Integer> {
+    return {
+      debug: this.count('debug'),
+      info: this.count('info'),
+      warn: this.count('warn'),
+      error: this.count('error'),
+    };
   }
 
   get events(): Record<LogLevel, Event[]> {
@@ -221,6 +226,13 @@ export class EventLog {
     return this;
   }
 
+  count(logLevel?: LogLevel): Integer {
+    return (
+      isUndefined(logLevel) ? this._events : this.getEvents(logLevel)
+    ).length;
+  }
+
+
   debug<TData>(message: string, options: AddEventOptions<TData> = {}): EventLog {
     this.addEvent('debug', message, options);
     return this;
@@ -267,10 +279,8 @@ export class EventLog {
       .map(event => omitLevel ? event.message : EventLog.formatEventMessage(event));
   }
 
-  has(): boolean;
-  has(level: LogLevel): boolean;
-  has(level?: LogLevel): boolean {
-    return (level === undefined ? this.getEvents() : this.getEvents(level)).length > 0;
+  has(level?: LogLevel | undefined): boolean {
+    return this.count(level) > 0;
   }
 
   info<TData>(message: string, options: AddEventOptions<TData> = {}): EventLog {
