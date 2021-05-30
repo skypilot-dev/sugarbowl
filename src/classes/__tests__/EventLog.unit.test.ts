@@ -1,33 +1,34 @@
 import { EventLog } from '../EventLog';
 
 describe('EventLog()', () => {
-  describe('static compareLevels(a: LogLevel | null, b: logLevel | null)', () => {
-    it('should return a negative number if level a < level b', () => {
-      const comparison = EventLog.compareLevels('warn', 'error');
-      expect(comparison).toBeLessThan(0);
+  describe('static meetsThreshold(a: LogLevel | undefined, b: EchoLevel | undefined)', () => {
+    it('should return false if level a < level b', () => {
+      expect(
+        EventLog.meetsThreshold('warn', 'error')
+      ).toBe(false);
     });
 
-    it('should return a positive number if level a > level b', () => {
-      const comparison = EventLog.compareLevels('info', 'debug');
-      expect(comparison).toBeGreaterThan(0);
+    it('should return true if level a >= level b', () => {
+      expect(
+        EventLog.meetsThreshold('info', 'debug')
+      ).toBe(true);
     });
 
-    it('should treat a null value as higher than any log level', () => {
+    it("no value should meet the threshold of 'off'", () => {
       expect(
-        EventLog.compareLevels('error', null)
-      ).toBeLessThan(0);
-      expect(
-        EventLog.compareLevels(null, 'error')
-      ).toBeGreaterThan(0);
+        EventLog.meetsThreshold('error', undefined)
+      ).toBe(false);
     });
 
-    it('should treat undefined as lower than any log level', () => {
+    it('an undefined logLevel should never meet a threshold', () => {
       expect(
-        EventLog.compareLevels('debug', undefined)
-      ).toBeGreaterThan(0);
+        // Doesn't meet the lowest threshold
+        EventLog.meetsThreshold(undefined, 'debug')
+      ).toBe(false);
       expect(
-        EventLog.compareLevels(undefined, 'debug')
-      ).toBeLessThan(0);
+        // Doesn't meet the threshold of 'off'
+        EventLog.meetsThreshold(undefined, 'off')
+      ).toBe(false);
     });
   });
 
@@ -209,7 +210,7 @@ describe('EventLog()', () => {
 
   describe('append(...eventLogs: EventLog[])', () => {
     it('should return a new EventLog containing all events from the EventLog arguments', () => {
-      const addendumLog = new EventLog()
+      const addendumLog = new EventLog({ echoLevel: 'error' })
         .error('Second')
         .warn('Third');
       const expectedMessages = [
@@ -219,7 +220,7 @@ describe('EventLog()', () => {
         'Error: Last',
       ];
 
-      const baseLog = new EventLog()
+      const baseLog = new EventLog({ echoLevel: 'warn' })
         .warn('First')
         .append(addendumLog)
         .error('Last');

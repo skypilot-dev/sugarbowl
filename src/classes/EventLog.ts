@@ -3,13 +3,14 @@
 
 import type { Integer } from '@skypilot/common-types';
 
-import { capitalizeFirstWord, isNull, isUndefined, mergeIf, omitUndefined } from 'src/functions';
+import { capitalizeFirstWord, isUndefined, mergeIf, omitUndefined } from 'src/functions';
 import { isDefined } from '../functions/indefinite/isDefined';
 import { isPlainObject } from '../functions/object/isPlainObject';
 
 export interface AddEventOptions<TData = any> {
   id?: Integer | string;
   data?: TData;
+  echoLevel?: EchoLevel;
   indentLevel?: Integer;
   type?: string;
 }
@@ -56,7 +57,7 @@ export class EventLog {
   baseIndentLevel: Integer;
   defaultType?: string;
   echoDetail: 'message' | 'event';
-  echoLevel: LogLevel | 'off';
+  echoLevel: EchoLevel;
   indentLevel: Integer | undefined = undefined;
 
   private _events: Event[] = [];
@@ -73,26 +74,11 @@ export class EventLog {
     }
   }
 
-  static compareLevels(a: LogLevel | null | undefined, b: LogLevel | null | undefined): Integer {
-    if (a === b) {
-      return 0;
+  static meetsThreshold(logLevel: LogLevel | undefined, threshold: EchoLevel | undefined): boolean {
+    if (isUndefined(logLevel) || isUndefined(threshold) || threshold === 'off') {
+      return false;
     }
-
-    // Always consider `null` to have the highest index
-    if (isNull(a)) {
-      return 1; // a > b
-    } else if (isNull(b)) {
-      return -1; // a < b
-    }
-
-    // Always consider `undefined` to have the lowest index
-    if (isUndefined(a)) {
-      return -1; // a > b
-    } else if (isUndefined(b)) {
-      return 1; // a < b
-    }
-
-    return EventLog.logLevels.indexOf(a) - EventLog.logLevels.indexOf(b);
+    return this.compareLevels(logLevel, threshold) >= 0;
   }
 
   /**
@@ -104,6 +90,19 @@ export class EventLog {
       mergedEventLog.addEvents(eventLog.getEvents());
     });
     return mergedEventLog;
+  }
+
+  // Return a positive number if a > b; a negative number if a < b, or a 0 if they are equal. Higher = more severe
+  private static compareLevels(a: LogLevel, b: LogLevel): Integer {
+    if (isUndefined(a)) {
+      return -1;
+    }
+
+    if (a === b) {
+      return 0;
+    }
+
+    return EventLog.logLevels.indexOf(a) - EventLog.logLevels.indexOf(b);
   }
 
   private static formatEventMessage(event: Event): string {
@@ -180,7 +179,7 @@ export class EventLog {
   }
 
   addEvent<TData>(level: LogLevel, message: string, options: AddEventOptions<TData> = {}): Event {
-    const { id, data, indentLevel = this.indentLevel, type = this.defaultType } = options;
+    const { id, data, echoLevel = this.echoLevel, indentLevel = this.indentLevel, type = this.defaultType } = options;
 
     const event = {
       ...mergeIf(
@@ -193,7 +192,7 @@ export class EventLog {
     };
     this._events.push(event);
 
-    if (this.echoLevel !== 'off' && EventLog.compareLevels(level, this.echoLevel) >= 0) {
+    if (EventLog.meetsThreshold(level, echoLevel)) {
       if (this.echoDetail === 'event') {
         console[level](EventLog.formatEvent(event)); // TODO: Improve formatting; also allow a custom formatter
       } else {
@@ -209,7 +208,15 @@ export class EventLog {
    */
   append(...eventLogs: EventLog[]): EventLog {
     eventLogs.forEach(eventLog => {
-      this._events.push(...eventLog.getEvents());
+      eventLog.getEvents().forEach(event => {
+        const { level, message, ...options } = event;
+        // Echo only if the message is below the eventLog's threshold but at or above this log's threshold
+        const echoLevel = this.echoDetail === 'event' && eventLog.echoDetail === 'message' || (
+          !EventLog.meetsThreshold(level, eventLog.echoLevel)
+            && EventLog.meetsThreshold(level, this.echoLevel)
+        ) ? this.echoLevel : 'off';
+        this.addEvent(level, message, { ...options, echoLevel });
+      });
     });
     return this;
   }
