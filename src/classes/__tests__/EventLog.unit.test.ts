@@ -90,12 +90,12 @@ describe('EventLog()', () => {
   describe('addEvent()', () => {
     it('should add the event to the EventLog', () => {
       const eventLog = new EventLog();
-      expect(eventLog.count).toBe(0);
+      expect(eventLog.count()).toBe(0);
       expect(eventLog.hasEvents).toBe(false);
 
       eventLog.addEvent('error', 'An error occurred');
 
-      expect(eventLog.count).toBe(1);
+      expect(eventLog.count()).toBe(1);
       expect(eventLog.hasEvents).toBe(true);
       expect(eventLog.events.error).toHaveLength(1);
       expect(eventLog.events.error[0]).toMatchObject({
@@ -230,6 +230,40 @@ describe('EventLog()', () => {
     });
   });
 
+  describe('count(?:LogLevel)', () => {
+    it('should return the number of events in the log', () => {
+      const eventLog = new EventLog()
+        .info('info 1')
+        .debug('debug')
+        .info('info 2')
+        .warn('warn');
+      expect(eventLog.count()).toBe(4);
+      expect(eventLog.count('debug')).toBe(1);
+      expect(eventLog.count('info')).toBe(2);
+      expect(eventLog.count('warn')).toBe(1);
+      expect(eventLog.count('error')).toBe(0);
+    });
+  });
+
+  describe('get counts', () => {
+    it('should return an object containing counts for each log level', () => {
+      const eventLog = new EventLog()
+        .info('info 1')
+        .debug('debug')
+        .info('info 2')
+        .warn('warn');
+      const expected = {
+        debug: 1,
+        info: 2,
+        warn: 1,
+        error: 0,
+      };
+
+      const actual = eventLog.counts;
+      expect(actual).toStrictEqual(expected);
+    });
+  });
+
   describe('debug(), error(), info() & warn()', () => {
     it('should be a shorthand for addEvent() but return the instance to allow chaining', () => {
       const eventLog = new EventLog()
@@ -246,7 +280,7 @@ describe('EventLog()', () => {
 
       const actualMessages = eventLog.getMessages();
       expect(actualMessages).toStrictEqual(expectedMessages);
-      expect(eventLog.count).toBe(4);
+      expect(eventLog.count()).toBe(4);
       expect(eventLog.hasEvents).toBe(true);
     });
   });
