@@ -1,19 +1,19 @@
 /*
-  TODO: Improve the return type so that undefined values are excluded
   TODO: Optionally, recursively omit nested entries with undefined values.
  */
 
-import { ConditionalExcept } from 'type-fest';
+import type { ConditionalExcept } from 'type-fest';
 
 import { isUndefined } from '../indefinite';
 
 /**
- * @description Remove keys whose values have the given value and return as a new object
+ * @description Return a copy of the object, omitting keys whose values are undefined
  */
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export function omitUndefined<O extends { [key: string]: any }>(obj: O): ConditionalExcept<O, undefined> {
   return Object.entries(obj).reduce((acc, entry) => {
     const [key, value] = entry;
-    if (isUndefined(value) ) {
+    if (isUndefined(value)) {
       return acc;
     }
     return {

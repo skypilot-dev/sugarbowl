@@ -85,6 +85,7 @@ const intendedExports: string[] = [
   'omitEntriesByValue', // deprecated
   'omitFalsy',
   'omitFalsyEntries', // deprecated
+  'omitIndefinite',
   'omitNulls',
   'omitUndefined',
   'omitUndefinedEntries', // deprecated
