@@ -1,5 +1,4 @@
 /*
-  TODO: Improve the return type so that undefined values are excluded
   TODO: Optionally, recursively omit nested entries with undefined values.
  */
 
