@@ -1,6 +1,6 @@
-import { Integer } from '@skypilot/common-types';
-import { shuffle } from './shuffle';
+import type { Integer } from '@skypilot/common-types';
 
+import { shuffle } from './shuffle';
 
 /* Given an array of items, select the requested number of items at random from the array */
 export function pickRandomItems<T>(array: ReadonlyArray<T>, numberOfItems: Integer): T[] {
