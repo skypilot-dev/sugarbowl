@@ -15,6 +15,8 @@ describe('omitEmptyObjects()', () => {
     const expected = { a: 1, b: { key: 'not empty' } };
 
     const noEmpty = omitEmptyObjects(obj);
+    const newish = { ...noEmpty };
+    const typish: typeof newish = { a: 1, b: { key: '' } };
 
     expect(noEmpty).toStrictEqual(expected);
     expect(noEmpty).not.toBe(obj);
