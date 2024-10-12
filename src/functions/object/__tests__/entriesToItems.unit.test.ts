@@ -6,7 +6,6 @@ import { describe, expect, it } from 'vitest';
 
 import { entriesToKeyedItems } from '~/src/functions/object/entriesToKeyedItems.js';
 
-
 /* -- Typings -- */
 type SortComparison = -1 | 0 | 1;
 type SortFunction = <T>(a: T, b: T) => SortComparison;
@@ -19,7 +18,6 @@ const sortOnKeyFn = <T extends JsonMap, K extends keyof T>(keyName: K): SortFunc
   // @ts-expect-error - Fix types
   (a, b) => a[keyName] < b[keyName] ? SORT_HIGHER : SORT_LOWER
 );
-
 
 /* -- Tests -- */
 describe('entriesToKeyedItems(:object)', () => {

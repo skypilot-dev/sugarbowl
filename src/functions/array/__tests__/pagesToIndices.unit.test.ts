@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 
 import { pagesToIndices } from '../pagesToIndices.js';
 
-
 describe('pagesToIndices()', () => {
   it('given a page and results per page, should return indices for slicing the array', () => {
     const page = 1;
@@ -24,7 +23,7 @@ describe('pagesToIndices()', () => {
     const badResultsPerPage = [-1, 0];
 
     expect.assertions(2);
-    badResultsPerPage.forEach(resultsPerPage => {
+    badResultsPerPage.forEach((resultsPerPage) => {
       expect(() => {
         pagesToIndices(page, resultsPerPage);
       }).toThrow("'resultsPerPage' must be >= 1");

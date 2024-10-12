@@ -5,9 +5,9 @@
 
 type ObjectValues<O> = O extends ReadonlyArray<infer Values> ? Values
   : O extends Array<infer Values> ? Values
-    : O extends null ? never
-      : O extends Record<string, infer Values> ? Values
-        : never;
+  : O extends null ? never
+  : O extends Record<string, infer Values> ? Values
+  : never;
 
 export function getObjectValues<T extends number>(num: T): [];
 export function getObjectValues<T extends string>(str: T): string[];

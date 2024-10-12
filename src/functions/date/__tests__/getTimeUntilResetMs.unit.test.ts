@@ -12,11 +12,14 @@ describe('getTimeUntilResetMs()', () => {
     // From 20:01 to 20:00 = 23h 59m
     [hmToMs(20, 1), hmToMs(20, 0), hmToMs(23, 59)],
   ];
-  it.each(dataSets)('when reset is at 24:00 and time is 22:00, reports 2h00m till reset', (asAtEpochMs, referenceResetEpochMs, expectedTimeUntilResetMs) => {
-    const actualTimeUntilResetMs = getTimeUntilResetMs(referenceResetEpochMs, asAtEpochMs);
+  it.each(dataSets)(
+    'when reset is at 24:00 and time is 22:00, reports 2h00m till reset',
+    (asAtEpochMs, referenceResetEpochMs, expectedTimeUntilResetMs) => {
+      const actualTimeUntilResetMs = getTimeUntilResetMs(referenceResetEpochMs, asAtEpochMs);
 
-    expect(actualTimeUntilResetMs).toBe(expectedTimeUntilResetMs);
-  });
+      expect(actualTimeUntilResetMs).toBe(expectedTimeUntilResetMs);
+    },
+  );
 
   it('works with reference times in the future', () => {
     const asAtEpochMs = Date.now();

@@ -25,9 +25,8 @@ describe('toMapFunction(:itemFn)', () => {
 
   it('given 3 functions that each require params, return a function that accepts all params and applies the combined function with params to every item in an array', () => {
     const trim = (aString: string): string => aString.trim();
-    const toUpperOrLower = (aString: string, toUpper: boolean): string => toUpper
-      ? aString.toUpperCase()
-      : aString.toLowerCase();
+    const toUpperOrLower = (aString: string, toUpper: boolean): string =>
+      toUpper ? aString.toUpperCase() : aString.toLowerCase();
     const omitLetter = (aString: string, letter: string): string => aString.replace(letter, '');
 
     const mapFn = toMapFunction(trim, toUpperOrLower, omitLetter);

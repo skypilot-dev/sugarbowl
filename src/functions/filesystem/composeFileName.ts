@@ -23,7 +23,7 @@ function resolveElement(element: string | ElementFn | null | undefined): string 
 
 export function composeFileName(
   elements: Array<string | ElementFn>,
-  options: ComposeFileNameOptions = {}
+  options: ComposeFileNameOptions = {},
 ): string {
   const { separator = '_' } = options;
   return elements.reduce((acc, element) => {
@@ -31,9 +31,7 @@ export function composeFileName(
       return acc;
     }
     if (typeof element === 'string') {
-      return element.startsWith('.')
-        ? [...acc, element]
-        : [...acc, ...includeIf(acc.length, separator), element];
+      return element.startsWith('.') ? [...acc, element] : [...acc, ...includeIf(acc.length, separator), element];
     }
 
     const resolvedElement = resolveElement(element);

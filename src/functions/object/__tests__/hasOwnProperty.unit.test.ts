@@ -45,7 +45,7 @@ describe('hasOwnProperty()', () => {
   it.each([null, undefined])('if the target is %s, throws a TypeError', (target) => {
     expect(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      () => hasOwnProperty(target as any, 'a')
+      () => hasOwnProperty(target as any, 'a'),
     ).toThrow(TypeError);
   });
 });

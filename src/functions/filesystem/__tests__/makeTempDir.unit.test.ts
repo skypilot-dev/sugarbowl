@@ -11,7 +11,6 @@ describe('makeTempDir(relativePath:string, options)', () => {
   afterAll(async () => safeWipeSync(baseDir, { remove: true }));
 
   it('should create a temporary directory and return the path to it', () => {
-
     const subDirName = 'test1';
     const subDirPath = makeTempDir(subDirName, { baseDir });
 

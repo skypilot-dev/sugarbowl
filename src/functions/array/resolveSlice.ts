@@ -10,13 +10,16 @@ interface ResolvedSlice {
  * @description Return an object describing absolute slice coordinates, indices & length
  */
 export function resolveSlice<T>(
-  slice: ReadonlyArray<number | undefined>, items: ReadonlyArray<T>
+  slice: ReadonlyArray<number | undefined>,
+  items: ReadonlyArray<T>,
 ): ResolvedSlice | null;
 export function resolveSlice(
-  slice: ReadonlyArray<number | undefined>, arrayLength: number
+  slice: ReadonlyArray<number | undefined>,
+  arrayLength: number,
 ): ResolvedSlice | null;
 export function resolveSlice<T>(
-  slice: ReadonlyArray<number | undefined>, arrayOrLength: number | ReadonlyArray<T>
+  slice: ReadonlyArray<number | undefined>,
+  arrayOrLength: number | ReadonlyArray<T>,
 ): ResolvedSlice | null {
   const arrayLength = typeof arrayOrLength === 'number' ? arrayOrLength : arrayOrLength.length;
   const [startAt = 0, stopBefore = arrayLength] = slice;
@@ -39,8 +42,8 @@ export function resolveSlice<T>(
   const resolvedLength = indexOfLastItem - indexOfFirstItem + 1;
 
   return (
-    arrayLength === 0 || resolvedLength < 1 || absoluteStartAt >= arrayLength || absoluteStartAt >= absoluteStopBefore
-  )
+      arrayLength === 0 || resolvedLength < 1 || absoluteStartAt >= arrayLength || absoluteStartAt >= absoluteStopBefore
+    )
     ? null
     : {
       first: indexOfFirstItem,

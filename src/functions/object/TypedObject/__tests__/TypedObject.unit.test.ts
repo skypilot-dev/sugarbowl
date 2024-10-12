@@ -6,7 +6,8 @@ describe('TypedObject.entries(obj: Object | Array | number | string)', () => {
   it("should return the object's entries", () => {
     const obj = { a: 1, b: 2 } as const;
     const expected = [
-      ['a', 1], ['b', 2],
+      ['a', 1],
+      ['b', 2],
     ];
 
     const actual = TypedObject.entries(obj);
@@ -24,7 +25,8 @@ describe('TypedObject.entries(obj: Object | Array | number | string)', () => {
   it('given an array, should return its indexes as strings and its items as values', () => {
     const obj = [1, 2] as const;
     const expected = [
-      ['0', 1], ['1', 2],
+      ['0', 1],
+      ['1', 2],
     ];
 
     const actual = TypedObject.entries(obj);
@@ -43,7 +45,9 @@ describe('TypedObject.entries(obj: Object | Array | number | string)', () => {
     {
       const arrayOfChars = 'abc';
       const expected = [
-        ['0', 'a'], ['1', 'b'], ['2', 'c'],
+        ['0', 'a'],
+        ['1', 'b'],
+        ['2', 'c'],
       ] as const;
 
       const actual = TypedObject.entries(arrayOfChars);

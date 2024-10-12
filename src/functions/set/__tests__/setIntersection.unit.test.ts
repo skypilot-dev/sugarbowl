@@ -25,7 +25,7 @@ describe('setIntersection()', () => {
 
   it('if both sets are empty, returns the empty set', () => {
     expect(
-      setIntersection(new Set([]), new Set([]))
+      setIntersection(new Set([]), new Set([])),
     ).toStrictEqual(new Set([]));
   });
 });

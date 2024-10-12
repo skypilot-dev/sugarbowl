@@ -31,7 +31,7 @@ export function filterLeavesByKey<B extends Branch>(
   /* If the mapping is missing and any sibling is not an object, this branch is a dead end
      for the locale code, with no defined value for it. Throw an error if `undefined`
      is disallowed. */
-  if (Object.values(tree).some(value => !isObject(value))) {
+  if (Object.values(tree).some((value) => !isObject(value))) {
     if (throwOnUndefined) {
       throw new Error(`Invalid tree: A value is missing for '${leafKey}'`);
     }

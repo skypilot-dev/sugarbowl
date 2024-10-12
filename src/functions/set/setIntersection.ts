@@ -4,5 +4,5 @@
  */
 export function setIntersection<T>(aIterable: Iterable<T>, bIterable: Iterable<T>): Set<T> {
   const bSet = new Set(bIterable);
-  return new Set([...aIterable].filter(element => bSet.has(element)));
+  return new Set([...aIterable].filter((element) => bSet.has(element)));
 }

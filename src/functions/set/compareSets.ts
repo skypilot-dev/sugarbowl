@@ -12,12 +12,11 @@ const setComparisonsDict = {
 
   SET_DISJOINT: <T>(a: Iterable<T>, b: Iterable<T>) => setIntersection<T>(a, b).size === 0,
   SET_INTERSECTS: <T>(a: Iterable<T>, b: Iterable<T>) => setIntersection<T>(a, b).size > 0,
-
   // Candidates for inclusion: SET_SIZE_EQ, SET_SIZE_NE, SET_SIZE_LT, SET_SIZE_GT, SET_SIZE_LTE, SET_SIZE_GTE
 } as const;
 
 const setComparisonsMap = new Map(
-  Array.from(getObjectEntries(setComparisonsDict))
+  Array.from(getObjectEntries(setComparisonsDict)),
 );
 
 // @ts-expect-error - MapKeys is not defined
@@ -30,7 +29,7 @@ export type SetComparisonOperator = MapKeys<typeof setComparisonsMap>;
 export function compareSets<T>(
   comparisonOperator: SetComparisonOperator,
   aElements: Iterable<T>,
-  bElements: Iterable<T> = []
+  bElements: Iterable<T> = [],
 ): boolean {
   const comparisonFn = setComparisonsMap.get(comparisonOperator);
   if (!comparisonFn) {

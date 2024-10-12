@@ -3,10 +3,11 @@
  * Source: `skypilot-dev/sugarbowl`
  */
 export function setIsSubset<T>(
-  childElements: Iterable<T>, parentElements: Iterable<T>
+  childElements: Iterable<T>,
+  parentElements: Iterable<T>,
 ): boolean {
   const childSet = new Set(childElements);
   const parentSet = new Set(parentElements);
 
-  return [...childSet].every(element => parentSet.has(element));
+  return [...childSet].every((element) => parentSet.has(element));
 }

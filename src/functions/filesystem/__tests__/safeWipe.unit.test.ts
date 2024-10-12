@@ -24,7 +24,7 @@ describe('safeWipe(dirPath: PathLike)', () => {
     ];
     for (const badDir of badDirs) {
       await expect(
-        safeWipe(badDir)
+        safeWipe(badDir),
       ).rejects.toThrow('Cannot wipe');
     }
   });

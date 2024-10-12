@@ -16,7 +16,7 @@ describe('resolveSlice()', () => {
       };
 
       const arrayActual = resolveSlice(slice, items);
-      const lengthActual = resolveSlice( slice, 3);
+      const lengthActual = resolveSlice(slice, 3);
       expect(arrayActual).toStrictEqual(expected);
       expect(lengthActual).toStrictEqual(expected);
     }

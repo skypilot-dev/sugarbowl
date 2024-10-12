@@ -10,8 +10,5 @@ const defaultTestDir = ['tmp', 'test'];
 export function makeTestsDir(dirPath?: PathLike | undefined): Directory {
   const testsDirPath = Directory.toPath(dirPath || defaultTestDir);
 
-  return new Directory(process.env.CI
-    ? makeTempDir('test')
-    : makeTempDir(testsDirPath, { baseDir: path.resolve() })
-  );
+  return new Directory(process.env.CI ? makeTempDir('test') : makeTempDir(testsDirPath, { baseDir: path.resolve() }));
 }

@@ -9,9 +9,9 @@ import type { ConditionalExcept } from 'type-fest';
 export function omitEmptyObjects<O extends { [key: string]: any }>(obj: O): ConditionalExcept<O, EmptyObject> {
   return Object.entries(obj).reduce((accObj, [key, value]) => {
     if (
-      value instanceof Object
-        && value.constructor === Object
-        && Object.entries(value).length === 0
+      value instanceof Object &&
+      value.constructor === Object &&
+      Object.entries(value).length === 0
     ) {
       return accObj;
     }

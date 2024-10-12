@@ -9,22 +9,23 @@
 
 type ObjectValues<O> = O extends ReadonlyArray<infer Values> ? Values
   : O extends Array<infer Values> ? Values
-    : O extends null ? never
-      : O extends Record<string, infer Values> ? Values
-        : never;
+  : O extends null ? never
+  : O extends Record<string, infer Values> ? Values
+  : never;
 
 export function getObjectEntries<T extends number>(obj: T): [];
 export function getObjectEntries<T extends string>(obj: T): Array<[key: string, value: string]>;
 export function getObjectEntries<T extends Array<Values> | ReadonlyArray<Values>, Values>(
-  obj: T
+  obj: T,
 ): Array<[key: string, value: ObjectValues<T>]>;
 export function getObjectEntries<T extends object>(
-  obj: T
+  obj: T,
 ): Array<[key: keyof T, value: ObjectValues<T>]>;
 
 export function getObjectEntries<T extends object | number | string>(
-  obj: T
-): Array<[key: string, value: ObjectValues<T>]>
+  obj: T,
+):
+  | Array<[key: string, value: ObjectValues<T>]>
   | Array<[key: keyof T, value: ObjectValues<T>]>
   | Array<[key: string, value: string]>
   | [] {
@@ -34,6 +35,7 @@ export function getObjectEntries<T extends object | number | string>(
   if (typeof obj === 'string') {
     return Object.entries(obj) as Array<[string, string]>;
   }
-  return Array.isArray(obj) ? Object.entries(obj) as Array<[string, ObjectValues<T>]>
+  return Array.isArray(obj)
+    ? Object.entries(obj) as Array<[string, ObjectValues<T>]>
     : Object.entries(obj) as Array<[keyof T, ObjectValues<T>]>;
 }

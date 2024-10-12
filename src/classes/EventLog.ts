@@ -85,7 +85,7 @@ export class EventLog {
    */
   static merge(eventLogs: EventLog[]): EventLog {
     const mergedEventLog = new EventLog();
-    eventLogs.forEach(eventLog => {
+    eventLogs.forEach((eventLog) => {
       mergedEventLog.addEvents(eventLog.getEvents());
     });
     return mergedEventLog;
@@ -117,12 +117,13 @@ export class EventLog {
         return [
           EventLog.indent(`${key}:`, indentLevel + 1),
           ...Object.entries(value).map(
-            ([key, value]) => formatEntry(key, value, indentLevel + 1)
+            ([key, value]) => formatEntry(key, value, indentLevel + 1),
           ).flat(),
         ];
       }
       return EventLog.indent(
-        `${key}: ${JSON.stringify(value)}`, indentLevel + 1
+        `${key}: ${JSON.stringify(value)}`,
+        indentLevel + 1,
       );
     }
     return [
@@ -188,7 +189,7 @@ export class EventLog {
     const event = {
       ...mergeIf(
         isDefined(indentLevel) || this.baseIndentLevel,
-        { indentLevel: (indentLevel ?? 0) + this.baseIndentLevel }
+        { indentLevel: (indentLevel ?? 0) + this.baseIndentLevel },
       ),
       level,
       message,
@@ -211,14 +212,16 @@ export class EventLog {
    * @description Append the events from one or more EventLog instances to this one and return this one
    */
   append(...eventLogs: EventLog[]): this {
-    eventLogs.forEach(eventLog => {
-      eventLog.getEvents().forEach(event => {
+    eventLogs.forEach((eventLog) => {
+      eventLog.getEvents().forEach((event) => {
         const { level, message, ...options } = event;
         // Echo only if the message is below the eventLog's threshold but at or above this log's threshold
         const echoLevel = this.echoDetail === 'event' && eventLog.echoDetail === 'message' || (
-          !EventLog.meetsThreshold(level, eventLog.echoLevel)
-            && EventLog.meetsThreshold(level, this.echoLevel)
-        ) ? this.echoLevel : 'off';
+            !EventLog.meetsThreshold(level, eventLog.echoLevel) &&
+            EventLog.meetsThreshold(level, this.echoLevel)
+          )
+          ? this.echoLevel
+          : 'off';
         this.addEvent(level, message, { ...options, echoLevel });
       });
     });
@@ -230,7 +233,6 @@ export class EventLog {
       isUndefined(logLevel) ? this._events : this.getEvents(logLevel)
     ).length;
   }
-
 
   debug<TData>(message: string, options: AddEventOptions<TData> = {}): this {
     this.addEvent('debug', message, options);
@@ -245,20 +247,21 @@ export class EventLog {
   filterEvents(params: FilterEventsParams): Event[] {
     const { minLevel, maxLevel } = params;
 
-    return this._events.filter(event => (
+    return this._events.filter((event) => (
       (
-        isUndefined(minLevel)
-        || EventLog.logLevels.indexOf(event.level) >= EventLog.logLevels.indexOf(minLevel)
+        isUndefined(minLevel) ||
+        EventLog.logLevels.indexOf(event.level) >= EventLog.logLevels.indexOf(minLevel)
       ) && (
-        isUndefined(maxLevel)
-        || EventLog.logLevels.indexOf(event.level) <= EventLog.logLevels.indexOf(maxLevel))
+        isUndefined(maxLevel) ||
+        EventLog.logLevels.indexOf(event.level) <= EventLog.logLevels.indexOf(maxLevel)
+      )
     ));
   }
 
   filterMessages(params: FilterEventsParams, options: EventMessageOptions = {}): string[] {
     const { omitLevel = false } = options;
     return this.filterEvents(params)
-      .map(event => omitLevel ? event.message : EventLog.formatEventMessage(event));
+      .map((event) => omitLevel ? event.message : EventLog.formatEventMessage(event));
   }
 
   getEvents<TData>(): Array<Event<TData>>;
@@ -267,13 +270,13 @@ export class EventLog {
     if (level === undefined) {
       return this._events;
     }
-    return this._events.filter(message => message.level === level);
+    return this._events.filter((message) => message.level === level);
   }
 
   getMessages(level?: LogLevel, options: EventMessageOptions = {}): string[] {
-    const {  omitLevel = false } = options;
+    const { omitLevel = false } = options;
     return (level === undefined ? this.getEvents() : this.getEvents(level))
-      .map(event => omitLevel ? event.message : EventLog.formatEventMessage(event));
+      .map((event) => omitLevel ? event.message : EventLog.formatEventMessage(event));
   }
 
   has(level?: LogLevel | undefined): boolean {

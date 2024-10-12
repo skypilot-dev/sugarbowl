@@ -6,7 +6,8 @@
 import { setSymmetricDifference } from './setSymmetricDifference.js';
 
 export function setEquality<T>(
-  aElements: Iterable<T>, bElements: Iterable<T>
+  aElements: Iterable<T>,
+  bElements: Iterable<T>,
 ): boolean {
   return setSymmetricDifference(aElements, bElements).size === 0;
 }

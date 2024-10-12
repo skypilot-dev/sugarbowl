@@ -1,4 +1,3 @@
- 
 import type { ConditionalExcept } from 'type-fest';
 
 // TODO: Make this function optionally recursive

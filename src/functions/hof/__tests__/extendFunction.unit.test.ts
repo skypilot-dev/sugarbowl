@@ -29,7 +29,6 @@ describe('extendFunction()', () => {
     const numberToString = (aNumber: number): string => aNumber.toString();
     const removeChar = (aString: string, charToRemove: string): string => aString.replace(charToRemove, '');
 
-
     const extendedFn = extendFunction(numberToString, removeChar);
     const result = extendedFn(123, '2');
 
@@ -38,9 +37,8 @@ describe('extendFunction()', () => {
 
   it('given two functions, each accepting 2 args (but of different types), should return a function that accepts 3 args & returns the combined result', () => {
     const getArrayItem = (array: readonly string[], index: number): string => array[index] ?? '';
-    const toUpperOrLower = (aString: string, toUpper: boolean): string => toUpper
-      ? aString.toUpperCase()
-      : aString.toLowerCase();
+    const toUpperOrLower = (aString: string, toUpper: boolean): string =>
+      toUpper ? aString.toUpperCase() : aString.toLowerCase();
 
     const extendedFn = extendFunction(getArrayItem, toUpperOrLower);
 
@@ -55,9 +53,8 @@ describe('extendFunction()', () => {
 
   it('given 3 functions, each accepting 2 args, should return a function that accepts 4 args & returns the combined result', () => {
     const getArrayItem = (array: string[], index: number): string => array[index] ?? '';
-    const toUpperOrLower = (aString: string, toUpper: boolean): string => toUpper
-      ? aString.toUpperCase()
-      : aString.toLowerCase();
+    const toUpperOrLower = (aString: string, toUpper: boolean): string =>
+      toUpper ? aString.toUpperCase() : aString.toLowerCase();
     const incrementFirstLetter = (aString: string, increment: Integer): string =>
       String.fromCharCode(aString.charCodeAt(0) + increment);
 

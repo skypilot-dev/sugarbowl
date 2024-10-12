@@ -7,7 +7,7 @@ const config = [
     rules: {
       'unicorn/no-instanceof-array': 'off',
     },
-  }
+  },
 ];
 
 export default config;

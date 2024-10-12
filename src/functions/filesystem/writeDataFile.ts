@@ -36,7 +36,9 @@ export interface WriteDataFileResult<T> {
 
 /* Given a blob of data, write it to a standardized location under a standardized file name. */
 export async function writeDataFile<T>(
-  data: T, filePath: PathLike, options: WriteDataFileOptions = {}
+  data: T,
+  filePath: PathLike,
+  options: WriteDataFileOptions = {},
 ): Promise<WriteDataFileResult<T>> {
   if (!filePath) {
     throw new Error('`filePath` cannot be empty');

@@ -22,7 +22,7 @@ describe('isDefinite(value: unknown)', () => {
 
   it('given any other primitive, should return true', () => {
     const primitives = [1, '', new Date(), 0];
-    primitives.forEach(primitive => {
+    primitives.forEach((primitive) => {
       expect(isDefinite(primitive)).toBe(true);
     });
   });

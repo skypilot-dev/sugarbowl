@@ -13,7 +13,7 @@ export function shuffle<T>(array: ReadonlyArray<T>): T[] {
     const swap2 = shuffledArray[j];
     assertIsDefined(swap1);
     assertIsDefined(swap2);
-    shuffledArray[i] = swap2
+    shuffledArray[i] = swap2;
     shuffledArray[j] = swap1;
   }
   return shuffledArray;

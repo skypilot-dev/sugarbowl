@@ -3,7 +3,7 @@ export { capitalizeFirstWord } from './capitalizeFirstWord.js';
 export { computeHash } from './computeHash.js';
 export { countOccurrences } from './countOccurrences.js';
 export { digitsOnly } from './digitsOnly.js';
-export { inflectByNumber,inflectQuantity } from './inflect.js';
+export { inflectByNumber, inflectQuantity } from './inflect.js';
 export { isEnclosed } from './isEnclosed.js';
 export { nondigitsOnly } from './nondigitsOnly.js';
 export { parseEnclosed } from './parseEnclosed.js';

@@ -13,11 +13,12 @@ interface ParseIntegerOptions<Empty extends FalsyValue> {
 
 /* Given the string representation of an integer value, return the integer. */
 export function parseInteger<Empty extends FalsyValue = undefined>(
-  intString: string, options: ParseIntegerOptions<Empty> = {}
-): number | Empty  {
+  intString: string,
+  options: ParseIntegerOptions<Empty> = {},
+): number | Empty {
   const { valueIfEmpty = undefined } = options;
   if (valueIfEmpty) {
-    throw new Error(`Invalid non-zero value for 'valueIfEmpty': ${valueIfEmpty}`) ;
+    throw new Error(`Invalid non-zero value for 'valueIfEmpty': ${valueIfEmpty}`);
   }
   if (intString.trim() === '') {
     if (options.disallowEmpty) {

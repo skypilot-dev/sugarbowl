@@ -27,10 +27,9 @@ export function getLastResetEpochMs(referenceResetEpochMs = 0, asAtEpochMs: numb
 
   // If the reference time is in the future, get a reset time at the same time of day in the past.
   if (referenceResetEpochMs > nowEpochMs) {
-    return referenceResetEpochMs - Math.ceil((referenceResetEpochMs - nowEpochMs) / (MILLIS_PER_DAY)) * MILLIS_PER_DAY;
-  }
-  else {
-    return referenceResetEpochMs + Math.floor((nowEpochMs - referenceResetEpochMs) / (MILLIS_PER_DAY)) * MILLIS_PER_DAY;
+    return referenceResetEpochMs - Math.ceil((referenceResetEpochMs - nowEpochMs) / MILLIS_PER_DAY) * MILLIS_PER_DAY;
+  } else {
+    return referenceResetEpochMs + Math.floor((nowEpochMs - referenceResetEpochMs) / MILLIS_PER_DAY) * MILLIS_PER_DAY;
   }
 }
 
@@ -47,7 +46,7 @@ export function getNextResetEpochMs(referenceResetEpochMs = 0, asAtEpochMs: numb
 export function getTimeSinceResetMs(referenceResetEpochMs = 0, asAtEpochMs: number | undefined = undefined): number {
   const nowEpochMs = asAtEpochMs || Date.now();
 
-  return (nowEpochMs - getLastResetEpochMs(referenceResetEpochMs, nowEpochMs)) % (MILLIS_PER_DAY);
+  return (nowEpochMs - getLastResetEpochMs(referenceResetEpochMs, nowEpochMs)) % MILLIS_PER_DAY;
 }
 
 /**

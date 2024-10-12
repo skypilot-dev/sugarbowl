@@ -8,7 +8,10 @@ import type { PathLike } from '~/src/functions/index.js';
 
 /* Create a  directory and subdirectory for use in tests of `Directory`, `safeWipe` & `safeWipeSync` */
 export function makeDirForSafeWipe(testName: PathLike, testRunDir: DirectoryLike): {
-  baseDir: Directory; baseFilePath: string; subDir: Directory; subFilePath: string;
+  baseDir: Directory;
+  baseFilePath: string;
+  subDir: Directory;
+  subFilePath: string;
 } {
   const resolvedPath = Directory.resolve(testRunDir);
   if (!checkIsInBoundary(resolvedPath, defaultSafeWipeBoundaries)) {

@@ -10,10 +10,10 @@ describe('checkIsInBoundary(targetPath)', () => {
       const targetPaths = ['./child', 'child']; // resolve to child of project directory
       const expected = true;
 
-      boundaryPaths.forEach(path => {
-        targetPaths.forEach(targetPath => {
+      boundaryPaths.forEach((path) => {
+        targetPaths.forEach((targetPath) => {
           expect(
-            checkIsInBoundary(targetPath, { path, scope: 'children' })
+            checkIsInBoundary(targetPath, { path, scope: 'children' }),
           ).toBe(expected);
         });
       });
@@ -22,12 +22,12 @@ describe('checkIsInBoundary(targetPath)', () => {
       const boundaryPath = '/parent'; // resolves to parent directory
       const targetPaths = ['/parent/../parent', '/parent/child/..']; // also resolves to parent
 
-      targetPaths.forEach(targetPath => {
+      targetPaths.forEach((targetPath) => {
         expect(
-          checkIsInBoundary(targetPath,  { path: boundaryPath, scope: 'self' })
+          checkIsInBoundary(targetPath, { path: boundaryPath, scope: 'self' }),
         ).toBe(true);
         expect(
-          checkIsInBoundary(targetPath, { path: boundaryPath, scope: 'children' })
+          checkIsInBoundary(targetPath, { path: boundaryPath, scope: 'children' }),
         ).toBe(false);
       });
     }
@@ -40,9 +40,9 @@ describe('checkIsInBoundary(targetPath)', () => {
       const scope = 'self';
       const expected = true;
 
-      targetPaths.forEach(targetPath => {
+      targetPaths.forEach((targetPath) => {
         expect(
-          checkIsInBoundary(targetPath, { path: boundaryPath, scope })
+          checkIsInBoundary(targetPath, { path: boundaryPath, scope }),
         ).toBe(expected);
       });
     });
@@ -53,9 +53,9 @@ describe('checkIsInBoundary(targetPath)', () => {
       const scope = 'self';
       const expected = false;
 
-      targetPaths.forEach(targetPath => {
+      targetPaths.forEach((targetPath) => {
         expect(
-          checkIsInBoundary(targetPath, { path: boundaryPath, scope })
+          checkIsInBoundary(targetPath, { path: boundaryPath, scope }),
         ).toBe(expected);
       });
     });
@@ -68,9 +68,9 @@ describe('checkIsInBoundary(targetPath)', () => {
       const scope = 'children';
       const expected = true;
 
-      targetPaths.forEach(targetPath => {
+      targetPaths.forEach((targetPath) => {
         expect(
-          checkIsInBoundary(targetPath, { path: boundaryPath, scope })
+          checkIsInBoundary(targetPath, { path: boundaryPath, scope }),
         ).toBe(expected);
       });
     });
@@ -81,9 +81,9 @@ describe('checkIsInBoundary(targetPath)', () => {
       const scope = 'children';
       const expected = false;
 
-      targetPaths.forEach(targetPath => {
+      targetPaths.forEach((targetPath) => {
         expect(
-          checkIsInBoundary(targetPath, { path: boundaryPath, scope })
+          checkIsInBoundary(targetPath, { path: boundaryPath, scope }),
         ).toBe(expected);
       });
     });
@@ -95,7 +95,7 @@ describe('checkIsInBoundary(targetPath)', () => {
       const expected = false;
 
       expect(
-        checkIsInBoundary(targetPath, { path: boundaryPath, scope })
+        checkIsInBoundary(targetPath, { path: boundaryPath, scope }),
       ).toBe(expected);
     });
   });

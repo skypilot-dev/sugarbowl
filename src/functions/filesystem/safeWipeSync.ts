@@ -34,7 +34,7 @@ export function safeWipeSync(dirPath: PathLike, options: SafeWipeOptions = {}): 
   } else {
     // Remove the directory's contents but not the directory itself
     const childNames = fs.readdirSync(resolvedPath);
-    childNames.forEach(childName => {
+    childNames.forEach((childName) => {
       const childPath = path.join(resolvedPath, childName);
       const isDirectory = fs.lstatSync(childPath).isDirectory();
       if (isDirectory) {

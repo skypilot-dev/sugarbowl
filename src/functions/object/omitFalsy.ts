@@ -6,7 +6,7 @@
 import type { Falsy } from '@skypilot/common-types';
 import type { ConditionalExcept } from 'type-fest';
 
-type NoFalsy<T> = ConditionalExcept<T, Falsy>
+type NoFalsy<T> = ConditionalExcept<T, Falsy>;
 
 /**
  * @description Remove keys whose values are falsy and return as a new object

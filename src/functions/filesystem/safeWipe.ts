@@ -48,12 +48,12 @@ export async function safeWipe(dirPath: PathLike, options: SafeWipeOptions = {})
   } else {
     const childNames = await readdir(fullPath);
     await Promise.all(
-      childNames.map(childName => {
+      childNames.map((childName) => {
         const childPath = path.join(fullPath, childName);
         return fs.lstatSync(childPath).isDirectory()
           ? (recursive ? fs.rmdirSync(childPath, { recursive }) : undefined)
           : unlink(childPath);
-      })
+      }),
     );
   }
   return { fullPath, status: 'OK' };

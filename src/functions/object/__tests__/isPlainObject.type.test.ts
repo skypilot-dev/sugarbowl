@@ -3,7 +3,6 @@
 // Uncomment the text line to enable typechecking
 // @ts-nocheck
 
-
 import { describe, it } from 'vitest';
 
 import type { PlainObject } from '../isPlainObject';

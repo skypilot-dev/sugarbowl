@@ -22,7 +22,7 @@ describe('isIndefinite(value: unknown)', () => {
 
   it('given any other primitive, should return false', () => {
     const primitives = [1, '', new Date(), 0];
-    primitives.forEach(primitive => {
+    primitives.forEach((primitive) => {
       expect(isIndefinite(primitive)).toBe(false);
     });
   });

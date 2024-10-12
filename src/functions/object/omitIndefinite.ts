@@ -8,7 +8,7 @@ import { isUndefined } from '~/src/functions/indefinite/isUndefined.js';
  */
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export function omitIndefinite<O extends { [key: string]: any }>(
-  obj: O
+  obj: O,
 ): ConditionalExcept<O, null | undefined> {
   return Object.entries(obj).reduce((acc, entry) => {
     const [key, value] = entry;

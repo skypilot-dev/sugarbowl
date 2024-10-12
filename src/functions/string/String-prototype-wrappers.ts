@@ -2,16 +2,13 @@
 
 import type { Integer } from '@skypilot/common-types';
 
-
 export function padEnd(str: string, targetLength: Integer, padString = ' '): string {
   return str.padEnd(targetLength, padString);
 }
 
-
 export function padStart(str: string, targetLength: Integer, padString = ' '): string {
   return str.padStart(targetLength, padString);
 }
-
 
 export function toLowerCase(str: string): string {
   /* If the string is empty (or falsy), return it unchanged */
@@ -21,7 +18,6 @@ export function toLowerCase(str: string): string {
   return str.toLowerCase();
 }
 
-
 export function toUpperCase(str: string): string {
   /* If the string is empty (or falsy), return it unchanged */
   if (!str) {
@@ -29,7 +25,6 @@ export function toUpperCase(str: string): string {
   }
   return str.toUpperCase();
 }
-
 
 export function trim(str: string): string {
   /* If the value is empty (or falsy), return it unchanged */
@@ -39,7 +34,6 @@ export function trim(str: string): string {
   return str.trim();
 }
 
-
 export function trimLeft(str: string): string {
   /* If the value is empty (or falsy), return it unchanged */
   if (!str) {
@@ -47,7 +41,6 @@ export function trimLeft(str: string): string {
   }
   return str.trimLeft();
 }
-
 
 export function trimRight(str: string): string {
   /* If the value is empty (or falsy), return it unchanged */

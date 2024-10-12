@@ -3,7 +3,9 @@ interface SetValueByPathOptions {
 }
 
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-interface Target { [key: string]: any }
+interface Target {
+  [key: string]: any;
+}
 
 /**
  * Sets a value in a target object at a specified path.
@@ -19,13 +21,14 @@ interface Target { [key: string]: any }
  * If `noOverwrite` is set to true, the function will throw an error if the path already has a value.
  */
 export function setValueByPath<T>(
-  path: string | string[], value: T, target: Target, options: SetValueByPathOptions = {}
+  path: string | string[],
+  value: T,
+  target: Target,
+  options: SetValueByPathOptions = {},
 ): Target {
   const { noOverwrite = false } = options;
 
-  const segments = typeof path === 'string'
-    ? path.split('.')
-    : path;
+  const segments = typeof path === 'string' ? path.split('.') : path;
 
   let currentLevel = target;
   while (segments.length > 1) {
@@ -48,4 +51,3 @@ export function setValueByPath<T>(
   currentLevel[finalSegment] = value;
   return target;
 }
-

@@ -41,7 +41,7 @@ describe('EventEmitter', () => {
       eventEmitter.on('event-2', onEvent2);
       const event2Payload = 'payload1';
 
-      event1Payloads.forEach(payload => eventEmitter.emit('event-1', payload));
+      event1Payloads.forEach((payload) => eventEmitter.emit('event-1', payload));
       eventEmitter.emit('event-2', event2Payload);
 
       expect(onEvent1).toHaveBeenCalledTimes(event1Payloads.length);

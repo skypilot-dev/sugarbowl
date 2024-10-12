@@ -3,10 +3,11 @@
  * Source: `skypilot-dev/sugarbowl`
  */
 export function setDifference<T>(
-  minuendElements: Iterable<T>, subtrahendElements: Iterable<T>
+  minuendElements: Iterable<T>,
+  subtrahendElements: Iterable<T>,
 ): Set<T> {
   const subtrahendSet = new Set(subtrahendElements);
   return new Set(
-    [...minuendElements].filter(element => !subtrahendSet.has(element))
+    [...minuendElements].filter((element) => !subtrahendSet.has(element)),
   );
 }

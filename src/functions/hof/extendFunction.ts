@@ -12,7 +12,6 @@ function doExtendFunction(fnToExtend: Function, extendingFn: Function): Function
   });
 }
 
-
 /* Given two or more functions, return a function that returns the result of all the functions. */
 export function extendFunction(fnToExtend: Function, ...extendingFns: Function[]): Function {
   let extendedFn = fnToExtend;
@@ -22,4 +21,3 @@ export function extendFunction(fnToExtend: Function, ...extendingFns: Function[]
   });
   return extendedFn;
 }
-

@@ -11,7 +11,9 @@ interface IndexMap {
 /* Given values referencing a page and a number of items per page, return an object representing
    them as indices of an array. */
 export function pagesToIndices<T>(
-  page = 1, resultsPerPage?: number | undefined, array?: ReadonlyArray<T>
+  page = 1,
+  resultsPerPage?: number | undefined,
+  array?: ReadonlyArray<T>,
 ): IndexMap {
   if (page < 1) {
     throw new Error(`'page' must be >= 1; value received: ${page}`);
@@ -19,7 +21,7 @@ export function pagesToIndices<T>(
 
   if (page > 1 && resultsPerPage === undefined) {
     throw new Error(
-      "A value for 'resultsPerPage' must be given when 'page' > 1;"
+      "A value for 'resultsPerPage' must be given when 'page' > 1;",
     );
   }
 
@@ -28,7 +30,7 @@ export function pagesToIndices<T>(
 
   if (!resolvedResultsPerPage || resolvedResultsPerPage < 1) {
     throw new Error(
-      `'resultsPerPage' must be >= 1; value received: ${resolvedResultsPerPage}`
+      `'resultsPerPage' must be >= 1; value received: ${resolvedResultsPerPage}`,
     );
   }
 
@@ -36,9 +38,7 @@ export function pagesToIndices<T>(
   const stopBeforeIndex = startAtIndex + resolvedResultsPerPage;
   const endAtIndex = stopBeforeIndex - 1;
 
-  const totalPages = Array.isArray(array)
-    ? Math.ceil(array.length / resolvedResultsPerPage)
-    : undefined;
+  const totalPages = Array.isArray(array) ? Math.ceil(array.length / resolvedResultsPerPage) : undefined;
 
   return {
     endAtIndex,

@@ -11,12 +11,13 @@ function fromEntries<T extends [PropertyKey, unknown][]>(entries: T): KeyValueTu
   return Object.fromEntries(entries) as KeyValueTupleToObject<T>;
 }
 
-type KeyValueTupleToObject<T extends [PropertyKey, unknown][]> =
-  {
-    [K in T[number][0]]: Extract<T[number], [K, unknown]>[1]
-  };
+type KeyValueTupleToObject<T extends [PropertyKey, unknown][]> = {
+  [K in T[number][0]]: Extract<T[number], [K, unknown]>[1];
+};
 
-interface Person {name: string }
+interface Person {
+  name: string;
+}
 const p: Person = { name: 'John' };
 const p2: Person = TypedObject.fromEntries(TypedObject.entries(p));
 console.info(p2);

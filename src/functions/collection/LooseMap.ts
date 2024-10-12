@@ -36,7 +36,7 @@ export class LooseMap<K extends Exclude<object, null>, V> {
 
   private shallowSort(key: K): K {
     return Object.fromEntries(
-      Object.entries(key).sort((a, b) => a[0].localeCompare(b[0]))
+      Object.entries(key).sort((a, b) => a[0].localeCompare(b[0])),
     ) as K;
   }
 

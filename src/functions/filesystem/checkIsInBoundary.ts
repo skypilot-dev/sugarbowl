@@ -3,14 +3,13 @@ import path from 'node:path';
 import { includeIf, toArray } from '../array/index.js';
 
 import { checkIsChildPath } from '~/src/functions/filesystem/checkIsChildPath.js';
-import type { PathLike} from '~/src/functions/filesystem/toPath.js';
+import type { PathLike } from '~/src/functions/filesystem/toPath.js';
 import { toPath } from '~/src/functions/filesystem/toPath.js';
 
 export interface FileSystemBoundary {
   path: string;
   scope?: FileSystemScope | FileSystemScope[];
 }
-
 
 export type FileSystemScope = 'children' | 'self';
 
@@ -19,7 +18,9 @@ function boundariesToString(boundaries: FileSystemBoundary[]): string {
   if (firstBoundary === undefined) {
     return '';
   }
-  return boundaries.length === 1 ? firstBoundary.path : boundaries.map(boundary => describeBoundary(boundary)).join('');
+  return boundaries.length === 1
+    ? firstBoundary.path
+    : boundaries.map((boundary) => describeBoundary(boundary)).join('');
 }
 
 function checkBoundary(targetPath: PathLike, boundary: FileSystemBoundary): boolean {
@@ -32,7 +33,6 @@ function checkBoundary(targetPath: PathLike, boundary: FileSystemBoundary): bool
     return true;
   }
   return scopes.includes('children') && checkIsChildPath(targetFullPath, boundaryFullPath);
-
 }
 
 function describeBoundary(boundary: FileSystemBoundary): string {
@@ -44,10 +44,12 @@ function describeBoundary(boundary: FileSystemBoundary): string {
 }
 
 export function makeBoundaryErrorMessage(dirPath: string, operation: string, boundaries: FileSystemBoundary[]): string {
-  return `Cannot ${operation} '${dirPath}'; the path is outside the permitted boundary: ${boundariesToString(boundaries)}`;
+  return `Cannot ${operation} '${dirPath}'; the path is outside the permitted boundary: ${
+    boundariesToString(boundaries)
+  }`;
 }
 
 export function checkIsInBoundary(targetPath: PathLike, boundary: FileSystemBoundary | FileSystemBoundary[]): boolean {
   const boundaries = toArray(boundary);
-  return boundaries.some(b => checkBoundary(targetPath, b));
+  return boundaries.some((b) => checkBoundary(targetPath, b));
 }

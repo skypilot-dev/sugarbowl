@@ -43,7 +43,7 @@ export function makeTempDir(relativePath: PathLike = '', options: MakeTempDirOpt
   const dirPath = path.resolve(
     tmpDir,
     ...basePaths,
-    subDir
+    subDir,
   );
 
   const dirExists = fs.existsSync(dirPath);

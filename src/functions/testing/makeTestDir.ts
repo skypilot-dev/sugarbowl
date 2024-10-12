@@ -11,7 +11,9 @@ interface MakeTestDirOptions {
 
 // Create a test dir
 export function makeTestDir(
-  testName: PathLike, testRunDir: DirectoryLike, options: MakeTestDirOptions = {}
+  testName: PathLike,
+  testRunDir: DirectoryLike,
+  options: MakeTestDirOptions = {},
 ): Directory {
   const { dryRun = false, verbose = false } = options;
 
@@ -25,7 +27,6 @@ export function makeTestDir(
     : new Directory(testName, { baseDir: testRunDir }).makeSync();
 
   if (verbose) {
-     
     console.info(`Temporary directory ${dryRun ? 'name generated' : 'created'}: ${fullPath}`);
   }
 

@@ -94,7 +94,7 @@ describe('writeDataFile(data, filePath, options?)', () => {
 
     // Attempt to write it again
     await expect(
-      writeDataFile(data, filePath, options)
+      writeDataFile(data, filePath, options),
     ).rejects.toThrow();
   });
 

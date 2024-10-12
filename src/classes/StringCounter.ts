@@ -60,7 +60,7 @@ export class StringCounter {
     const uniqueValues = toUniqueArray(this.values).sort((a, b) => a.localeCompare(b));
     return uniqueValues.reduce((acc, uniqueValue) => ({
       ...acc,
-      [uniqueValue]: this.values.filter(value => value === uniqueValue).length,
+      [uniqueValue]: this.values.filter((value) => value === uniqueValue).length,
     }), {});
   }
 
@@ -68,7 +68,7 @@ export class StringCounter {
     return this.patternTargets
       .slice(0)
       .sort(([aPattern], [bPattern]) => aPattern.toString().localeCompare(bPattern.toString()))
-      .map(patternTarget => {
+      .map((patternTarget) => {
         const [pattern, target] = patternTarget;
         const actual = this.countOccurrences(pattern);
         // const flags: CountFlags = Object.fromEntries(Object.entries(comparisons).map(
@@ -105,9 +105,7 @@ export class StringCounter {
   }
 
   countOccurrences(pattern: RegExp | string): number {
-    return this.values.filter(value => pattern instanceof RegExp
-      ? pattern.test(value)
-      : value === pattern).length;
+    return this.values.filter((value) => pattern instanceof RegExp ? pattern.test(value) : value === pattern).length;
   }
 
   messagesByKey(comparisonKey: ComparisonKey, pattern?: RegExp | string): string[] {
@@ -115,8 +113,8 @@ export class StringCounter {
       throw new Error(`Unrecognized pattern: ${pattern}`);
     }
     return this.digests
-      .filter(digest => (isUndefined(pattern) || (digest.pattern === pattern)) && digest[comparisonKey])
-      .map(digest => StringCounter.message(comparisonKey, digest));
+      .filter((digest) => (isUndefined(pattern) || (digest.pattern === pattern)) && digest[comparisonKey])
+      .map((digest) => StringCounter.message(comparisonKey, digest));
   }
 
   meetsTarget(comparisonKey: ComparisonKey, pattern?: string): boolean {

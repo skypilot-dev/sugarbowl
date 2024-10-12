@@ -39,7 +39,10 @@ describe('omitSequentialDuplicateItems', () => {
   });
 
   it('given an evaluation function, should use that function to compare items', () => {
-    interface Item { id: string; user: string }
+    interface Item {
+      id: string;
+      user: string;
+    }
     const array: Item[] = [
       /* Batch 1 */
       { id: '1', user: 'joe' },

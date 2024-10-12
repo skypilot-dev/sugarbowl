@@ -38,8 +38,7 @@ export class Directory {
       throw new Error('The directory cannot be an empty value');
     }
 
-    const basePath = isDefined(baseDir) ? path.resolve(Directory.toPath(baseDir))
-      : path.resolve();
+    const basePath = isDefined(baseDir) ? path.resolve(Directory.toPath(baseDir)) : path.resolve();
 
     this._baseDirPath = basePath;
     this._dirPath = stringDirPath;
@@ -93,14 +92,12 @@ export class Directory {
 
   get shortestPathFromBaseDir(): string {
     const relativePath = path.relative(this._baseDirPath, this._fullPath);
-    return this._fullPath.length < relativePath.length ? this._fullPath
-      : relativePath;
+    return this._fullPath.length < relativePath.length ? this._fullPath : relativePath;
   }
 
   get shortestPathToBaseDir(): string {
     const relativePath = path.relative(this._fullPath, this._baseDirPath);
-    return this._baseDirPath.length < relativePath.length ? this._baseDirPath
-      : relativePath;
+    return this._baseDirPath.length < relativePath.length ? this._baseDirPath : relativePath;
   }
 
   async exists(): Promise<boolean> {
@@ -113,7 +110,7 @@ export class Directory {
 
   // TODO: Support a series of arguments, as `path.join` does
   join(...targetPaths: PathLike[]): string {
-    const elements = targetPaths.map(element => toPath(element));
+    const elements = targetPaths.map((element) => toPath(element));
     return path.join(this.fullPath, ...elements);
   }
 
