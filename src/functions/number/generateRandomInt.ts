@@ -5,6 +5,6 @@ export function generateRandomInt(minValue: number, maxValue: number): Integer {
     throw new Error(`Invalid range: minValue (${minValue}) cannot be greater than maxValue (${maxValue})`);
   }
   return Math.floor(Math.random() * (
-    Math.floor(maxValue) - Math.floor(minValue))
+    Math.floor(maxValue) - Math.floor(minValue) + 1)
   ) + Math.floor(minValue);
 }

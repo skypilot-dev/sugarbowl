@@ -3,5 +3,5 @@
 
 // If ES5 or less is targeted, set `compilerOptions.downLevelIteration: true` in tsconfig.json
 export function toUniqueArray<T>(iterable: Iterable<T>): T[] {
-  return [...new Set(iterable)];
+  return Array.from(new Set(iterable));
 }

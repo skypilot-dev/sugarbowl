@@ -1,5 +1,4 @@
 import { pickRandomItems } from '../pickRandomItems';
-import { toUniqueArray } from '../toUniqueArray';
 
 const sourceArray = [1, 2, 3, 4];
 
@@ -11,7 +10,7 @@ describe('pickRandomElements()', () => {
 
   it('should not have any duplicate items', () => {
     const randomItems = pickRandomItems(sourceArray, 3);
-    expect(randomItems.length).toBe(toUniqueArray(randomItems).length);
+    expect(randomItems.length).toBe(new Set(randomItems).size);
   });
 
   it('accepts a read-only array', () => {
