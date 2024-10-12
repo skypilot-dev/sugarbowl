@@ -5,6 +5,7 @@ import type { ConditionalExcept } from 'type-fest';
  * @description Return a copy of the object, but omit any entries whose values are empty objects
  * or empty arrays
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function omitEmpty<O extends { [key: string]: any }>(obj: O): ConditionalExcept<O, EmptyObject | []> {
   return Object.entries(obj).reduce((accObj, [key, value]) => {
     if (

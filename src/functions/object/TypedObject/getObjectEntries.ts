@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-types */
-
-/*
-   Given an object of type `Record<string, any>`, return its entries. This replicates the behaviour of
-   `Object.entries` but types the return values correctly.
+/**
+ * Given an object of type `Record<string, any>`, return its entries. This replicates the behaviour of
+ * `Object.entries` but types the return values correctly.
  */
 
 // TODO: Support the other values accepted by `Object.entries`
@@ -33,7 +31,7 @@ export function getObjectEntries<T extends object | number | string>(
     return Object.entries(obj) as [];
   }
   if (typeof obj === 'string') {
-    return Object.entries(obj) as Array<[string, string]>;
+    return Object.entries(obj);
   }
   return Array.isArray(obj)
     ? Object.entries(obj) as Array<[string, ObjectValues<T>]>

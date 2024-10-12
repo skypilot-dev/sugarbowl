@@ -2,8 +2,8 @@ interface SetValueByPathOptions {
   noOverwrite?: boolean;
 }
 
-/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 interface Target {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 

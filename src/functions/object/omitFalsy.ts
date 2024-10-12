@@ -11,7 +11,7 @@ type NoFalsy<T> = ConditionalExcept<T, Falsy>;
 /**
  * @description Remove keys whose values are falsy and return as a new object
  */
-export function omitFalsy<T extends { [key: string]: any }>(obj: T): NoFalsy<T> {
+export function omitFalsy<T extends { [key: string]: unknown }>(obj: T): NoFalsy<T> {
   return Object.entries(obj).reduce((compactedObj, entry) => {
     const [key, value] = entry;
     if (!value) {
