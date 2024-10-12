@@ -1,4 +1,6 @@
-import { isIndefinite } from '../isIndefinite';
+import { describe, expect, it } from 'vitest';
+
+import { isIndefinite } from '../isIndefinite.js';
 
 describe('isIndefinite(value: unknown)', () => {
   it('should return true if given undefined or a variable whose value is undefined', () => {
@@ -20,7 +22,7 @@ describe('isIndefinite(value: unknown)', () => {
 
   it('given any other primitive, should return false', () => {
     const primitives = [1, '', new Date(), 0];
-    primitives.forEach(primitive => {
+    primitives.forEach((primitive) => {
       expect(isIndefinite(primitive)).toBe(false);
     });
   });

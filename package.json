@@ -15,6 +15,7 @@
   "bugs": {
     "url": "https://github.com/skypilot-dev/sugarbowl/issues"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git://github.com/skypilot-dev/sugarbowl.git"
@@ -22,7 +23,7 @@
   "license": "ISC",
   "author": {
     "name": "William Thorsen",
-    "email": "wthorsen@skypilot.dev"
+    "email": "william@thorsen.dev"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -30,34 +31,39 @@
     "/lib"
   ],
   "scripts": {
-    "all-ci-checks": "yarn run all-cq-checks && yarn run build",
-    "all-cq-checks": "yarn run typecheck && yarn run lint --quiet && yarn test",
-    "build": "rm -rf lib && yarn run compile-ts",
-    "check-types": "tsc",
-    "ci": "yarn run all-ci-checks",
-    "compile-ts": "babel ./src --out-dir ./lib --extensions .ts --ignore '**/__tests__/*' --ignore '**/*.d.ts' && yarn run generate-typings",
-    "cq": "yarn run all-cq-checks",
-    "ct": "yarn run check-types",
+    "all-ci-checks": "nr all-cq-checks && nr build",
+    "build": "rm -rf lib && nr compile-ts",
+    "check": "nr typecheck && nr lint --quiet && nr test",
+    "ci": "nr all-ci-checks",
+    "compile-ts": "babel ./src --out-dir ./lib --extensions .ts --ignore '**/__tests__/*' --ignore '**/*.d.ts' && nr generate-typings",
     "generate-typings": "tsc --project tsconfig.generate-typings.json",
     "lint": "eslint --cache '**/*.{js,ts}'",
-    "prepublishOnly": "yarn run typecheck && yarn run lint --quiet && yarn test && yarn run build",
-    "publish:default": "yarn publish --non-interactive",
-    "tc": "yarn run typecheck",
-    "test": "jest --config jest.standalone.config.js",
-    "test:all": "jest --config jest.config.js",
-    "test:int": "jest --config jest.integration.config.js",
+    "lint:fix": "eslint --fix '**/*.{js,ts}'",
+    "prepublishOnly": "nr typecheck && nr lint --quiet && nr test && nr build",
+    "publish:default": "na publish --non-interactive",
+    "tc": "nr typecheck",
+    "test": "vitest --config vitest.standalone.config.ts",
+    "test:all": "vitest --config vitest.config.ts",
+    "test:int": "vitest --config vitest.integration.config.ts",
     "typecheck": "tsc"
   },
   "dependencies": {
-    "json-beautify": "^1.1.1"
+    "json-beautify": "^1.1.1",
+    "vite-tsconfig-paths": "^5.0.1"
   },
   "devDependencies": {
-    "@skypilot/common-types": "^2.3.0",
-    "@skypilot/toolchain": "^5.2.3",
-    "type-fest": "^1.2.1"
+    "@types/eslint": "9.6.1",
+    "@types/node": "20.16.11",
+    "@vitest/coverage-v8": "2.1.2",
+    "@williamthorsen/eslint-config-typescript": "1.0.0",
+    "eslint": "^9.12.0",
+    "tsx": "4.19.1",
+    "type-fest": "^4.26.1",
+    "typescript": "5.6.3",
+    "vitest": "2.1.2"
   },
   "engines": {
-    "node": ">=12.13.0"
+    "node": ">=18.12.0"
   },
   "publishConfig": {
     "access": "public"

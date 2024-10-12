@@ -1,4 +1,6 @@
-import { parseEnclosed } from '../parseEnclosed';
+import { describe, expect, it } from 'vitest';
+
+import { parseEnclosed } from '~/src/functions/string/parseEnclosed.js';
 
 describe('parseEnclosed()', () => {
   it('given start and end delimiters, should return the text between them', () => {

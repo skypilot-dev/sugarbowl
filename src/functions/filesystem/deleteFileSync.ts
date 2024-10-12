@@ -1,8 +1,8 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
-import { toPath } from 'src/functions';
-import type { PathLike } from 'src/functions';
+import type { PathLike } from 'src/functions/index.js';
+import { toPath } from 'src/functions/index.js';
 
 export interface DeleteFileResult {
   fullPath: string;

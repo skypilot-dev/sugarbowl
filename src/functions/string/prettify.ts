@@ -1,4 +1,4 @@
-import { Json, JsonValue } from '@skypilot/common-types';
+import type { Json, JsonValue } from '@skypilot/common-types';
 
 /**
  * @deprecated Use `beautify` instead

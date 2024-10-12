@@ -1,6 +1,6 @@
 /* TODO: Recursively omit nested entries with undefined values. */
 
-import { omitEntriesByValue } from './omitEntriesByValue';
+import { omitEntriesByValue } from '~/src/functions/object/omitEntriesByValue.js';
 
 /**
  * @description Remove keys whose values are undefined and return as a new object

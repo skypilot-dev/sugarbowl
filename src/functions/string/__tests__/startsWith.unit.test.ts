@@ -1,4 +1,6 @@
-import { startsWith } from '../startsWith';
+import { describe, expect, it } from 'vitest';
+
+import { startsWith } from '../startsWith.js';
 
 describe('startsWith()', () => {
   it('should report that "abc" starts with "a"', () => {

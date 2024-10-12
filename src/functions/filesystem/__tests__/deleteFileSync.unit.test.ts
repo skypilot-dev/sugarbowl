@@ -1,7 +1,9 @@
-import fs from 'fs';
+import fs from 'node:fs';
 
-import { makeTestDir, makeTestRunDir } from 'src/functions';
-import { deleteFileSync } from '../deleteFileSync';
+import { makeTestDir, makeTestRunDir } from 'src/functions/index.js';
+import { describe, expect, it } from 'vitest';
+
+import { deleteFileSync } from '~/src/functions/filesystem/deleteFileSync.js';
 
 const testRunDir = makeTestRunDir('deleteFileSync.unit');
 

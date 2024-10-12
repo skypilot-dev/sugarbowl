@@ -1,6 +1,6 @@
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 
-import { Integer } from '@skypilot/common-types';
+import type { Integer } from '@skypilot/common-types';
 
 export function computeHash(stringToHash: string, length: Integer = 32): string {
   if (length > 32) {

@@ -1,4 +1,6 @@
-import { randomAlphanumeric } from '../randomAlphanumeric';
+import { describe, expect, it } from 'vitest';
+
+import { randomAlphanumeric } from '../randomAlphanumeric.js';
 
 describe('', () => {
   it('by default should return a lowercase 8-character alphanumeric string', () => {

@@ -1,4 +1,6 @@
-import { omitFalsyEntries } from '../omitFalsyEntries';
+import { describe, expect, it } from 'vitest';
+
+import { omitFalsyEntries } from '~/src/functions/object/omitFalsyEntries.js';
 
 describe('omitFalsyEntries(:object)', () => {
   it('given an object, should return a new object having only the truthy values of the original', () => {

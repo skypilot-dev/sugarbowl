@@ -1,11 +1,12 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
-import { defaultSafeWipeBoundaries } from './_constants';
-import { checkIsInBoundary, makeBoundaryErrorMessage } from './checkIsInBoundary';
-import { toPath } from './toPath';
-import type { PathLike } from './toPath';
-import type { SafeWipeOptions, SafeWipeResult } from './safeWipe';
+import { defaultSafeWipeBoundaries } from './_constants.js';
+import type { SafeWipeOptions, SafeWipeResult } from './safeWipe.js';
+import type { PathLike } from './toPath.js';
+import { toPath } from './toPath.js';
+
+import { checkIsInBoundary, makeBoundaryErrorMessage } from '~/src/functions/filesystem/checkIsInBoundary.js';
 
 // TODO: Combine with `safeWipe`
 
@@ -33,11 +34,16 @@ export function safeWipeSync(dirPath: PathLike, options: SafeWipeOptions = {}): 
   } else {
     // Remove the directory's contents but not the directory itself
     const childNames = fs.readdirSync(resolvedPath);
-    childNames.forEach(childName => {
+    childNames.forEach((childName) => {
       const childPath = path.join(resolvedPath, childName);
-      return fs.lstatSync(childPath).isDirectory()
-        ? (recursive ? fs.rmdirSync(childPath, { recursive }) : undefined)
-        : fs.unlinkSync(childPath);
+      const isDirectory = fs.lstatSync(childPath).isDirectory();
+      if (isDirectory) {
+        if (recursive) {
+          fs.rmdirSync(childPath, { recursive });
+        }
+      } else {
+        fs.unlinkSync(childPath);
+      }
     });
   }
 

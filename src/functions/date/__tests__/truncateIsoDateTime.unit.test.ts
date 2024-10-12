@@ -1,4 +1,6 @@
-import { truncateIsoDateTime } from '../truncateIsoDateTime';
+import { describe, expect, it } from 'vitest';
+
+import { truncateIsoDateTime } from '../truncateIsoDateTime.js';
 
 describe('truncateIsoDateTime(:DateTimeResolution, dateTime?:string)', () => {
   it('by default should return an ISO date-time string for the current time', () => {
@@ -12,7 +14,7 @@ describe('truncateIsoDateTime(:DateTimeResolution, dateTime?:string)', () => {
     const isoString = '2020-05-30T12:34:56.789Z';
     const resolutions = ['ms', 'millisecond'] as const;
 
-    resolutions.forEach(resolution => {
+    resolutions.forEach((resolution) => {
       const rounded = truncateIsoDateTime(resolution, isoString);
 
       expect(rounded).toBe(isoString);
@@ -23,7 +25,7 @@ describe('truncateIsoDateTime(:DateTimeResolution, dateTime?:string)', () => {
     const isoString = '2020-05-30T12:34:56.789Z';
     const resolutions = ['s', 'second'] as const;
 
-    resolutions.forEach(resolution => {
+    resolutions.forEach((resolution) => {
       const rounded = truncateIsoDateTime(resolution, isoString);
 
       const expected = '2020-05-30T12:34:56Z';
@@ -36,7 +38,7 @@ describe('truncateIsoDateTime(:DateTimeResolution, dateTime?:string)', () => {
     const isoString = '2020-05-30T12:34:56.789Z';
     const resolutions = ['m', 'minute'] as const;
 
-    resolutions.forEach(resolution => {
+    resolutions.forEach((resolution) => {
       const rounded = truncateIsoDateTime(resolution, isoString);
 
       const expected = '2020-05-30T12:34Z';
@@ -49,7 +51,7 @@ describe('truncateIsoDateTime(:DateTimeResolution, dateTime?:string)', () => {
     const isoString = '2020-05-30T12:34:56.789Z';
     const resolutions = ['h', 'hour'] as const;
 
-    resolutions.forEach(resolution => {
+    resolutions.forEach((resolution) => {
       const rounded = truncateIsoDateTime(resolution, isoString);
 
       const expected = '2020-05-30T12Z';
@@ -62,7 +64,7 @@ describe('truncateIsoDateTime(:DateTimeResolution, dateTime?:string)', () => {
     const isoString = '2020-05-30T12:34:56.789Z';
     const resolutions = ['d', 'day'] as const;
 
-    resolutions.forEach(resolution => {
+    resolutions.forEach((resolution) => {
       const rounded = truncateIsoDateTime(resolution, isoString);
 
       const expected = '2020-05-30Z';
@@ -75,7 +77,7 @@ describe('truncateIsoDateTime(:DateTimeResolution, dateTime?:string)', () => {
     const isoString = '2020-05-30T12:34:56.789Z';
     const resolutions = ['M', 'month'] as const;
 
-    resolutions.forEach(resolution => {
+    resolutions.forEach((resolution) => {
       const rounded = truncateIsoDateTime(resolution, isoString);
 
       const expected = '2020-05Z';
@@ -88,7 +90,7 @@ describe('truncateIsoDateTime(:DateTimeResolution, dateTime?:string)', () => {
     const isoString = '2020-05-30T12:34:56.789Z';
     const resolutions = ['y', 'year'] as const;
 
-    resolutions.forEach(resolution => {
+    resolutions.forEach((resolution) => {
       const rounded = truncateIsoDateTime(resolution, isoString);
 
       const expected = '2020Z';

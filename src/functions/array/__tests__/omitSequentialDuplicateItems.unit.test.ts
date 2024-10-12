@@ -1,4 +1,6 @@
-import { omitSequentialDuplicateItems } from '../omitSequentialDuplicateItems';
+import { describe, expect, it } from 'vitest';
+
+import { omitSequentialDuplicateItems } from '../omitSequentialDuplicateItems.js';
 
 describe('omitSequentialDuplicateItems', () => {
   it('given an empty array, should return the array', () => {
@@ -37,7 +39,10 @@ describe('omitSequentialDuplicateItems', () => {
   });
 
   it('given an evaluation function, should use that function to compare items', () => {
-    type Item = { id: string; user: string };
+    interface Item {
+      id: string;
+      user: string;
+    }
     const array: Item[] = [
       /* Batch 1 */
       { id: '1', user: 'joe' },

@@ -1,4 +1,6 @@
-import { flatten } from '../flatten';
+import { describe, expect, it } from 'vitest';
+
+import { flatten } from '../flatten.js';
 
 describe('flatten()', () => {
   it('given a nested array, should return an array in which all nested elements have been moved to the first level', () => {

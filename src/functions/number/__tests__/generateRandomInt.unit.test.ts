@@ -1,4 +1,6 @@
-import { generateRandomInt } from '../generateRandomInt';
+import { describe, expect, it, vi } from 'vitest';
+
+import { generateRandomInt } from '~/src/functions/number/generateRandomInt.js';
 
 describe('generateRandomInt(minValue, maxValue)', () => {
   it('when minValue & maxValue are the same, should return that value', () => {
@@ -27,6 +29,28 @@ describe('generateRandomInt(minValue, maxValue)', () => {
     const randomInt = generateRandomInt(minValue, maxValue);
 
     const expected = 1;
+    expect(randomInt).toBe(expected);
+  });
+
+  it('should return the lowest integer when Math.random() = 0', () => {
+    vi.spyOn(global.Math, 'random').mockReturnValueOnce(0);
+    const minValue = 1;
+    const maxValue = 10;
+    const expected = 1;
+
+    const randomInt = generateRandomInt(minValue, maxValue);
+
+    expect(randomInt).toBe(expected);
+  });
+
+  it('should return the highest integer when Math.random() = 0.9999', () => {
+    vi.spyOn(global.Math, 'random').mockReturnValueOnce(0.9999);
+    const minValue = 1;
+    const maxValue = 10;
+    const expected = 10;
+
+    const randomInt = generateRandomInt(minValue, maxValue);
+
     expect(randomInt).toBe(expected);
   });
 });

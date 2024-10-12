@@ -1,6 +1,4 @@
-import { Integer } from '@skypilot/common-types';
-
-import { isUndefined, TypedObject } from 'src/functions';
+import { isUndefined, TypedObject } from 'src/functions/index.js';
 
 interface ZipToObjectsOptions {
   omitUndefined?: boolean;
@@ -13,7 +11,8 @@ interface ZipToObjectsOptions {
     TODO: Modify to allow any values
  */
 export function zipToObjects<O extends Record<string, string[]>>(
-  recordMap: O, options: ZipToObjectsOptions = {}
+  recordMap: O,
+  options: ZipToObjectsOptions = {},
 ): Record<keyof O, string>[] {
   const { omitUndefined = false } = options;
 
@@ -21,16 +20,18 @@ export function zipToObjects<O extends Record<string, string[]>>(
   const arrays = TypedObject.values(recordMap);
   const longestArray = arrays.reduce(
     (acc, array) => array.length > acc.length ? array : acc,
-    [] as string[]
+    [] as string[],
   );
-  return longestArray.map((_item, index) => keys.reduce((acc, key) => {
-    const value = itemOrUndefined(recordMap[key], index);
-    return (omitUndefined && isUndefined(value)) ? acc
-      : { ...acc, [key]: itemOrUndefined(recordMap[key], index) };
-  }, {} as Record<keyof O, string>
-  ));
+  return longestArray.map((_item, index) =>
+    keys.reduce((acc, key) => {
+      const value = itemOrUndefined(recordMap[key] ?? [], index);
+      return (omitUndefined && isUndefined(value))
+        ? acc
+        : { ...acc, [key]: itemOrUndefined(recordMap[key] ?? [], index) };
+    }, {} as Record<keyof O, string>)
+  );
 }
 
-function itemOrUndefined<I>(array: I[], index: Integer): I | undefined {
+function itemOrUndefined<I>(array: I[], index: number): I | undefined {
   return array.length > index ? array[index] : undefined;
 }

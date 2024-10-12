@@ -1,4 +1,6 @@
-import { omitEmptyObjects } from '../omitEmptyObjects';
+import { describe, expect, it } from 'vitest';
+
+import { omitEmptyObjects } from '~/src/functions/object/omitEmptyObjects.js';
 
 describe('omitEmptyObjects()', () => {
   it('should remove entries whose values are empty objects & return a new object containing the remaining entries', () => {

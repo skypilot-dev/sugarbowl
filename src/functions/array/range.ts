@@ -1,4 +1,4 @@
-import { Integer } from '@skypilot/common-types';
+import type { Integer } from '@skypilot/common-types';
 
 /* TODO: Support a `step` option. */
 

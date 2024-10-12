@@ -1,4 +1,6 @@
-import { makeDateTimeStamp } from '../makeDateTimeStamp';
+import { describe, expect, it } from 'vitest';
+
+import { makeDateTimeStamp } from '../makeDateTimeStamp.js';
 
 const dateTime = '1989-01-28T01:02:03.456Z';
 const resolutions = [
@@ -19,7 +21,7 @@ describe('makeDateTimeStamp', () => {
       millisecond: '1989-01-28T01:02:03.456Z',
     };
 
-    resolutions.forEach(dateTimeResolution => {
+    resolutions.forEach((dateTimeResolution) => {
       const dateTimeStamp = makeDateTimeStamp({ dateTime, dateTimeResolution, preset: 'iso' });
       const expected = expecteds[dateTimeResolution];
       expect(dateTimeStamp).toBe(expected);
@@ -35,7 +37,7 @@ describe('makeDateTimeStamp', () => {
       millisecond: '19890128-010203456',
     };
 
-    resolutions.forEach(dateTimeResolution => {
+    resolutions.forEach((dateTimeResolution) => {
       const dateTimeStamp = makeDateTimeStamp({ dateTime, dateTimeResolution, preset: 'compact' });
       const expected = expecteds[dateTimeResolution];
       expect(dateTimeStamp).toBe(expected);
@@ -51,7 +53,7 @@ describe('makeDateTimeStamp', () => {
       millisecond: '1989-01-28-01h02m03s456',
     };
 
-    resolutions.forEach(dateTimeResolution => {
+    resolutions.forEach((dateTimeResolution) => {
       const dateTimeStamp = makeDateTimeStamp({ dateTime, dateTimeResolution, preset: 'humanized' });
       const expected = expecteds[dateTimeResolution];
       expect(dateTimeStamp).toBe(expected);
@@ -67,7 +69,7 @@ describe('makeDateTimeStamp', () => {
       millisecond: '1989-01-28-010203.456',
     };
 
-    resolutions.forEach(dateTimeResolution => {
+    resolutions.forEach((dateTimeResolution) => {
       const dateTimeStamp = makeDateTimeStamp({ dateTime, dateTimeResolution, preset: 'slug' });
       const expected = expecteds[dateTimeResolution];
       expect(dateTimeStamp).toBe(expected);

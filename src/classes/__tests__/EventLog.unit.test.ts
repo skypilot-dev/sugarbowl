@@ -1,39 +1,43 @@
-import { EventLog } from '../EventLog';
+import { describe, expect, it, vi } from 'vitest';
+
+import { EventLog } from '../EventLog.js';
 
 describe('EventLog()', () => {
   describe('static meetsThreshold(a: LogLevel | undefined, b: EchoLevel | undefined)', () => {
     it('should return false if level a < level b', () => {
       expect(
-        EventLog.meetsThreshold('warn', 'error')
+        EventLog.meetsThreshold('warn', 'error'),
       ).toBe(false);
     });
 
     it('should return true if level a >= level b', () => {
       expect(
-        EventLog.meetsThreshold('info', 'debug')
+        EventLog.meetsThreshold('info', 'debug'),
       ).toBe(true);
     });
 
     it("no value should meet the threshold of 'off'", () => {
       expect(
-        EventLog.meetsThreshold('error', undefined)
+        EventLog.meetsThreshold('error', undefined),
       ).toBe(false);
     });
 
     it('an undefined logLevel should never meet a threshold', () => {
       expect(
         // Doesn't meet the lowest threshold
-        EventLog.meetsThreshold(undefined, 'debug')
+        EventLog.meetsThreshold(undefined, 'debug'),
       ).toBe(false);
       expect(
         // Doesn't meet the threshold of 'off'
-        EventLog.meetsThreshold(undefined, 'off')
+        EventLog.meetsThreshold(undefined, 'off'),
       ).toBe(false);
     });
   });
 
   describe('static merge(:EventLog)', () => {
     it('should return a new EventLog containing all events from the EventLog instances in the array', () => {
+      vi.spyOn(console, 'info').mockImplementation(vi.fn());
+      vi.spyOn(console, 'warn').mockImplementation(vi.fn());
       const eventLog1 = new EventLog({ echoLevel: 'debug', echoDetail: 'event' })
         .info('First', { id: 'any', data: { key: 'sample data', array: [1, 2], nested: { a: 1, b: 2 } } })
         .warn('Second');
@@ -63,6 +67,8 @@ describe('EventLog()', () => {
 
   describe('get messages', () => {
     it('should return a dictionary of messages of all levels', () => {
+      vi.spyOn(console, 'error').mockImplementation(vi.fn());
+      vi.spyOn(console, 'info').mockImplementation(vi.fn());
       // Example of method chaining
       const eventLog = new EventLog()
         .error('Error 1')
@@ -296,23 +302,25 @@ describe('EventLog()', () => {
       const sets = [
         {
           params: { minLevel: 'warn' } as const,
-          expectedMessages : ['Warn event', 'Error event'],
+          expectedMessages: ['Warn event', 'Error event'],
         },
         {
           params: { minLevel: 'debug', maxLevel: 'info' } as const,
-          expectedMessages : ['Debug event', 'Info event'],
+          expectedMessages: ['Debug event', 'Info event'],
         },
         {
           params: { maxLevel: 'debug' } as const,
-          expectedMessages : ['Debug event'],
+          expectedMessages: ['Debug event'],
         },
       ];
-      sets.forEach(( { params, expectedMessages }) => {
-        expect(eventLog.filterEvents(params).map(
-          event => event.message
-        )).toStrictEqual(expectedMessages);
+      sets.forEach(({ params, expectedMessages }) => {
         expect(
-          eventLog.filterMessages(params, { omitLevel: true })
+          eventLog.filterEvents(params).map(
+            (event) => event.message,
+          ),
+        ).toStrictEqual(expectedMessages);
+        expect(
+          eventLog.filterMessages(params, { omitLevel: true }),
         ).toStrictEqual(expectedMessages);
       });
     });
@@ -320,13 +328,14 @@ describe('EventLog()', () => {
 
   describe('getEvents()', () => {
     it('should return all events', () => {
-      interface Data { key: string }
+      interface Data {
+        key: string;
+      }
       expect.assertions(2);
 
       const eventLog = new EventLog();
-      eventLog.info<Data>( 'Info event', { data: { key: 'typed value' } });
+      eventLog.info<Data>('Info event', { data: { key: 'typed value' } });
       eventLog.debug('Debug event');
-
 
       const [firstEvent] = eventLog.getEvents<Data>();
       if (firstEvent) {
@@ -411,7 +420,7 @@ describe('EventLog()', () => {
 
       expect(eventLog.has('info')).toBe(true);
       const absentLogLevels = ['debug', 'error', 'warn'] as const;
-      absentLogLevels.forEach(level => {
+      absentLogLevels.forEach((level) => {
         expect(eventLog.has(level)).toBe(false);
       });
     });

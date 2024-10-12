@@ -1,5 +1,6 @@
-import path from 'path';
-import { toArray } from '../array';
+import path from 'node:path';
+
+import { toArray } from '~/src/functions/array/toArray.js';
 
 // Return true if the childPath is within the parentPath
 export function checkIsChildPath(childPath: string | string[], parentPath: string | string[]): boolean {

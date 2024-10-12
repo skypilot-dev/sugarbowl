@@ -13,5 +13,5 @@ export function toUnixTime(
     return toUnixTime(jsTime.getTime());
   }
   const unixTimestamp = jsTime / 1000;
-  return Math.round(unixTimestamp * 10**howManyDecimalPlaces) / 10**howManyDecimalPlaces;
+  return Math.round(unixTimestamp * 10 ** howManyDecimalPlaces) / 10 ** howManyDecimalPlaces;
 }

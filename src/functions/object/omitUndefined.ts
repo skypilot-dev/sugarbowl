@@ -4,7 +4,7 @@
 
 import type { ConditionalExcept } from 'type-fest';
 
-import { isUndefined } from '../indefinite';
+import { isUndefined } from '~/src/functions/indefinite/index.js';
 
 /**
  * @description Return a copy of the object, omitting keys whose values are undefined

@@ -1,4 +1,6 @@
-import { getLastItem } from '../getLastItem';
+import { describe, expect, it } from 'vitest';
+
+import { getLastItem } from '../getLastItem.js';
 
 describe('getLastItem', () => {
   it('should return the last item in the array', () => {

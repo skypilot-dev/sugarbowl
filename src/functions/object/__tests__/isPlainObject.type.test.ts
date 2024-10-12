@@ -3,7 +3,9 @@
 // Uncomment the text line to enable typechecking
 // @ts-nocheck
 
-import { PlainObject } from '../isPlainObject';
+import { describe, it } from 'vitest';
+
+import type { PlainObject } from '../isPlainObject';
 
 function takesPlainObject(_plainObject: PlainObject): void {
   /* do nothing */
@@ -11,7 +13,7 @@ function takesPlainObject(_plainObject: PlainObject): void {
 
 describe('PlainObject', () => {
   it('should accept any object that is not an array, function, or class instance', () => {
-    type MyObj = {
+    interface MyObj {
       a: string;
     }
     const typedObj: MyObj = { a: 'value' };

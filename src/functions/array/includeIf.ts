@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Falsy } from '@skypilot/common-types';
+import type { Falsy } from '@skypilot/common-types';
 
 // TODO: Check whether this in fact works: The `any` type may cause TypeScript to ignore it altogether
 type Truthy<T = any> = Exclude<T, Falsy>;

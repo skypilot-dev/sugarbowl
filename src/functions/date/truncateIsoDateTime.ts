@@ -1,10 +1,9 @@
-import { Integer } from '@skypilot/common-types';
-import { includes } from '../array/includes';
+import { includes } from '~/src/functions/array/includes.js';
 
 const resolutionAbbrevs = ['ms', 's', 'm', 'h', 'd', 'M', 'y'] as const;
-const resolutions = ['millisecond', 'second', 'minute', 'hour', 'month', 'day', 'month', 'year'] as const;
+const _resolutions = ['millisecond', 'second', 'minute', 'hour', 'month', 'day', 'month', 'year'] as const;
 
-export type DateTimeResolution= typeof resolutions[number];
+export type DateTimeResolution = typeof _resolutions[number];
 export type DateTimeResolutionAbbrev = typeof resolutionAbbrevs[number];
 
 const abbrevMap = new Map<DateTimeResolutionAbbrev, DateTimeResolution>([
@@ -17,7 +16,7 @@ const abbrevMap = new Map<DateTimeResolutionAbbrev, DateTimeResolution>([
   ['y', 'year'],
 ]);
 
-const lengthMap = new Map<DateTimeResolution, Integer>([
+const lengthMap = new Map<DateTimeResolution, number>([
   ['millisecond', 23],
   ['second', 19],
   ['minute', 16],
@@ -29,7 +28,7 @@ const lengthMap = new Map<DateTimeResolution, Integer>([
 
 export function truncateIsoDateTime(
   resolution: DateTimeResolution | DateTimeResolutionAbbrev,
-  isoDateTime: string = new Date().toISOString()
+  isoDateTime: string = new Date().toISOString(),
 ): string {
   const resolutionKey = includes(resolutionAbbrevs, resolution)
     ? abbrevMap.get(resolution) as DateTimeResolution

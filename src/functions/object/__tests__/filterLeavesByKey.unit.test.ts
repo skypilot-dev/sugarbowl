@@ -1,4 +1,6 @@
-import { filterLeavesByKey } from '../filterLeavesByKey';
+import { describe, expect, it } from 'vitest';
+
+import { filterLeavesByKey } from '~/src/functions/object/filterLeavesByKey.js';
 
 describe('filterLeavesByKey', () => {
   it("given an object & key, should return all values mapped to the key while preserving the object's structure", () => {

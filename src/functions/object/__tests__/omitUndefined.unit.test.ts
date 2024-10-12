@@ -1,4 +1,6 @@
-import { omitUndefined } from '../omitUndefined';
+import { describe, expect, it } from 'vitest';
+
+import { omitUndefined } from '~/src/functions/object/omitUndefined.js';
 
 describe('omitUndefined(:object)', () => {
   it('given an object, should return a new object having only the defined values of the original', () => {

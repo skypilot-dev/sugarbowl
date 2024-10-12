@@ -1,10 +1,10 @@
 /* FIXME: Throw an error if the value of `keyName` conflicts with any existing keys. */
 
 /* -- Imports -- */
-import { JsonMap } from '@skypilot/common-types';
+import type { JsonMap } from '@skypilot/common-types';
+import { describe, expect, it } from 'vitest';
 
-import { entriesToKeyedItems } from '../entriesToKeyedItems';
-
+import { entriesToKeyedItems } from '~/src/functions/object/entriesToKeyedItems.js';
 
 /* -- Typings -- */
 type SortComparison = -1 | 0 | 1;
@@ -15,11 +15,9 @@ const SORT_HIGHER: SortComparison = -1;
 const SORT_LOWER: SortComparison = 1;
 
 const sortOnKeyFn = <T extends JsonMap, K extends keyof T>(keyName: K): SortFunction => (
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore // This typing looks good, but TypeScript complains
+  // @ts-expect-error - Fix types
   (a, b) => a[keyName] < b[keyName] ? SORT_HIGHER : SORT_LOWER
 );
-
 
 /* -- Tests -- */
 describe('entriesToKeyedItems(:object)', () => {

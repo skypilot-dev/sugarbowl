@@ -1,5 +1,6 @@
-import { includeIf } from '../array';
-import { DateTimeResolution, DateTimeResolutionAbbrev, truncateIsoDateTime } from './truncateIsoDateTime';
+import { includeIf } from '~/src/functions/array/includeIf.js';
+import type { DateTimeResolution, DateTimeResolutionAbbrev } from '~/src/functions/date/truncateIsoDateTime.js';
+import { truncateIsoDateTime } from '~/src/functions/date/truncateIsoDateTime.js';
 
 // TODO: Allow a custom separator between date & time
 
@@ -7,7 +8,7 @@ type ISODateTimeString = string; // TODO: Use template type
 
 export type DateTimeStampTransformer = (isoDateString: ISODateTimeString) => string;
 
-export type DateTimeStampOptions = {
+export interface DateTimeStampOptions {
   dateTime?: ISODateTimeString | Date; // the date-time to use instead of `new Date()`
   dateTimeResolution?: DateTimeResolution | DateTimeResolutionAbbrev;
   preset?: DateTimeStampPresetCode;
@@ -16,7 +17,7 @@ export type DateTimeStampOptions = {
 
 export type DateTimeStampPresetCode = 'compact' | 'humanized' | 'iso' | 'slug';
 
-export type DateTimeStampParams = {
+export interface DateTimeStampParams {
   dateTimeResolution: DateTimeResolution | DateTimeResolutionAbbrev;
   separator?: string;
   transform: DateTimeStampTransformer;
@@ -24,9 +25,8 @@ export type DateTimeStampParams = {
 
 // Return a string representing the current ISO date and time, optionally reformatted
 export function makeDateTimeStamp(
-  options: DateTimeStampOptions | DateTimeStampPresetCode = 'slug'
+  options: DateTimeStampOptions | DateTimeStampPresetCode = 'slug',
 ): string {
-
   const resolvedParams = resolveParams(options);
   const dateTime = typeof options === 'string' || !options.dateTime ? new Date() : options.dateTime;
   const { dateTimeResolution = 'second', separator = '-', transform } = resolvedParams;
@@ -45,9 +45,10 @@ export function makeDateTimeStamp(
 }
 
 const functionDict = {
-  compact: (isoDateTime: ISODateTimeString) => isoDateTime
-    .replace(/[-:Z.]/g, '')
-    .replace('T', '-'),
+  compact: (isoDateTime: ISODateTimeString) =>
+    isoDateTime
+      .replace(/[-:Z.]/g, '')
+      .replace('T', '-'),
   humanized: (isoDateTime: ISODateTimeString) => {
     const [date, time = ''] = isoDateTime.replace('Z', '').split('T');
     const [h = '', m = '', seconds = ''] = time.split(':');
@@ -60,9 +61,10 @@ const functionDict = {
       ms,
     ].join('');
   },
-  slug: (isoDateTime: ISODateTimeString) => isoDateTime
-    .replace(/[Z:]/g, '')
-    .replace(/[T]/g, '-'),
+  slug: (isoDateTime: ISODateTimeString) =>
+    isoDateTime
+      .replace(/[Z:]/g, '')
+      .replace(/[T]/g, '-'),
 };
 
 const presetMap = new Map<DateTimeStampPresetCode, DateTimeStampParams | undefined>([
@@ -77,7 +79,7 @@ const presetMap = new Map<DateTimeStampPresetCode, DateTimeStampParams | undefin
   // By default, return an ordinarize ISO date-time string truncated to seconds
   ['iso', {
     dateTimeResolution: 'second',
-    transform: dateTime => dateTime,
+    transform: (dateTime) => dateTime,
   }],
   ['slug', {
     dateTimeResolution: 'second',
@@ -92,7 +94,5 @@ function resolveParams(options: DateTimeStampOptions | DateTimeStampPresetCode):
     throw new Error(`Unrecognized preset: '${options}'`);
   }
 
-  return typeof options === 'string'
-    ? preset
-    : { ...preset, ...options };
+  return typeof options === 'string' ? preset : { ...preset, ...options };
 }

@@ -1,4 +1,6 @@
-import { swapKeysAndValues } from '../swapKeysAndValues';
+import { describe, expect, it } from 'vitest';
+
+import { swapKeysAndValues } from '~/src/functions/object/swapKeysAndValues.js';
 
 describe('swapKeysAndValues(:object)', () => {
   it('can swap string keys with string values', () => {

@@ -1,9 +1,10 @@
-import fs from 'fs';
-import path from 'path';
-import { Integer, JsonMap } from '@skypilot/common-types';
+import fs from 'node:fs';
+import path from 'node:path';
 
-import type { WriteFileResult } from 'src/functions';
-import { findUpTree } from './findUpTree';
+import type { Integer, JsonMap } from '@skypilot/common-types';
+import type { WriteFileResult } from 'src/functions/index.js';
+
+import { findUpTree } from './findUpTree.js';
 
 interface WritePackageFileOptions {
   content: JsonMap;

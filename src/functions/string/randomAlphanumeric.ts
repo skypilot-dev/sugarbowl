@@ -1,4 +1,4 @@
-import { Integer } from '@skypilot/common-types';
+import type { Integer } from '@skypilot/common-types';
 
 function generateRandomAlphanumeric(): string {
   const randomString = Math.random().toString(36);

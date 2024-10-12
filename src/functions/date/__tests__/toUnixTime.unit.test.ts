@@ -1,4 +1,6 @@
-import { toUnixTime } from '../toUnixTime';
+import { describe, expect, it } from 'vitest';
+
+import { toUnixTime } from '../toUnixTime.js';
 
 describe('toUnixTime(:number)', () => {
   it('should convert milliseconds since the Unix Epoch to seconds since the Unix Epoch', () => {

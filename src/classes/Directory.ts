@@ -1,11 +1,12 @@
-import fs from 'fs';
-import path from 'path';
-import util from 'util';
+import fs from 'node:fs';
+import path from 'node:path';
+import util from 'node:util';
 
-import { safeWipe, safeWipeSync, toPath } from 'src/functions';
-import type { FileSystemBoundary, PathLike, SafeWipeOptions, SafeWipeResult } from 'src/functions';
-import { isDefined } from 'src/functions/indefinite/isDefined';
-import { defaultSafeWipeBoundaries } from '../functions/filesystem/_constants';
+import type { FileSystemBoundary, PathLike, SafeWipeOptions, SafeWipeResult } from 'src/functions/index.js';
+import { safeWipe, safeWipeSync, toPath } from 'src/functions/index.js';
+
+import { defaultSafeWipeBoundaries } from '~/src/functions/filesystem/_constants.js';
+import { isDefined } from '~/src/functions/indefinite/isDefined.js';
 
 export type DirectoryLike = PathLike | Directory;
 
@@ -37,8 +38,7 @@ export class Directory {
       throw new Error('The directory cannot be an empty value');
     }
 
-    const basePath = isDefined(baseDir) ? path.resolve(Directory.toPath(baseDir))
-      : path.resolve();
+    const basePath = isDefined(baseDir) ? path.resolve(Directory.toPath(baseDir)) : path.resolve();
 
     this._baseDirPath = basePath;
     this._dirPath = stringDirPath;
@@ -76,6 +76,9 @@ export class Directory {
   // The first segment of `dirPath`
   get dirPathRoot(): string {
     const firstSegment = this._dirPath.split(path.sep)[0];
+    if (firstSegment === undefined) {
+      throw new Error('The directory path is empty');
+    }
     return path.resolve(this._baseDirPath, firstSegment);
   }
 
@@ -89,14 +92,12 @@ export class Directory {
 
   get shortestPathFromBaseDir(): string {
     const relativePath = path.relative(this._baseDirPath, this._fullPath);
-    return this._fullPath.length < relativePath.length ? this._fullPath
-      : relativePath;
+    return this._fullPath.length < relativePath.length ? this._fullPath : relativePath;
   }
 
   get shortestPathToBaseDir(): string {
     const relativePath = path.relative(this._fullPath, this._baseDirPath);
-    return this._baseDirPath.length < relativePath.length ? this._baseDirPath
-      : relativePath;
+    return this._baseDirPath.length < relativePath.length ? this._baseDirPath : relativePath;
   }
 
   async exists(): Promise<boolean> {
@@ -109,7 +110,7 @@ export class Directory {
 
   // TODO: Support a series of arguments, as `path.join` does
   join(...targetPaths: PathLike[]): string {
-    const elements = targetPaths.map(element => toPath(element));
+    const elements = targetPaths.map((element) => toPath(element));
     return path.join(this.fullPath, ...elements);
   }
 

@@ -1,5 +1,7 @@
-import { StringCounter } from '../StringCounter';
-import type { ComparisonKey, MatchCount } from '../StringCounter';
+import { describe, expect, it } from 'vitest';
+
+import type { ComparisonKey, MatchCount } from '../StringCounter.js';
+import { StringCounter } from '../StringCounter.js';
 
 describe('StringCounter class', () => {
   describe('counts', () => {

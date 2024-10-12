@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { toMutableArray } from './toMutableArray';
+import { toMutableArray } from '~/src/functions/array/toMutableArray.js';
 
-type Evaluate<I> = (item: I) => any
+type Evaluate<I> = (item: I) => any;
 
 interface OmitSequentialDuplicateItemsOptions<I> {
   evaluate?: Evaluate<I>;
@@ -12,7 +12,7 @@ interface OmitSequentialDuplicateItemsOptions<I> {
    optionally, use a passed function to evaluate each item for purposes of comparison */
 export function omitSequentialDuplicateItems<Item>(
   array: ReadonlyArray<Item>,
-  options: OmitSequentialDuplicateItemsOptions<Item> = {}
+  options: OmitSequentialDuplicateItemsOptions<Item> = {},
 ): Item[] {
   const {
     evaluate = (item: Item): Item => item, // default function is the identity function

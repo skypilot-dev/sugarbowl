@@ -1,34 +1,30 @@
-import type { Integer } from '@skypilot/common-types';
-
-import { isUndefined } from 'src/functions/indefinite/isUndefined';
-
 interface ResolvedSlice {
-  first: Integer;
-  last: Integer;
-  length: Integer;
-  startAt: Integer;
-  stopBefore: Integer;
+  first: number;
+  last: number;
+  length: number;
+  startAt: number;
+  stopBefore: number;
 }
 
 /**
  * @description Return an object describing absolute slice coordinates, indices & length
  */
 export function resolveSlice<T>(
-  slice: ReadonlyArray<Integer | undefined>, items: ReadonlyArray<T>
+  slice: ReadonlyArray<number | undefined>,
+  items: ReadonlyArray<T>,
 ): ResolvedSlice | null;
 export function resolveSlice(
-  slice: ReadonlyArray<Integer | undefined>, arrayLength: Integer
+  slice: ReadonlyArray<number | undefined>,
+  arrayLength: number,
 ): ResolvedSlice | null;
 export function resolveSlice<T>(
-  slice: ReadonlyArray<Integer | undefined>, arrayOrLength: Integer | ReadonlyArray<T>
+  slice: ReadonlyArray<number | undefined>,
+  arrayOrLength: number | ReadonlyArray<T>,
 ): ResolvedSlice | null {
-  const arrayLength = arrayOrLength instanceof Array ? arrayOrLength.length : arrayOrLength;
-  const [startAt, stopBefore] = slice;
+  const arrayLength = typeof arrayOrLength === 'number' ? arrayOrLength : arrayOrLength.length;
+  const [startAt = 0, stopBefore = arrayLength] = slice;
 
-  const definiteStartAt = isUndefined(startAt) ? 0 : startAt;
-  const definiteStopBefore = isUndefined(stopBefore) ? arrayLength: stopBefore;
-
-  function constrainIndexToArraySize(index: Integer): Integer {
+  function constrainIndexToArraySize(index: number): number {
     if (index <= 0) {
       return 0;
     }
@@ -38,16 +34,16 @@ export function resolveSlice<T>(
     return index;
   }
 
-  const absoluteStartAt = definiteStartAt >= 0 ? definiteStartAt : arrayLength + definiteStartAt - 1;
-  const absoluteStopBefore = definiteStopBefore >= 0 ? definiteStopBefore : arrayLength + definiteStopBefore;
+  const absoluteStartAt = startAt >= 0 ? startAt : arrayLength + startAt - 1;
+  const absoluteStopBefore = stopBefore >= 0 ? stopBefore : arrayLength + stopBefore;
 
   const indexOfFirstItem = constrainIndexToArraySize(absoluteStartAt);
   const indexOfLastItem = constrainIndexToArraySize(absoluteStopBefore - 1);
   const resolvedLength = indexOfLastItem - indexOfFirstItem + 1;
 
   return (
-    arrayLength === 0 || resolvedLength < 1 || absoluteStartAt >= arrayLength || absoluteStartAt >= absoluteStopBefore
-  )
+      arrayLength === 0 || resolvedLength < 1 || absoluteStartAt >= arrayLength || absoluteStartAt >= absoluteStopBefore
+    )
     ? null
     : {
       first: indexOfFirstItem,

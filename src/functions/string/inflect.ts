@@ -6,7 +6,7 @@
  * as the third parameter.
  */
 export function inflectByNumber(howMany: number, singular: string, plural?: string): string {
-  if (howMany === 0 || howMany > 1 || howMany < -1 ) {
+  if (howMany === 0 || howMany > 1 || howMany < -1) {
     return plural || `${singular}s`;
   }
   return singular;

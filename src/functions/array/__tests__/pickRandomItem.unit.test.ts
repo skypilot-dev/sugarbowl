@@ -1,4 +1,6 @@
-import { pickRandomItem } from '../pickRandomItem';
+import { describe, expect, it } from 'vitest';
+
+import { pickRandomItem } from '../pickRandomItem.js';
 
 describe('pickRandomItem()', () => {
   it('should return one item', () => {

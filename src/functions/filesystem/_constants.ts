@@ -1,7 +1,7 @@
-import os from 'os';
+import os from 'node:os';
 
 // Default boundaries within which safe wipes are allowed
-import { FileSystemBoundary } from './checkIsInBoundary';
+import type { FileSystemBoundary } from '~/src/functions/filesystem/checkIsInBoundary.js';
 
 export const defaultSafeWipeBoundaries: FileSystemBoundary[] = [
   { path: 'tmp', scope: 'children' }, // any subdirectory of `PROJECT_ROOT/tmp`

@@ -1,4 +1,6 @@
-import { toMapFunction } from '../toMapFunction';
+import { describe, expect, it } from 'vitest';
+
+import { toMapFunction } from '~/src/functions/hof/toMapFunction.js';
 
 describe('toMapFunction(:itemFn)', () => {
   it('given a function, return a function that applies the function to every item in an array', () => {
@@ -23,9 +25,8 @@ describe('toMapFunction(:itemFn)', () => {
 
   it('given 3 functions that each require params, return a function that accepts all params and applies the combined function with params to every item in an array', () => {
     const trim = (aString: string): string => aString.trim();
-    const toUpperOrLower = (aString: string, toUpper: boolean): string => toUpper
-      ? aString.toUpperCase()
-      : aString.toLowerCase();
+    const toUpperOrLower = (aString: string, toUpper: boolean): string =>
+      toUpper ? aString.toUpperCase() : aString.toLowerCase();
     const omitLetter = (aString: string, letter: string): string => aString.replace(letter, '');
 
     const mapFn = toMapFunction(trim, toUpperOrLower, omitLetter);

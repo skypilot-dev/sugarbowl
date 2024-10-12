@@ -3,8 +3,10 @@
  * @deprecated Use `omitByValue`
  */
 export function omitEntriesByValue<T = Record<string, unknown>, Compacted = Partial<T>>(
-  value: unknown, obj: T
+  value: unknown,
+  obj: T,
 ): Compacted {
+  // @ts-expect-error - Broken by upgrades to TypeScript
   return Object.entries(obj).reduce((compactedObj, entry) => {
     const [key, entryValue] = entry;
     if (entryValue === value) {

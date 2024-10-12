@@ -1,13 +1,15 @@
-import path from 'path';
+import path from 'node:path';
 
-import { makeTempDir } from '../makeTempDir';
-import { safeWipeSync } from '../safeWipeSync';
+import { afterAll, describe, expect, it } from 'vitest';
+
+import { makeTempDir } from '~/src/functions/filesystem/makeTempDir.js';
+import { safeWipeSync } from '~/src/functions/filesystem/safeWipeSync.js';
 
 const baseDir = makeTempDir('makeTempDir.unit', { addRandomSuffix: true, dateTimeFormat: 'compact' });
 
-afterAll(async () => safeWipeSync(baseDir, { remove: true }));
-
 describe('makeTempDir(relativePath:string, options)', () => {
+  afterAll(async () => safeWipeSync(baseDir, { remove: true }));
+
   it('should create a temporary directory and return the path to it', () => {
     const subDirName = 'test1';
     const subDirPath = makeTempDir(subDirName, { baseDir });

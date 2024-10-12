@@ -1,4 +1,6 @@
-import { omitNulls } from '../omitNulls';
+import { describe, expect, it } from 'vitest';
+
+import { omitNulls } from '~/src/functions/object/omitNulls.js';
 
 describe('omitNulls(:object)', () => {
   it('given an object, should return a new object having only the non-null values of the original', () => {

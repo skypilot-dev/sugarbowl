@@ -1,1 +1,1 @@
-export { TypedObject } from './TypedObject';
+export { TypedObject } from '~/src/functions/object/TypedObject/TypedObject.js';

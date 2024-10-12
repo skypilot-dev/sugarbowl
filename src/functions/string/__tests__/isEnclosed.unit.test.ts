@@ -1,4 +1,6 @@
-import { isEnclosed } from '../isEnclosed';
+import { describe, expect, it } from 'vitest';
+
+import { isEnclosed } from '~/src/functions/string/isEnclosed.js';
 
 describe('isEnclosed()', () => {
   it("asked whether '|string|' is enlosed by '|', should return true", () => {

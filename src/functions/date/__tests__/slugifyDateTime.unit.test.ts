@@ -1,4 +1,6 @@
-import { slugifyDateTime } from '../slugifyDateTime';
+import { describe, expect, it } from 'vitest';
+
+import { slugifyDateTime } from '../slugifyDateTime.js';
 
 const isoDateTime = '1989-01-28T01:02:03.456Z';
 const resolutions = [
@@ -19,7 +21,7 @@ describe('slugifyDateTime', () => {
       millisecond: '1989-01-28-010203.456',
     };
 
-    resolutions.forEach(dateTimeResolution => {
+    resolutions.forEach((dateTimeResolution) => {
       const simplified = slugifyDateTime(isoDateTime, { dateTimeResolution, preset: 'slug' });
       const expected = expecteds[dateTimeResolution];
       expect(simplified).toBe(expected);
@@ -35,7 +37,7 @@ describe('slugifyDateTime', () => {
       millisecond: '19890128-010203456',
     };
 
-    resolutions.forEach(dateTimeResolution => {
+    resolutions.forEach((dateTimeResolution) => {
       const simplified = slugifyDateTime(isoDateTime, { dateTimeResolution, preset: 'compact' });
       const expected = expecteds[dateTimeResolution];
       expect(simplified).toBe(expected);
@@ -51,7 +53,7 @@ describe('slugifyDateTime', () => {
       millisecond: '1989-01-28-01h02m03s456',
     };
 
-    resolutions.forEach(dateTimeResolution => {
+    resolutions.forEach((dateTimeResolution) => {
       const simplified = slugifyDateTime(isoDateTime, { dateTimeResolution, preset: 'humanized' });
       const expected = expecteds[dateTimeResolution];
       expect(simplified).toBe(expected);
@@ -63,5 +65,4 @@ describe('slugifyDateTime', () => {
     const pattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
     expect(pattern.test(slugified)).toBe(true);
   });
-
 });

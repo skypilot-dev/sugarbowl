@@ -1,24 +1,26 @@
-import { includeIf } from '../array';
-import { DateTimeResolution, DateTimeResolutionAbbrev, truncateIsoDateTime } from './truncateIsoDateTime';
+import { includeIf } from '~/src/functions/array/includeIf.js';
+import type { DateTimeResolution, DateTimeResolutionAbbrev } from '~/src/functions/date/truncateIsoDateTime.js';
+import { truncateIsoDateTime } from '~/src/functions/date/truncateIsoDateTime.js';
 
 export type SlugifyDateTimeFunction = (isoDateString: string) => string;
 
-export type SlugifyDateTimeOptions = {
+export interface SlugifyDateTimeOptions {
   dateTimeResolution?: DateTimeResolution | DateTimeResolutionAbbrev;
   preset: SlugifyDateTimePresetCode;
 }
 
 export type SlugifyDateTimePresetCode = 'compact' | 'humanized' | 'slug';
 
-export type SlugifyDateTimeParams = {
+export interface SlugifyDateTimeParams {
   dateTimeResolution: DateTimeResolution | DateTimeResolutionAbbrev;
   transform: SlugifyDateTimeFunction;
 }
 
 const functionDict = {
-  compact: (isoDateTime: string) => isoDateTime
-    .replace(/[-:Z.]/g, '')
-    .replace('T', '-'),
+  compact: (isoDateTime: string) =>
+    isoDateTime
+      .replace(/[-:Z.]/g, '')
+      .replace('T', '-'),
   humanized: (isoDateTime: string) => {
     const [date, time = ''] = isoDateTime.replace('Z', '').split('T');
     const [h = '', m = '', seconds = ''] = time.split(':');
@@ -31,9 +33,10 @@ const functionDict = {
       ms,
     ].join('');
   },
-  slug: (isoDateTime: string) => isoDateTime
-    .replace(/[Z:]/g, '')
-    .replace(/[T]/g, '-'),
+  slug: (isoDateTime: string) =>
+    isoDateTime
+      .replace(/[Z:]/g, '')
+      .replace(/[T]/g, '-'),
 };
 
 const presetMap = new Map<SlugifyDateTimePresetCode, SlugifyDateTimeParams | undefined>([
@@ -54,17 +57,16 @@ const presetMap = new Map<SlugifyDateTimePresetCode, SlugifyDateTimeParams | und
 /* @deprecated Use `makeDateTimeStamp` instead */
 export function slugifyDateTime(
   isoDateTime: string | Date,
-  options: SlugifyDateTimeOptions | SlugifyDateTimePresetCode = 'slug'
+  options: SlugifyDateTimeOptions | SlugifyDateTimePresetCode = 'slug',
 ): string {
-
   const resolvedParams = resolveParams(options);
   const { dateTimeResolution, transform } = resolvedParams;
 
   const resolvedDateTime = isoDateTime === 'now'
     ? new Date().toISOString()
     : typeof isoDateTime === 'string'
-      ? isoDateTime
-      : isoDateTime.toISOString();
+    ? isoDateTime
+    : isoDateTime.toISOString();
 
   // Validate the input
   const isoDateTimePattern = /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}(:[0-9]{2}(:[0-9]{2}(.[0-9]{1,3})?)?)?Z$/;
@@ -82,7 +84,5 @@ function resolveParams(options: SlugifyDateTimeOptions | SlugifyDateTimePresetCo
     throw new Error(`Unrecognized preset: '${options}'`);
   }
 
-  return typeof options === 'string'
-    ? preset
-    : { ...preset, ...options };
+  return typeof options === 'string' ? preset : { ...preset, ...options };
 }

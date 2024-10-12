@@ -1,9 +1,11 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
-import { getFileSystemRoot, makeTestDir, makeTestRunDir } from 'src/functions';
-import { unixPathToOsPath } from 'src/functions/filesystem/unixPathToOsPath';
-import { writeDataFile } from '../writeDataFile';
+import { getFileSystemRoot, makeTestDir, makeTestRunDir } from 'src/functions/index.js';
+import { describe, expect, it } from 'vitest';
+
+import { unixPathToOsPath } from '~/src/functions/filesystem/unixPathToOsPath.js';
+import { writeDataFile } from '~/src/functions/filesystem/writeDataFile.js';
 
 /* TODO: Test output by mocking stdout. */
 
@@ -92,7 +94,7 @@ describe('writeDataFile(data, filePath, options?)', () => {
 
     // Attempt to write it again
     await expect(
-      writeDataFile(data, filePath, options)
+      writeDataFile(data, filePath, options),
     ).rejects.toThrow();
   });
 

@@ -1,8 +1,11 @@
-import fs from 'fs';
+import fs from 'node:fs';
 
-import { makeTempDir, makeTestRunDir } from 'src/functions';
-import { safeWipe } from '../safeWipe';
-import { makeDirForSafeWipe } from './helpers/makeDirForSafeWipe';
+import { describe, expect, it } from 'vitest';
+
+import { makeDirForSafeWipe } from './helpers/makeDirForSafeWipe.js';
+
+import { safeWipe } from '~/src/functions/filesystem/safeWipe.js';
+import { makeTempDir, makeTestRunDir } from '~/src/functions/index.js';
 
 const suiteName = 'safeWipeSync.unit';
 const testRunDir = makeTestRunDir(suiteName);
@@ -21,7 +24,7 @@ describe('safeWipe(dirPath: PathLike)', () => {
     ];
     for (const badDir of badDirs) {
       await expect(
-        safeWipe(badDir)
+        safeWipe(badDir),
       ).rejects.toThrow('Cannot wipe');
     }
   });

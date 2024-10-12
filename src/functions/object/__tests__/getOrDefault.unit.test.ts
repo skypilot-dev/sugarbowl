@@ -1,4 +1,6 @@
-import { getOrDefault } from '../getOrDefault';
+import { describe, expect, it } from 'vitest';
+
+import { getOrDefault } from '~/src/functions/object/getOrDefault.js';
 
 describe('getOrDefault(:object, :key, :defaultValue?)', () => {
   it('if the key exists, should return the value', () => {

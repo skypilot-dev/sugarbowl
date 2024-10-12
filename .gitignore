@@ -26,6 +26,7 @@
 .lock-wscript
 .node_repl_history
 .npm
+.pnpm-debug.log
 npm-debug.log
 npm-debug.log*
 

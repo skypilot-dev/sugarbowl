@@ -1,5 +1,5 @@
-export { isDefinite } from './isDefinite';
-export { isIndefinite } from './isIndefinite';
-export { isNull } from './isNull';
-export { isTruthy } from './isTruthy';
-export { isUndefined } from './isUndefined';
+export { isDefinite } from './isDefinite.js';
+export { isIndefinite } from './isIndefinite.js';
+export { isNull } from './isNull.js';
+export { isTruthy } from './isTruthy.js';
+export { isUndefined } from './isUndefined.js';

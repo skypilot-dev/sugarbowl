@@ -1,4 +1,4 @@
-import { Integer } from '@skypilot/common-types';
+import type { Integer } from '@skypilot/common-types';
 
 // Return a function that slices an array using the `slice(startAt, stopBefore)`
 export function Slice(startAt?: Integer, stopBefore?: Integer) {
