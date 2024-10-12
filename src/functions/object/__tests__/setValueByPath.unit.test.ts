@@ -1,4 +1,6 @@
-import { setValueByPath } from '../setValueByPath';
+import { describe, expect, it } from 'vitest';
+
+import { setValueByPath } from '~/src/functions/object/setValueByPath.js';
 
 describe('setValueByPath(path: string | string[], value, target: object)', () => {
   it('should set the value on the object at the path, creating the path if necessary', () => {

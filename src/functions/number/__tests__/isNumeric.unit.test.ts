@@ -1,6 +1,7 @@
 import type { NumberString } from '@skypilot/common-types';
+import { describe, expect, it } from 'vitest';
 
-import { isNumeric } from '../isNumeric';
+import { isNumeric } from '~/src/functions/number/isNumeric.js';
 
 describe('isNumeric(value: unknown)', () => {
   it('should return true if the value is a number', () => {

@@ -2,7 +2,7 @@
 
 import { EventEmitter } from 'node:events';
 
-import type { ArrayItems, Integer } from './lib.types.js';
+import type { ArrayItems } from '~/src/types.ts';
 
 export type EventDict = Record<string, any>;
 type EventKey<TEventDict extends EventDict> = string & keyof TEventDict;
@@ -20,7 +20,7 @@ type EventDictFromExamples<TEventMap extends EventExamplesDict> = Record<
 export interface Emitter<TEventDict extends EventDict> {
   emit<TEventKey extends EventKey<TEventDict>>(eventName: TEventKey, params: TEventDict[TEventKey]): void;
 
-  listenerCount<TEventKey extends EventKey<TEventDict>>(eventName: TEventKey): Integer;
+  listenerCount<TEventKey extends EventKey<TEventDict>>(eventName: TEventKey): number;
 
   off<TEventKey extends EventKey<TEventDict>>(eventName: TEventKey, fn: EventReceiver<TEventDict[TEventKey]>): void;
 

@@ -1,8 +1,7 @@
-import { getObjectEntries } from '../utils/getObjectEntries.js';
-import { setEquality } from '../utils/setEquality.js';
-import { setIntersection } from '../utils/setIntersection.js';
-import { setIsSubset } from '../utils/setIsSubset.js';
-import type { MapKeys } from '../utils/utils.types.js';
+import { getObjectEntries } from '~/src/functions/object/TypedObject/getObjectEntries.js';
+import { setEquality } from '~/src/functions/set/setEquality.js';
+import { setIntersection } from '~/src/functions/set/setIntersection.js';
+import { setIsSubset } from '~/src/functions/set/setIsSubset.js';
 
 const setComparisonsDict = {
   SET_EQ: <T>(a: Iterable<T>, b: Iterable<T>) => setEquality<T>(a, b),
@@ -21,6 +20,7 @@ const setComparisonsMap = new Map(
   Array.from(getObjectEntries(setComparisonsDict))
 );
 
+// @ts-expect-error - MapKeys is not defined
 export type SetComparisonOperator = MapKeys<typeof setComparisonsMap>;
 
 /**

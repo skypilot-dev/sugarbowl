@@ -3,8 +3,8 @@
   TODO: Optionally, recursively omit nested entries with falsy values.
  */
 
-import { Falsy } from '@skypilot/common-types';
-import { ConditionalExcept } from 'type-fest';
+import type { Falsy } from '@skypilot/common-types';
+import type { ConditionalExcept } from 'type-fest';
 
 type NoFalsy<T> = ConditionalExcept<T, Falsy>
 

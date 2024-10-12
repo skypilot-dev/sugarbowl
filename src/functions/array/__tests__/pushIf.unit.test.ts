@@ -1,4 +1,6 @@
-import { pushIf } from '../pushIf';
+import { describe, expect, it } from 'vitest';
+
+import { pushIf } from '../pushIf.js';
 
 describe('pushIf(array, condition, item)', () => {
   it('should push an item to the array if the condition is truthy', () => {

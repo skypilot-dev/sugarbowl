@@ -1,4 +1,6 @@
-import { computeHash } from '../computeHash';
+import { describe, expect, it } from 'vitest';
+
+import { computeHash } from '~/src/functions/string/computeHash.js';
 
 describe('computeHash()', () => {
   it('given an empty string, should return the hash for an empty string', () => {

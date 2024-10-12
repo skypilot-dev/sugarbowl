@@ -1,16 +1,17 @@
-import { includeIf } from '../array';
-import { DateTimeResolution, DateTimeResolutionAbbrev, truncateIsoDateTime } from './truncateIsoDateTime';
+import { includeIf } from '~/src/functions/array/includeIf.js';
+import type { DateTimeResolution, DateTimeResolutionAbbrev} from '~/src/functions/date/truncateIsoDateTime.js';
+import { truncateIsoDateTime } from '~/src/functions/date/truncateIsoDateTime.js';
 
 export type SlugifyDateTimeFunction = (isoDateString: string) => string;
 
-export type SlugifyDateTimeOptions = {
+export interface SlugifyDateTimeOptions {
   dateTimeResolution?: DateTimeResolution | DateTimeResolutionAbbrev;
   preset: SlugifyDateTimePresetCode;
 }
 
 export type SlugifyDateTimePresetCode = 'compact' | 'humanized' | 'slug';
 
-export type SlugifyDateTimeParams = {
+export interface SlugifyDateTimeParams {
   dateTimeResolution: DateTimeResolution | DateTimeResolutionAbbrev;
   transform: SlugifyDateTimeFunction;
 }

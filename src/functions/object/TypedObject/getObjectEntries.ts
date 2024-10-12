@@ -18,11 +18,11 @@ export function getObjectEntries<T extends string>(obj: T): Array<[key: string, 
 export function getObjectEntries<T extends Array<Values> | ReadonlyArray<Values>, Values>(
   obj: T
 ): Array<[key: string, value: ObjectValues<T>]>;
-export function getObjectEntries<T extends Object>(
+export function getObjectEntries<T extends object>(
   obj: T
 ): Array<[key: keyof T, value: ObjectValues<T>]>;
 
-export function getObjectEntries<T extends Object | number | string>(
+export function getObjectEntries<T extends object | number | string>(
   obj: T
 ): Array<[key: string, value: ObjectValues<T>]>
   | Array<[key: keyof T, value: ObjectValues<T>]>

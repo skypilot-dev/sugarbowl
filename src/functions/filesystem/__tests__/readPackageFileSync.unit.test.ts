@@ -1,6 +1,9 @@
-import path from 'path';
-import { version as expectedVersion } from 'root/package.json';
-import { readPackageFileSync } from '../readPackageFileSync';
+import path from 'node:path';
+
+import { describe, expect, it } from 'vitest';
+
+import { version as expectedVersion } from '~/package.json';
+import { readPackageFileSync } from '~/src/functions/filesystem/readPackageFileSync.js';
 
 /* The path is resolved relative to the project root. */
 const filePath = path.resolve('package.json');

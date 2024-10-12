@@ -1,5 +1,5 @@
-export { Directory } from './Directory';
-export type { DirectoryLike } from './Directory';
+export type { DirectoryLike } from './Directory.js';
+export { Directory } from './Directory.js';
 export type {
   AddEventOptions,
   EchoDetail,
@@ -8,7 +8,7 @@ export type {
   EventLogOptions,
   EventMessageOptions,
   FilterEventsParams,
-} from './EventLog';
-export { EventLog } from './EventLog';
-export type { LogLevel } from './EventLog';
-export { StringCounter } from './StringCounter';
+} from './EventLog.js';
+export type { LogLevel } from './EventLog.js';
+export { EventLog } from './EventLog.js';
+export { StringCounter } from './StringCounter.js';

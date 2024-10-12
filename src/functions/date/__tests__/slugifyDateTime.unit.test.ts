@@ -1,4 +1,6 @@
-import { slugifyDateTime } from '../slugifyDateTime';
+import { describe, expect, it } from 'vitest';
+
+import { slugifyDateTime } from '../slugifyDateTime.js';
 
 const isoDateTime = '1989-01-28T01:02:03.456Z';
 const resolutions = [

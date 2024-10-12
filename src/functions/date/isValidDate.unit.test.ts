@@ -1,4 +1,6 @@
-import { isValidDate } from './isValidDate';
+import { describe, expect, it } from 'vitest';
+
+import { isValidDate } from '~/src/functions/date/isValidDate.js';
 
 describe('isValidDate()', () => {
   it('should report that a newly instantiated Date is a valid date', () => {

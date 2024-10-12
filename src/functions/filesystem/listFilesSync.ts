@@ -1,7 +1,7 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
-import { toArray } from 'src/functions/array';
+import { toArray } from '~/src/functions/array/index.js';
 
 export interface ListFilesOptions {
   fileNamePattern?: RegExp | string;

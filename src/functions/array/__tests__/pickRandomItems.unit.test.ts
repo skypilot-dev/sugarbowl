@@ -1,4 +1,6 @@
-import { pickRandomItems } from '../pickRandomItems';
+import { describe, expect, it } from 'vitest';
+
+import { pickRandomItems } from '~/src/functions/array/pickRandomItems.js';
 
 const sourceArray = [1, 2, 3, 4];
 

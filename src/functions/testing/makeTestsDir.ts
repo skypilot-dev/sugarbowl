@@ -1,8 +1,8 @@
-import path from 'path';
+import path from 'node:path';
 
-import { Directory } from 'src/classes';
-import type { PathLike } from 'src/functions';
-import { makeTempDir } from 'src/functions';
+import { Directory } from '~/src/classes/Directory.js';
+import { makeTempDir } from '~/src/functions/filesystem/makeTempDir.js';
+import type { PathLike } from '~/src/functions/filesystem/toPath.js';
 
 const defaultTestDir = ['tmp', 'test'];
 

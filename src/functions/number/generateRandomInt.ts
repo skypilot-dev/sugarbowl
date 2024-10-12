@@ -1,4 +1,4 @@
-import { Integer } from '@skypilot/common-types';
+import type { Integer } from '@skypilot/common-types';
 
 export function generateRandomInt(minValue: number, maxValue: number): Integer {
   if (minValue > maxValue) {

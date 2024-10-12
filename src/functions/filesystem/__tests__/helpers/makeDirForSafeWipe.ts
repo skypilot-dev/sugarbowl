@@ -1,11 +1,10 @@
-import fs from 'fs';
+import fs from 'node:fs';
 
-import { Directory } from 'src/classes';
-import type { DirectoryLike } from 'src/classes';
-import { checkIsInBoundary } from 'src/functions';
-import type { PathLike } from 'src/functions';
-import { defaultSafeWipeBoundaries } from '../../_constants';
-import { makeBoundaryErrorMessage } from '../../checkIsInBoundary';
+import { Directory } from '~/src/classes/Directory.js';
+import type { DirectoryLike } from '~/src/classes/index.js';
+import { defaultSafeWipeBoundaries } from '~/src/functions/filesystem/_constants.js';
+import { checkIsInBoundary, makeBoundaryErrorMessage } from '~/src/functions/filesystem/checkIsInBoundary.js';
+import type { PathLike } from '~/src/functions/index.js';
 
 /* Create a  directory and subdirectory for use in tests of `Directory`, `safeWipe` & `safeWipeSync` */
 export function makeDirForSafeWipe(testName: PathLike, testRunDir: DirectoryLike): {

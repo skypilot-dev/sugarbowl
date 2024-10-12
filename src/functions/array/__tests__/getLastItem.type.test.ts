@@ -1,4 +1,6 @@
-import { getLastItem } from '../getLastItem';
+import { describe, expect, it } from 'vitest';
+
+import { getLastItem } from '../getLastItem.js';
 
 describe('getLastItem()', () => {
   it('if defaultValue is not undefined, return type should be narrowed to the item type', () => {

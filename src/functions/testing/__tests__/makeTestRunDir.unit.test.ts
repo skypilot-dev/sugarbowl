@@ -1,21 +1,23 @@
-import type { Directory } from 'src/classes';
-import { makeTempDir } from 'src/functions';
-import { makeTestRunDir } from '../makeTestRunDir';
+import { afterEach, describe, expect, it } from 'vitest';
+
+import type { Directory } from '~/src/classes/Directory.js';
+import { makeTempDir } from '~/src/functions/filesystem/makeTempDir.js';
+import { makeTestRunDir } from '~/src/functions/testing/makeTestRunDir.js';
 
 const runDirPattern = /^[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{6}_[A-Za-z0-9]+/;
 const testSuiteName = 'makeTestRunDir.unit';
 
 let testRunDir: Directory | null = null;
 
-afterEach(() => {
-  if (testRunDir) {
-    console.log('testRunDir.fullPath:', testRunDir.fullPath);
-  }
-  testRunDir = null;
-  // testRunDir.safeWipeSync({ remove: true });
-});
-
 describe('makeTestRunDir()', () => {
+  afterEach(() => {
+    if (testRunDir) {
+      console.info('testRunDir.fullPath:', testRunDir.fullPath);
+    }
+    testRunDir = null;
+    // testRunDir.safeWipeSync({ remove: true });
+  });
+
   it('should create a test directory with a timestamp and random suffix', () => {
     testRunDir = makeTestRunDir(testSuiteName);
 

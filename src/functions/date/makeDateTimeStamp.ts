@@ -1,5 +1,6 @@
-import { includeIf } from '../array';
-import { DateTimeResolution, DateTimeResolutionAbbrev, truncateIsoDateTime } from './truncateIsoDateTime';
+import { includeIf } from '~/src/functions/array/includeIf.js';
+import type { DateTimeResolution, DateTimeResolutionAbbrev} from '~/src/functions/date/truncateIsoDateTime.js';
+import { truncateIsoDateTime } from '~/src/functions/date/truncateIsoDateTime.js';
 
 // TODO: Allow a custom separator between date & time
 
@@ -7,7 +8,7 @@ type ISODateTimeString = string; // TODO: Use template type
 
 export type DateTimeStampTransformer = (isoDateString: ISODateTimeString) => string;
 
-export type DateTimeStampOptions = {
+export interface DateTimeStampOptions {
   dateTime?: ISODateTimeString | Date; // the date-time to use instead of `new Date()`
   dateTimeResolution?: DateTimeResolution | DateTimeResolutionAbbrev;
   preset?: DateTimeStampPresetCode;
@@ -16,7 +17,7 @@ export type DateTimeStampOptions = {
 
 export type DateTimeStampPresetCode = 'compact' | 'humanized' | 'iso' | 'slug';
 
-export type DateTimeStampParams = {
+export interface DateTimeStampParams {
   dateTimeResolution: DateTimeResolution | DateTimeResolutionAbbrev;
   separator?: string;
   transform: DateTimeStampTransformer;

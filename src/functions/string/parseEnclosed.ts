@@ -1,4 +1,4 @@
-import { isEnclosed } from './isEnclosed';
+import { isEnclosed } from './isEnclosed.js';
 
 export function parseEnclosed(
   stringToParse: string, startDelimiter: string, endDelimiter: string = startDelimiter

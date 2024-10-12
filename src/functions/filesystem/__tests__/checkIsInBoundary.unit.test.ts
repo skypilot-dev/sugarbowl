@@ -1,4 +1,6 @@
-import { checkIsInBoundary } from '../checkIsInBoundary';
+import { describe, expect, it } from 'vitest';
+
+import { checkIsInBoundary } from '~/src/functions/filesystem/checkIsInBoundary.js';
 
 describe('checkIsInBoundary(targetPath)', () => {
   it('should always resolve paths', () => {

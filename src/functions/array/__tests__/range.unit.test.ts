@@ -1,5 +1,6 @@
-import { Integer } from '@skypilot/common-types';
-import { range } from '../range';
+import { describe, expect, it } from 'vitest';
+
+import { range } from '../range.js';
 
 describe('range(start:Integer, end:Integer)', () => {
   it('should return all integers from `start` to `end` inclusive', () => {
@@ -19,7 +20,7 @@ describe('range(start:Integer, end:Integer)', () => {
   it('given `start > end`, should return an empty array', () => {
     const integers = range(1, 0);
 
-    const expected: Integer[] = [];
+    const expected: number[] = [];
     expect(integers).toEqual(expected);
   });
 

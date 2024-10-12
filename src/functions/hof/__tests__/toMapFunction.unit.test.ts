@@ -1,4 +1,6 @@
-import { toMapFunction } from '../toMapFunction';
+import { describe, expect, it } from 'vitest';
+
+import { toMapFunction } from '~/src/functions/hof/toMapFunction.js';
 
 describe('toMapFunction(:itemFn)', () => {
   it('given a function, return a function that applies the function to every item in an array', () => {

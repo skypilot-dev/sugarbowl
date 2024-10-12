@@ -1,4 +1,6 @@
-import { truncateIsoDateTime } from '../truncateIsoDateTime';
+import { describe, expect, it } from 'vitest';
+
+import { truncateIsoDateTime } from '../truncateIsoDateTime.js';
 
 describe('truncateIsoDateTime(:DateTimeResolution, dateTime?:string)', () => {
   it('by default should return an ISO date-time string for the current time', () => {

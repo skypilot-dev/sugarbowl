@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+ 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
+import type { Integer, Json } from '@skypilot/common-types';
 import jsonBeautify from 'json-beautify';
-import { Integer, Json } from '@skypilot/common-types';
 
 export interface BeautifyOptions {
   maxWidth?: Integer;

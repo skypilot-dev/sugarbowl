@@ -1,4 +1,6 @@
-import { isPlainObject } from '../isPlainObject';
+import { describe, expect, it } from 'vitest';
+
+import { isPlainObject } from '~/src/functions/object/isPlainObject.js';
 
 describe('isPlainObject(value: any)', () => {
   it('should return false if the value is any primitive', () => {

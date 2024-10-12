@@ -1,8 +1,11 @@
-import fs from 'fs';
+import fs from 'node:fs';
 
-import { makeTempDir, makeTestRunDir } from 'src/functions';
-import { safeWipeSync } from '../safeWipeSync';
-import { makeDirForSafeWipe } from './helpers/makeDirForSafeWipe';
+import { makeTempDir, makeTestRunDir } from 'src/functions/index.js';
+import { describe, expect, it } from 'vitest';
+
+import { makeDirForSafeWipe } from './helpers/makeDirForSafeWipe.js';
+
+import { safeWipeSync } from '~/src/functions/filesystem/safeWipeSync.js';
 
 const suiteName = 'safeWipeSync.unit';
 const testRunDir = makeTestRunDir(suiteName);

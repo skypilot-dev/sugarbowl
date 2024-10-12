@@ -1,4 +1,6 @@
-import { curry } from '../curry';
+import { describe, expect, it } from 'vitest';
+
+import { curry } from '~/src/functions/hof/curry.js';
 
 function add(a: number, b: number, c: number, d: number): number {
   return a + b + c + d;

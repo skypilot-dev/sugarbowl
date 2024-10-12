@@ -1,8 +1,8 @@
-export { isValidDate } from './isValidDate';
-export { makeDateTimeStamp } from './makeDateTimeStamp';
-export type { DateTimeStampOptions, DateTimeStampPresetCode } from './makeDateTimeStamp';
-export { sleep } from './sleep';
-export { slugifyDateTime } from './slugifyDateTime';
-export { toUnixTime } from './toUnixTime';
-export type { JsTimestamp, UnixTimestamp } from './toUnixTime';
-export { truncateIsoDateTime } from './truncateIsoDateTime';
+export { isValidDate } from './isValidDate.js';
+export type { DateTimeStampOptions, DateTimeStampPresetCode } from './makeDateTimeStamp.js';
+export { makeDateTimeStamp } from './makeDateTimeStamp.js';
+export { sleep } from './sleep.js';
+export { slugifyDateTime } from './slugifyDateTime.js';
+export type { JsTimestamp, UnixTimestamp } from './toUnixTime.js';
+export { toUnixTime } from './toUnixTime.js';
+export { truncateIsoDateTime } from './truncateIsoDateTime.js';

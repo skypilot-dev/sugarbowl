@@ -1,4 +1,3 @@
-import { Integer } from '@skypilot/common-types';
 import { describe, expect, it } from 'vitest';
 
 import { getTimeUntilResetMs } from '../getTimeUntilResetMs.js';
@@ -7,7 +6,7 @@ const SECONDS_PER_HOUR = 60 * 60;
 const MILLIS_PER_HOUR = SECONDS_PER_HOUR * 1000;
 
 describe('getTimeUntilResetMs()', () => {
-  const dataSets: [asAtMs: Integer, referenceResetEpochMs: Integer, expectedTimeUntilResetMs: Integer][] = [
+  const dataSets: [asAtMs: number, referenceResetEpochMs: number, expectedTimeUntilResetMs: number][] = [
     // From 22:00 to midnight = 2h 00m
     [hmToMs(22, 0), hmToMs(24, 0), hmToMs(2, 0)],
     // From 20:01 to 20:00 = 23h 59m
@@ -31,7 +30,7 @@ describe('getTimeUntilResetMs()', () => {
 });
 
 // region | Helper functions
-function hmToMs(hours: Integer, minutes: Integer): Integer {
+function hmToMs(hours: number, minutes: number): number {
   return (hours * 60 + minutes) * 60 * 1000;
 }
 // endregion | Helper functions

@@ -1,4 +1,6 @@
-import { TypedObject } from '../TypedObject';
+import { describe, expect, it } from 'vitest';
+
+import { TypedObject } from '~/src/functions/object/TypedObject/TypedObject.js';
 
 describe('TypedObject.entries(obj: Object | Array | number | string)', () => {
   it("should return the object's entries", () => {

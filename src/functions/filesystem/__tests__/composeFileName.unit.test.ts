@@ -1,4 +1,6 @@
-import { composeFileName } from '../composeFileName';
+import { describe, expect, it } from 'vitest';
+
+import { composeFileName } from '~/src/functions/filesystem/composeFileName.js';
 
 describe('composeFileName()', () => {
   it('should concatenate the elements with the separator and return the result', () => {

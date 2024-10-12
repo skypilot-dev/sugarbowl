@@ -1,4 +1,6 @@
-import { includeIf } from '../includeIf';
+import { describe, expect, it } from 'vitest';
+
+import { includeIf } from '../includeIf.js';
 
 describe('includeIf(value)', () => {
   it('should include the value in the array if the value is truthy', () => {

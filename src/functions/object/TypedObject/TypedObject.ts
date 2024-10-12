@@ -1,6 +1,6 @@
-import { getObjectEntries } from './getObjectEntries';
-import { getObjectKeys } from './getObjectKeys';
-import { getObjectValues } from './getObjectValues';
+import { getObjectEntries } from '~/src/functions/object/TypedObject/getObjectEntries.js';
+import { getObjectKeys } from '~/src/functions/object/TypedObject/getObjectKeys.js';
+import { getObjectValues } from '~/src/functions/object/TypedObject/getObjectValues.js';
 
 export const TypedObject = {
   entries: getObjectEntries,

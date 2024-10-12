@@ -1,4 +1,6 @@
-import { pagesToIndices } from '../pagesToIndices';
+import { describe, expect, it } from 'vitest';
+
+import { pagesToIndices } from '../pagesToIndices.js';
 
 
 describe('pagesToIndices()', () => {

@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 
-import type { Integer } from '@skypilot/common-types';
+import { capitalizeFirstWord, isUndefined, mergeIf, omitUndefined } from 'src/functions/index.js';
 
-import { capitalizeFirstWord, isUndefined, mergeIf, omitUndefined } from 'src/functions';
-import { isDefined } from '../functions/indefinite/isDefined';
-import { isPlainObject } from '../functions/object/isPlainObject';
+import { isDefined } from '~/src/functions/indefinite/isDefined.js';
+import { isPlainObject } from '~/src/functions/object/isPlainObject.js';
 
 export interface AddEventOptions<TData = any> {
-  id?: Integer | string;
+  id?: number | string;
   data?: TData;
   echoLevel?: EchoLevel;
-  indentLevel?: Integer;
+  indentLevel?: number;
   type?: string;
 }
 
@@ -20,9 +19,9 @@ export type EchoLevel = LogLevel | 'off';
 export type EchoDetail = 'message' | 'event';
 
 export interface Event<TData = any> {
-  id?: Integer | string;
+  id?: number | string;
   data?: TData;
-  indentLevel?: Integer;
+  indentLevel?: number;
   level: LogLevel;
   message: string;
 }
@@ -30,7 +29,7 @@ export interface Event<TData = any> {
 export interface EventLogOptions {
   echoDetail?: EchoDetail;
   echoLevel?: EchoLevel;
-  baseIndentLevel?: Integer;
+  baseIndentLevel?: number;
   logLevel?: LogLevel;
   type?: string; // default type to assign to new events
 }
@@ -54,13 +53,13 @@ export class EventLog {
     'error',
   ] as const;
 
-  baseIndentLevel: Integer;
+  baseIndentLevel: number;
   defaultType?: string;
   echoDetail: 'message' | 'event';
   echoLevel: EchoLevel;
-  indentLevel: Integer | undefined = undefined;
+  indentLevel: number | undefined = undefined;
 
-  private _events: Event[] = [];
+  private readonly _events: Event[] = [];
 
   constructor(options: EventLogOptions = {}) {
     const { baseIndentLevel = 0, echoLevel = 'off', echoDetail = 'message', type } = options;
@@ -93,7 +92,7 @@ export class EventLog {
   }
 
   // Return a positive number if a > b; a negative number if a < b, or a 0 if they are equal. Higher = more severe
-  private static compareLevels(a: LogLevel, b: LogLevel): Integer {
+  private static compareLevels(a: LogLevel, b: LogLevel): number {
     if (isUndefined(a)) {
       return -1;
     }
@@ -110,7 +109,7 @@ export class EventLog {
   }
 
   private static formatEvent(event: Event): string {
-    function formatEntry(key: string, value: any, indentLevel = event.indentLevel || 0): string | string[] {
+    function formatEntry(key: string, value: any, indentLevel = event.indentLevel ?? 0): string | string[] {
       if (isUndefined(value)) {
         return '';
       }
@@ -133,11 +132,11 @@ export class EventLog {
     ].flat().filter(Boolean).join('\n');
   }
 
-  private static indent(text: string, indentLevel: Integer | undefined = 0): string {
+  private static indent(text: string, indentLevel: number | undefined = 0): string {
     return ['  '.repeat(indentLevel || 0), text].join('');
   }
 
-  get counts(): Record<LogLevel, Integer> {
+  get counts(): Record<LogLevel, number> {
     return {
       debug: this.count('debug'),
       info: this.count('info'),
@@ -165,8 +164,8 @@ export class EventLog {
     }
 
     return this._events
-      .sort((a, b) => EventLog.compareLevels(a.level, b.level))
-      .reverse()[0].level;
+      .toSorted((a: Event, b: Event) => EventLog.compareLevels(a.level, b.level))
+      .reverse()[0]?.level;
   }
 
   get messages(): Record<Exclude<LogLevel, 'off'>, string[]> {
@@ -189,7 +188,7 @@ export class EventLog {
     const event = {
       ...mergeIf(
         isDefined(indentLevel) || this.baseIndentLevel,
-        { indentLevel: (indentLevel || 0) + this.baseIndentLevel }
+        { indentLevel: (indentLevel ?? 0) + this.baseIndentLevel }
       ),
       level,
       message,
@@ -211,7 +210,7 @@ export class EventLog {
   /**
    * @description Append the events from one or more EventLog instances to this one and return this one
    */
-  append(...eventLogs: EventLog[]): EventLog {
+  append(...eventLogs: EventLog[]): this {
     eventLogs.forEach(eventLog => {
       eventLog.getEvents().forEach(event => {
         const { level, message, ...options } = event;
@@ -226,19 +225,19 @@ export class EventLog {
     return this;
   }
 
-  count(logLevel?: LogLevel): Integer {
+  count(logLevel?: LogLevel): number {
     return (
       isUndefined(logLevel) ? this._events : this.getEvents(logLevel)
     ).length;
   }
 
 
-  debug<TData>(message: string, options: AddEventOptions<TData> = {}): EventLog {
+  debug<TData>(message: string, options: AddEventOptions<TData> = {}): this {
     this.addEvent('debug', message, options);
     return this;
   }
 
-  error<TData>(message: string, options: AddEventOptions<TData> = {}): EventLog {
+  error<TData>(message: string, options: AddEventOptions<TData> = {}): this {
     this.addEvent('error', message, options);
     return this;
   }
@@ -264,9 +263,7 @@ export class EventLog {
 
   getEvents<TData>(): Array<Event<TData>>;
   getEvents<TData, L extends LogLevel>(level: L): Array<Event<TData> & { level: L }>;
-  /* eslint-disable @typescript-eslint/explicit-function-return-type */
-  /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-  getEvents(level?: LogLevel | undefined) {
+  getEvents<TData>(level?: LogLevel | undefined): Event<TData>[] {
     if (level === undefined) {
       return this._events;
     }
@@ -283,12 +280,12 @@ export class EventLog {
     return this.count(level) > 0;
   }
 
-  info<TData>(message: string, options: AddEventOptions<TData> = {}): EventLog {
+  info<TData>(message: string, options: AddEventOptions<TData> = {}): this {
     this.addEvent<TData>('info', message, options);
     return this;
   }
 
-  warn<TData>(message: string, options: AddEventOptions<TData> = {}): EventLog {
+  warn<TData>(message: string, options: AddEventOptions<TData> = {}): this {
     this.addEvent('warn', message, options);
     return this;
   }

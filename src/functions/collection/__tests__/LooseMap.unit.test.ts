@@ -1,6 +1,6 @@
-import { describe, expect, it }  from '@jest/globals';
+import { describe, expect, it }  from 'vitest';
 
-import { LooseMap } from '../LooseMap';
+import { LooseMap } from '../LooseMap.js';
 
 describe('LooseMap class', () => {
   describe('has', () => {

@@ -1,4 +1,6 @@
-import { isIndefinite } from '../isIndefinite';
+import { describe, expect, it } from 'vitest';
+
+import { isIndefinite } from '../isIndefinite.js';
 
 describe('isIndefinite(value: unknown)', () => {
   it('should return true if given undefined or a variable whose value is undefined', () => {

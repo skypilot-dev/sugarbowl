@@ -1,4 +1,6 @@
-import { makeDateTimeStamp } from '../makeDateTimeStamp';
+import { describe, expect, it } from 'vitest';
+
+import { makeDateTimeStamp } from '../makeDateTimeStamp.js';
 
 const dateTime = '1989-01-28T01:02:03.456Z';
 const resolutions = [

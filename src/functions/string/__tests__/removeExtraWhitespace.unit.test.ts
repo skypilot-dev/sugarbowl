@@ -1,4 +1,6 @@
-import { removeExtraWhitespace } from '../removeExtraWhitespace';
+import { describe, expect, it } from 'vitest';
+
+import { removeExtraWhitespace } from '~/src/functions/string/removeExtraWhitespace.js';
 
 describe('removeExtraWhitespace()', () => {
   it('should replace any sequence of tabs and spaces with a single space', () => {

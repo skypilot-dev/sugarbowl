@@ -1,6 +1,6 @@
-import { Integer } from '@skypilot/common-types';
+import { describe, expect, it } from 'vitest';
 
-import { zipToObjects } from '../zipToObjects';
+import { zipToObjects } from '../zipToObjects.js';
 
 describe('zipToObjects', () => {
   it("should combine the arrays in the object's values", () => {
@@ -51,7 +51,7 @@ describe('zipToObjects', () => {
       a: [],
       b: [],
     };
-    const expected: { a: Integer | undefined; b: Integer | undefined }[] = [];
+    const expected: { a: number | undefined; b: number | undefined }[] = [];
 
     const actual = zipToObjects(recordMap);
     expect(actual).toStrictEqual(expected);

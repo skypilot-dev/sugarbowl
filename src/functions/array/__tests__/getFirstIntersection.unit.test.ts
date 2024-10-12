@@ -1,4 +1,6 @@
-import { getFirstIntersection } from '../getFirstIntersection';
+import { describe, expect, it } from 'vitest';
+
+import { getFirstIntersection } from '../getFirstIntersection.js';
 
 describe('getFirstIntersection(rankedItems, referenceItems)', () => {
   it('should return the highest-ranked candidate that appears anywhere in the reference items', () => {

@@ -1,4 +1,6 @@
-import { resolveSlice } from '../resolveSlice';
+import { describe, expect, it } from 'vitest';
+
+import { resolveSlice } from '../resolveSlice.js';
 
 describe('resolveSlice()', () => {
   it('should compute startAt, stopBefore, first, last & length based on provided startAt & stopBefore', () => {

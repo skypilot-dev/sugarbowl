@@ -1,4 +1,6 @@
-import { parseInteger } from '../parseInteger';
+import { describe, expect, it } from 'vitest';
+
+import { parseInteger } from '~/src/functions/string/parseInteger.js';
 
 describe('parseInteger()', () => {
   it('given the string representation of an integer, should return the integer', () => {

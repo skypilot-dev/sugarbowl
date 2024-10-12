@@ -1,6 +1,6 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it } from 'vitest';
 
-import { getArrayDifference } from '../getArrayDifference';
+import { getArrayDifference } from '~/src/functions/array/getArrayDifference.js';
 
 describe('getArrayDifference(array1, array2)', () => {
   it('returns array 1 when the two arrays have no elements in common', () => {

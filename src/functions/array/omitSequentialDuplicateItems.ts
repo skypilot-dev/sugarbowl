@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { toMutableArray } from './toMutableArray';
+import { toMutableArray } from '~/src/functions/array/toMutableArray.js';
 
 type Evaluate<I> = (item: I) => any
 

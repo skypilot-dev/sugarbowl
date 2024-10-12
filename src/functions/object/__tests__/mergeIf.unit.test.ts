@@ -1,4 +1,6 @@
-import { mergeIf } from '../mergeIf';
+import { describe, expect, it } from 'vitest';
+
+import { mergeIf } from '~/src/functions/object/mergeIf.js';
 
 describe('mergeIf()', () => {
   it('given a falsy value, should return an empty object', () => {

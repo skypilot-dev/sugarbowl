@@ -1,4 +1,6 @@
-import * as actualExports from '../index';
+import { describe, expect, it } from 'vitest';
+
+import * as actualExports from '~/src/index.js';
 
 const intendedExports: string[] = [
   /* Array functions */

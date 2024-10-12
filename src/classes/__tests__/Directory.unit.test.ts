@@ -1,11 +1,14 @@
-import fs from 'fs';
-import path from 'path';
-import util from 'util';
+import fs from 'node:fs';
+import path from 'node:path';
+import util from 'node:util';
 
-import { getFileSystemRoot, makeTestDir, makeTestRunDir } from 'src/functions';
-import { makeDirForSafeWipe } from 'src/functions/filesystem/__tests__/helpers/makeDirForSafeWipe';
-import { unixPathToOsPath } from '../../functions/filesystem/unixPathToOsPath';
-import { Directory } from '../Directory';
+import { describe, expect, it } from 'vitest';
+
+import { Directory } from '../Directory.js';
+
+import { makeDirForSafeWipe } from '~/src/functions/filesystem/__tests__/helpers/makeDirForSafeWipe.js';
+import { unixPathToOsPath } from '~/src/functions/filesystem/unixPathToOsPath.js';
+import { getFileSystemRoot, makeTestDir, makeTestRunDir } from '~/src/functions/index.js';
 
 const testRunDir = makeTestRunDir('Directory.unit');
 

@@ -1,5 +1,5 @@
 /* Higher-order functions (functions that return functions) */
-export { curry } from './curry';
-export { extendFunction } from './extendFunction';
-export { pipe } from './pipe';
-export { toMapFunction } from './toMapFunction';
+export { curry } from './curry.js';
+export { extendFunction } from './extendFunction.js';
+export { pipe } from './pipe.js';
+export { toMapFunction } from './toMapFunction.js';

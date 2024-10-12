@@ -1,1 +1,1 @@
-export { consoleIf } from './consoleIf';
+export { consoleIf } from './consoleIf.js';

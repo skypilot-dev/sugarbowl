@@ -1,4 +1,6 @@
-import { inflectByNumber, inflectQuantity } from '../inflect';
+import { describe, expect, it } from 'vitest';
+
+import { inflectByNumber, inflectQuantity } from '~/src/functions/string/inflect.js';
 
 describe('inflectByNumber() and inflectQuantity()', () => {
   describe('zero', () => {

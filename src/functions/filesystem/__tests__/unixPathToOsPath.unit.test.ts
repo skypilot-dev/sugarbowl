@@ -1,6 +1,8 @@
-import { getFileSystemRoot } from '../getFileSystemRoot';
-import { toPath } from '../toPath';
-import { unixPathToOsPath } from '../unixPathToOsPath';
+import { describe, expect, it } from 'vitest';
+
+import { getFileSystemRoot } from '~/src/functions/filesystem/getFileSystemRoot.js';
+import { toPath } from '~/src/functions/filesystem/toPath.js';
+import { unixPathToOsPath } from '~/src/functions/filesystem/unixPathToOsPath.js';
 
 describe('unixPathToOsPath(path: PathLike)', () => {
   it('should convert the path to a path appropriate for the current platform', () => {

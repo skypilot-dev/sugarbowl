@@ -1,7 +1,7 @@
-import path from 'path';
+import path from 'node:path';
 
-import { getFileSystemRoot, includeIf, toPath } from 'src/functions';
-import type { PathLike } from 'src/functions';
+import type { PathLike } from 'src/functions/index.js';
+import { getFileSystemRoot, includeIf, toPath } from 'src/functions/index.js';
 
 export function unixPathToOsPath(filePath: PathLike): string {
   const unixPath = toPath(filePath);

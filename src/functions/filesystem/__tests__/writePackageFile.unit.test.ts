@@ -1,7 +1,8 @@
-import { makeTestDir, makeTestRunDir } from 'src/functions';
+import { makeTestDir, makeTestRunDir } from 'src/functions/index.js';
+import { describe, expect, it } from 'vitest';
 
-import { readPackageFileSync } from '../readPackageFileSync';
-import { writePackageFileSync } from '../writePackageFileSync';
+import { readPackageFileSync } from '~/src/functions/filesystem/readPackageFileSync.js';
+import { writePackageFileSync } from '~/src/functions/filesystem/writePackageFileSync.js';
 
 const testRunDir = makeTestRunDir('writePackageFileSync.unit');
 

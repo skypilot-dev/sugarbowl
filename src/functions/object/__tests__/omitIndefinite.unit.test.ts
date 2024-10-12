@@ -1,4 +1,6 @@
-import { omitIndefinite } from '../omitIndefinite';
+import { describe, expect, it } from 'vitest';
+
+import { omitIndefinite } from '~/src/functions/object/omitIndefinite.js';
 
 describe('omitIndefinite(:object)', () => {
   it('given an object, should return a new object having only the definite values of the original', () => {

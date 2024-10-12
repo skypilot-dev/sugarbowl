@@ -1,5 +1,7 @@
-import { isUndefined } from '../isUndefined';
-import { isDefined } from '../isDefined';
+import { describe, expect, it } from 'vitest';
+
+import { isDefined } from '../isDefined.js';
+import { isUndefined } from '../isUndefined.js';
 
 describe('isUndefined(value: unknown)', () => {
   it('should return true if given undefined or a variable whose value is undefined', () => {

@@ -1,11 +1,12 @@
-import fs from 'fs';
-import path from 'path';
-import util from 'util';
+import fs from 'node:fs';
+import path from 'node:path';
+import util from 'node:util';
 
-import { safeWipe, safeWipeSync, toPath } from 'src/functions';
-import type { FileSystemBoundary, PathLike, SafeWipeOptions, SafeWipeResult } from 'src/functions';
-import { isDefined } from 'src/functions/indefinite/isDefined';
-import { defaultSafeWipeBoundaries } from '../functions/filesystem/_constants';
+import type { FileSystemBoundary, PathLike, SafeWipeOptions, SafeWipeResult } from 'src/functions/index.js';
+import { safeWipe, safeWipeSync, toPath } from 'src/functions/index.js';
+
+import { defaultSafeWipeBoundaries } from '~/src/functions/filesystem/_constants.js';
+import { isDefined } from '~/src/functions/indefinite/isDefined.js';
 
 export type DirectoryLike = PathLike | Directory;
 
@@ -76,6 +77,9 @@ export class Directory {
   // The first segment of `dirPath`
   get dirPathRoot(): string {
     const firstSegment = this._dirPath.split(path.sep)[0];
+    if (firstSegment === undefined) {
+      throw new Error('The directory path is empty');
+    }
     return path.resolve(this._baseDirPath, firstSegment);
   }
 

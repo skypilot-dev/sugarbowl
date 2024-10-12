@@ -1,9 +1,8 @@
-import { Directory } from 'src/classes';
-import type { DirectoryLike } from 'src/classes';
-import { checkIsInBoundary } from 'src/functions';
-import type { PathLike } from 'src/functions';
-import { defaultSafeWipeBoundaries } from 'src/functions/filesystem/_constants';
-import { makeBoundaryErrorMessage } from 'src/functions/filesystem/checkIsInBoundary';
+import { Directory } from 'src/classes/Directory.js';
+import type { DirectoryLike } from 'src/classes/index.js';
+import { defaultSafeWipeBoundaries } from 'src/functions/filesystem/_constants.js';
+import { checkIsInBoundary, makeBoundaryErrorMessage } from 'src/functions/filesystem/checkIsInBoundary.js';
+import type { PathLike } from 'src/functions/filesystem/toPath.js';
 
 interface MakeTestDirOptions {
   dryRun?: string;
@@ -26,7 +25,7 @@ export function makeTestDir(
     : new Directory(testName, { baseDir: testRunDir }).makeSync();
 
   if (verbose) {
-    // eslint-disable-next-line no-console
+     
     console.info(`Temporary directory ${dryRun ? 'name generated' : 'created'}: ${fullPath}`);
   }
 

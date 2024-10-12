@@ -1,4 +1,4 @@
-import { getIntersection } from './getIntersection';
+import { getIntersection } from '~/src/functions/array/getIntersection.js';
 
 /* Given two arrays, return the highest-index item of the 1st array that appears in the 2nd array */
 export function getFirstIntersection<T>(

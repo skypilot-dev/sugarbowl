@@ -1,6 +1,6 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it } from 'vitest';
 
-import { firstItem, getItemOrUndefined, lastItem } from '../getItemOrUndefined';
+import { firstItem, getItemOrUndefined, lastItem } from '../getItemOrUndefined.js';
 
 describe('getItemOrUndefined(array)(relativeIndex)', () => {
   it.each([undefined, []])('if the array is empty or undefined, returns undefined', (empty) => {

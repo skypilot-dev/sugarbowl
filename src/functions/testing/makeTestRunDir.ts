@@ -1,8 +1,11 @@
-import path from 'path';
-import { Directory } from 'src/classes';
-import { makeTempDir, toPath } from 'src/functions';
-import type { PathLike } from 'src/functions';
-import { makeTestsDir } from './makeTestsDir';
+import path from 'node:path';
+
+import { makeTestsDir } from './makeTestsDir.js';
+
+import { Directory } from '~/src/classes/Directory.js';
+import { makeTempDir } from '~/src/functions/filesystem/makeTempDir.js';
+import type { PathLike } from '~/src/functions/filesystem/toPath.js';
+import { toPath } from '~/src/functions/filesystem/toPath.js';
 
 // Return a handle to a directory created for a single run of a test suite
 export function makeTestRunDir(testSuiteName: PathLike, testsDirPath?: PathLike): Directory {

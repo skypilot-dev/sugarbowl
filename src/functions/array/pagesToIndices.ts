@@ -1,18 +1,17 @@
-import { Integer } from '@skypilot/common-types';
-import { omitUndefinedEntries } from '../object';
+import { omitUndefined } from '~/src/functions/object/omitUndefined.js';
 
 interface IndexMap {
-  endAtIndex: Integer;
-  resultsPerPage: Integer;
-  startAtIndex: Integer;
-  stopBeforeIndex: Integer;
-  totalPages?: Integer;
+  endAtIndex: number;
+  resultsPerPage: number;
+  startAtIndex: number;
+  stopBeforeIndex: number;
+  totalPages?: number;
 }
 
 /* Given values referencing a page and a number of items per page, return an object representing
    them as indices of an array. */
 export function pagesToIndices<T>(
-  page: Integer = 1, resultsPerPage?: Integer | undefined, array?: ReadonlyArray<T>
+  page = 1, resultsPerPage?: number | undefined, array?: ReadonlyArray<T>
 ): IndexMap {
   if (page < 1) {
     throw new Error(`'page' must be >= 1; value received: ${page}`);
@@ -25,9 +24,7 @@ export function pagesToIndices<T>(
   }
 
   /* For convenience, `resultsPerPage` defaults to the length of the array. */
-  const resolvedResultsPerPage = resultsPerPage === undefined
-    ? (Array.isArray(array) ? array.length : undefined)
-    : resultsPerPage;
+  const resolvedResultsPerPage = resultsPerPage ?? (Array.isArray(array) ? array.length : undefined);
 
   if (!resolvedResultsPerPage || resolvedResultsPerPage < 1) {
     throw new Error(
@@ -48,6 +45,6 @@ export function pagesToIndices<T>(
     resultsPerPage: resolvedResultsPerPage,
     startAtIndex,
     stopBeforeIndex,
-    ...omitUndefinedEntries<{ totalPages: Integer | undefined }>({ totalPages }),
+    ...omitUndefined<{ totalPages: number | undefined }>({ totalPages }),
   };
 }

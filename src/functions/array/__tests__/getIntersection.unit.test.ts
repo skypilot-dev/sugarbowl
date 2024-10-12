@@ -1,4 +1,6 @@
-import { getIntersection } from '../getIntersection';
+import { describe, expect, it } from 'vitest';
+
+import { getIntersection } from '../getIntersection.js';
 
 describe('getIntersection(array1, array2)', () => {
   it('should return the elements of the 1st array, in order of appearance, that appear in the 2nd array', () => {

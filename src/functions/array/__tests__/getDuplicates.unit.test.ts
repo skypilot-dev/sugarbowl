@@ -1,4 +1,6 @@
-import { getDuplicates } from '../getDuplicates';
+import { describe, expect, it } from 'vitest';
+
+import { getDuplicates } from '../getDuplicates.js';
 
 describe('getDuplicates(array)', () => {
   it('should return an array containing one of each duplicate value', () => {

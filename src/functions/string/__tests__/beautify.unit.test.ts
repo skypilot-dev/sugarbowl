@@ -1,4 +1,6 @@
-import { beautify } from '../beautify';
+import { describe, expect, it } from 'vitest';
+
+import { beautify } from '~/src/functions/string/beautify.js';
 
 describe('beautify()', () => {
   it('given an object should return its stringified version with a spacing of 2', () => {

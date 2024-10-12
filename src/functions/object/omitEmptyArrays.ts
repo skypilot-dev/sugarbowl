@@ -1,4 +1,4 @@
-/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+ 
 import type { ConditionalExcept } from 'type-fest';
 
 // TODO: Make this function optionally recursive

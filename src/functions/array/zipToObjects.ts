@@ -1,6 +1,4 @@
-import { Integer } from '@skypilot/common-types';
-
-import { isUndefined, TypedObject } from 'src/functions';
+import { isUndefined, TypedObject } from 'src/functions/index.js';
 
 interface ZipToObjectsOptions {
   omitUndefined?: boolean;
@@ -24,13 +22,13 @@ export function zipToObjects<O extends Record<string, string[]>>(
     [] as string[]
   );
   return longestArray.map((_item, index) => keys.reduce((acc, key) => {
-    const value = itemOrUndefined(recordMap[key], index);
+    const value = itemOrUndefined(recordMap[key] ?? [], index);
     return (omitUndefined && isUndefined(value)) ? acc
-      : { ...acc, [key]: itemOrUndefined(recordMap[key], index) };
+      : { ...acc, [key]: itemOrUndefined(recordMap[key] ?? [], index) };
   }, {} as Record<keyof O, string>
   ));
 }
 
-function itemOrUndefined<I>(array: I[], index: Integer): I | undefined {
+function itemOrUndefined<I>(array: I[], index: number): I | undefined {
   return array.length > index ? array[index] : undefined;
 }

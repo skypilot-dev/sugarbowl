@@ -1,8 +1,8 @@
-import { extendFunction } from '../extendFunction';
+import { describe, expect, it } from 'vitest';
 
+import { extendFunction } from '~/src/functions/hof/extendFunction.js';
 
 type Integer = number;
-
 
 describe('extendFunction()', () => {
   it('given two functions, should return a function that returns the result of the two functions', () => {
@@ -37,7 +37,7 @@ describe('extendFunction()', () => {
   });
 
   it('given two functions, each accepting 2 args (but of different types), should return a function that accepts 3 args & returns the combined result', () => {
-    const getArrayItem = (array: string[], index: number): string => array[index];
+    const getArrayItem = (array: readonly string[], index: number): string => array[index] ?? '';
     const toUpperOrLower = (aString: string, toUpper: boolean): string => toUpper
       ? aString.toUpperCase()
       : aString.toLowerCase();
@@ -54,7 +54,7 @@ describe('extendFunction()', () => {
   });
 
   it('given 3 functions, each accepting 2 args, should return a function that accepts 4 args & returns the combined result', () => {
-    const getArrayItem = (array: string[], index: number): string => array[index];
+    const getArrayItem = (array: string[], index: number): string => array[index] ?? '';
     const toUpperOrLower = (aString: string, toUpper: boolean): string => toUpper
       ? aString.toUpperCase()
       : aString.toLowerCase();

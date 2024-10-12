@@ -1,6 +1,8 @@
-// import path from 'path';
-import path from 'path';
-import { checkIsChildPath } from '../checkIsChildPath';
+import path from 'node:path';
+
+import { describe, expect, it } from 'vitest';
+
+import { checkIsChildPath } from '~/src/functions/filesystem/checkIsChildPath.js';
 
 describe('checkIsChildPath(targetPath, parentPath)', () => {
   it('should return true if the target path is within the reference path', () => {

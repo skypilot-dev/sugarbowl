@@ -1,4 +1,6 @@
-import { splitOnce } from '../splitOnce';
+import { describe, expect, it } from 'vitest';
+
+import { splitOnce } from '~/src/functions/string/splitOnce.js';
 
 describe('splitOnce()', () => {
   it('should return a 2-element array, containing text before and after the 1st occurrence of the splitter', () => {

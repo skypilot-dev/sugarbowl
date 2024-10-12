@@ -1,6 +1,9 @@
-import path from 'path';
-import { getFileSystemRoot } from '../getFileSystemRoot';
-import { unixPathToOsPath } from '../unixPathToOsPath';
+import path from 'node:path';
+
+import { describe, expect, it } from 'vitest';
+
+import { getFileSystemRoot } from '../getFileSystemRoot.js';
+import { unixPathToOsPath } from '../unixPathToOsPath.js';
 
 // TODO: Test under Windows
 

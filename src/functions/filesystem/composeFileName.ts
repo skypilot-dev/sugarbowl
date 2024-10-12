@@ -6,7 +6,7 @@
   - any text elements
  */
 
-import { includeIf } from '../array';
+import { includeIf } from '~/src/functions/array/includeIf.js';
 
 interface ComposeFileNameOptions {
   separator?: string;
@@ -16,9 +16,9 @@ type ElementFn = () => string | null | undefined;
 
 function resolveElement(element: string | ElementFn | null | undefined): string {
   if (typeof element === 'function') {
-    return element() || '';
+    return element() ?? '';
   }
-  return element || '';
+  return element ?? '';
 }
 
 export function composeFileName(

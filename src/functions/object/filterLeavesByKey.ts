@@ -1,5 +1,4 @@
-/* eslint-disable-next-line import/no-extraneous-dependencies */
-import { Primitive } from '@skypilot/common-types';
+import type { Primitive } from '@skypilot/common-types';
 
 interface Branch {
   [key: string]: Branch | Primitive | Array<Primitive> | undefined;

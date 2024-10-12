@@ -1,8 +1,10 @@
-import path from 'path';
+import path from 'node:path';
 
-import { includeIf, toArray } from '../array';
-import { checkIsChildPath } from './checkIsChildPath';
-import { PathLike, toPath } from './toPath';
+import { includeIf, toArray } from '../array/index.js';
+
+import { checkIsChildPath } from '~/src/functions/filesystem/checkIsChildPath.js';
+import type { PathLike} from '~/src/functions/filesystem/toPath.js';
+import { toPath } from '~/src/functions/filesystem/toPath.js';
 
 export interface FileSystemBoundary {
   path: string;
@@ -13,9 +15,11 @@ export interface FileSystemBoundary {
 export type FileSystemScope = 'children' | 'self';
 
 function boundariesToString(boundaries: FileSystemBoundary[]): string {
-  return boundaries.length === 1
-    ? boundaries[0].path
-    : `${boundaries.map(boundary => `\n  ${describeBoundary(boundary)}`).join('')}`;
+  const [firstBoundary] = boundaries;
+  if (firstBoundary === undefined) {
+    return '';
+  }
+  return boundaries.length === 1 ? firstBoundary.path : boundaries.map(boundary => describeBoundary(boundary)).join('');
 }
 
 function checkBoundary(targetPath: PathLike, boundary: FileSystemBoundary): boolean {
@@ -27,10 +31,8 @@ function checkBoundary(targetPath: PathLike, boundary: FileSystemBoundary): bool
   if (scopes.includes('self') && (path.resolve(toPath(targetPath)) === path.resolve(toPath(boundary.path)))) {
     return true;
   }
-  if (scopes.includes('children') && checkIsChildPath(targetFullPath, boundaryFullPath)) {
-    return true;
-  }
-  return false;
+  return scopes.includes('children') && checkIsChildPath(targetFullPath, boundaryFullPath);
+
 }
 
 function describeBoundary(boundary: FileSystemBoundary): string {

@@ -1,16 +1,16 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
-import { Directory } from 'src/classes';
-import type { DirectoryLike } from 'src/classes';
-import type { DateTimeStampOptions, DateTimeStampPresetCode, PathLike } from 'src/functions';
-import { beautify } from 'src/functions/string/beautify';
-import type { BeautifyOptions } from 'src/functions/string/beautify';
-import { composeFileName, inflectByNumber, makeDateTimeStamp, pushIf } from 'src/functions';
+import type { DirectoryLike } from 'src/classes/Directory.js';
+import { Directory } from 'src/classes/Directory.js';
+import type { DateTimeStampOptions, DateTimeStampPresetCode, PathLike } from 'src/functions/index.js';
+import { composeFileName, inflectByNumber, makeDateTimeStamp, pushIf } from 'src/functions/index.js';
+import type { BeautifyOptions } from 'src/functions/string/beautify.js';
+import { beautify } from 'src/functions/string/beautify.js';
 
 // TODO: Harmonize with the `WriteFileResult` interface
 
-export type WriteDataFileOptions = {
+export interface WriteDataFileOptions {
   baseDir?: DirectoryLike;
   basePath?: string;
   beautifyOptions?: BeautifyOptions;
@@ -22,7 +22,7 @@ export type WriteDataFileOptions = {
   verbose?: boolean;
 }
 
-export type WriteDataFileResult<T> = {
+export interface WriteDataFileResult<T> {
   data: T;
   fileName: string;
   fullPath: string;

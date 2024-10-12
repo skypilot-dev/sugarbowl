@@ -1,4 +1,6 @@
-import { Slice } from '../Slice';
+import { describe, expect, it } from 'vitest';
+
+import { Slice } from '../Slice.js';
 
 const items = [1, 2, 3];
 

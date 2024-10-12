@@ -1,13 +1,12 @@
-import { Integer } from '@skypilot/common-types';
-import { digitsOnly } from './digitsOnly';
+import { digitsOnly } from '~/src/functions/string/digitsOnly.js';
 
-type FalsyValue = Integer | null | undefined;
+type FalsyValue = number | null | undefined;
 
-type ParseIntegerOptions<Empty extends FalsyValue> = {
+interface ParseIntegerOptions<Empty extends FalsyValue> {
   disallowEmpty?: boolean;
   valueIfEmpty?: Empty;
-  minValue?: Integer;
-  maxValue?: Integer;
+  minValue?: number;
+  maxValue?: number;
 }
 
 /* TODO: Support negative values. */
@@ -15,7 +14,7 @@ type ParseIntegerOptions<Empty extends FalsyValue> = {
 /* Given the string representation of an integer value, return the integer. */
 export function parseInteger<Empty extends FalsyValue = undefined>(
   intString: string, options: ParseIntegerOptions<Empty> = {}
-): Integer | Empty  {
+): number | Empty  {
   const { valueIfEmpty = undefined } = options;
   if (valueIfEmpty) {
     throw new Error(`Invalid non-zero value for 'valueIfEmpty': ${valueIfEmpty}`) ;
@@ -27,7 +26,7 @@ export function parseInteger<Empty extends FalsyValue = undefined>(
     return valueIfEmpty as Empty;
   }
 
-  if (!(digitsOnly(intString).length === intString.length)) {
+  if (digitsOnly(intString).length !== intString.length) {
     throw new Error(`Invalid value for integer field: '${intString}'`);
   }
 

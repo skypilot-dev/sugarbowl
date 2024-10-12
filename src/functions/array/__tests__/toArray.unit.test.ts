@@ -1,4 +1,6 @@
-import { toArray } from '../toArray';
+import { describe, expect, it } from 'vitest';
+
+import { toArray } from '../toArray.js';
 
 describe('toArray(value | value[])', () => {
   it('if the value is an array, should return a new array containing the same items', () => {

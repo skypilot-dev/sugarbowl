@@ -1,11 +1,9 @@
-import type { Integer } from '@skypilot/common-types';
-
-import { toUniqueArray } from 'src/functions/array';
-import { isUndefined } from 'src/functions/indefinite';
+import { toUniqueArray } from '~/src/functions/array/toUniqueArray.js';
+import { isUndefined } from '~/src/functions/indefinite/isUndefined.js';
 
 interface Comparison {
   symbol: string;
-  compare: (a: Integer, b: Integer) => boolean;
+  compare: (a: number, b: number) => boolean;
 }
 
 export type ComparisonKey = typeof comparisonKeys[number];
@@ -20,12 +18,12 @@ interface ComparisonFlags {
 
 type MatchDigest = MatchCount & ComparisonFlags;
 
-type PatternTarget = readonly [pattern: string | RegExp, value: Integer];
+type PatternTarget = readonly [pattern: string | RegExp, value: number];
 
 export interface MatchCount {
   pattern: string | RegExp;
-  target: Integer;
-  actual: Integer;
+  target: number;
+  actual: number;
 }
 
 const comparisonKeys = [
@@ -58,7 +56,7 @@ export class StringCounter {
   }
 
   // TODO: Add a method that optionally sorts by value or frequency, ascending or descending
-  get counts(): Record<string, Integer> {
+  get counts(): Record<string, number> {
     const uniqueValues = toUniqueArray(this.values).sort((a, b) => a.localeCompare(b));
     return uniqueValues.reduce((acc, uniqueValue) => ({
       ...acc,
@@ -106,7 +104,7 @@ export class StringCounter {
     }
   }
 
-  countOccurrences(pattern: RegExp | string): Integer {
+  countOccurrences(pattern: RegExp | string): number {
     return this.values.filter(value => pattern instanceof RegExp
       ? pattern.test(value)
       : value === pattern).length;

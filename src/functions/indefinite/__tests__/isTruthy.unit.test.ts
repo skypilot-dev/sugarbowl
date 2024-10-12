@@ -1,4 +1,6 @@
-import { isTruthy } from '../isTruthy';
+import { describe, expect, it } from 'vitest';
+
+import { isTruthy } from '../isTruthy.js';
 
 describe('isTruthy(value: unknown)', () => {
   it('should return true if the value is any truthy value', () => {

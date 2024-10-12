@@ -1,10 +1,11 @@
-import { shuffle } from '../shuffle';
+import { describe, expect, it } from 'vitest';
+
+import { shuffle } from '../shuffle.js';
 
 describe('shuffle()', () => {
   /* Used mixed types to prove that type doesn't matter */
   const sourceArray = [1, 2, 'a', {}, [-1, 2]];
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  let shuffledArray: any[];
+  let shuffledArray: unknown[];
   it('should return an array of the same length', () => {
     shuffledArray = shuffle(sourceArray);
     expect(shuffledArray.length).toBe(sourceArray.length);
@@ -12,6 +13,6 @@ describe('shuffle()', () => {
   });
 
   it('should return an array containing the same items', () => {
-    expect(new Set(shuffledArray)).toEqual(new Set(sourceArray));
+    expect(new Set(shuffledArray)).toStrictEqual(new Set(sourceArray));
   });
 });

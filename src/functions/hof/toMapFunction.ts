@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /* -- Typings -- */
-import { extendFunction } from './extendFunction';
+import { extendFunction } from '~/src/functions/hof/extendFunction.js';
 
 type ItemFn = (...args: any[]) => any;
 
@@ -17,6 +17,9 @@ export function doToMapFunction(itemFn: ItemFn): MapFn {
 
 export function toMapFunction(...itemFns: ItemFn[]): MapFn {
   const [firstItemFn, ...extendingItemFns] = itemFns;
+  if (!firstItemFn) {
+    throw new Error('toMapFunction requires at least one function');
+  }
   const extendedItemFn = extendFunction(firstItemFn, ...extendingItemFns) as ItemFn;
 
   return doToMapFunction(extendedItemFn);

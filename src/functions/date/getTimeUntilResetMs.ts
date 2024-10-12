@@ -1,8 +1,8 @@
 /**
  * Returns the next epoch timestamp for the given reset time.
  */
-export function getTimeUntilResetMs(referenceResetEpochMs = 0, asAtEpochMs: number | undefined = undefined): Integer {
-  const nowEpochMs = asAtEpochMs || Date.now();
+export function getTimeUntilResetMs(referenceResetEpochMs = 0, asAtEpochMs: number | undefined = undefined): number {
+  const nowEpochMs = asAtEpochMs ?? Date.now();
 
   // If the reference time is in the future, get a reset time at the same of day in the past.
   const referenceEpochResetMsPast = referenceResetEpochMs < nowEpochMs
@@ -15,8 +15,6 @@ export function getTimeUntilResetMs(referenceResetEpochMs = 0, asAtEpochMs: numb
   return 86400 * 1000 - sinceLastDailyReset;
 }
 
-import { Integer } from "./common.types.js";
-
 const SECONDS_PER_HOUR = 60 * 60;
 const SECONDS_PER_DAY = SECONDS_PER_HOUR * 24;
 const MILLIS_PER_DAY = SECONDS_PER_DAY * 1000;
@@ -24,7 +22,7 @@ const MILLIS_PER_DAY = SECONDS_PER_DAY * 1000;
 /**
  * Returns the epoch timestamp for the most recent reset.
  */
-export function getLastResetEpochMs(referenceResetEpochMs = 0, asAtEpochMs: number | undefined = undefined): Integer {
+export function getLastResetEpochMs(referenceResetEpochMs = 0, asAtEpochMs: number | undefined = undefined): number {
   const nowEpochMs = asAtEpochMs || Date.now();
 
   // If the reference time is in the future, get a reset time at the same time of day in the past.
@@ -39,14 +37,14 @@ export function getLastResetEpochMs(referenceResetEpochMs = 0, asAtEpochMs: numb
 /**
  * Returns the next epoch timestamp for the given reset time.
  */
-export function getNextResetEpochMs(referenceResetEpochMs = 0, asAtEpochMs: number | undefined = undefined): Integer {
+export function getNextResetEpochMs(referenceResetEpochMs = 0, asAtEpochMs: number | undefined = undefined): number {
   return getLastResetEpochMs(referenceResetEpochMs, asAtEpochMs) + MILLIS_PER_DAY;
 }
 
 /**
  * Returns the time until the next epoch timestamp for the given reset time.
  */
-export function getTimeSinceResetMs(referenceResetEpochMs = 0, asAtEpochMs: number | undefined = undefined): Integer {
+export function getTimeSinceResetMs(referenceResetEpochMs = 0, asAtEpochMs: number | undefined = undefined): number {
   const nowEpochMs = asAtEpochMs || Date.now();
 
   return (nowEpochMs - getLastResetEpochMs(referenceResetEpochMs, nowEpochMs)) % (MILLIS_PER_DAY);
@@ -55,6 +53,6 @@ export function getTimeSinceResetMs(referenceResetEpochMs = 0, asAtEpochMs: numb
 /**
  * Returns the time until the next epoch timestamp for the given reset time.
  */
-export function getTimeUntilResetMs(referenceResetEpochMs = 0, asAtEpochMs: number | undefined = undefined): Integer {
-  return MILLIS_PER_DAY - getTimeSinceResetMs(referenceResetEpochMs, asAtEpochMs);
-}
+// export function getTimeUntilResetMs(referenceResetEpochMs = 0, asAtEpochMs: number | undefined = undefined): number {
+//   return MILLIS_PER_DAY - getTimeSinceResetMs(referenceResetEpochMs, asAtEpochMs);
+// }

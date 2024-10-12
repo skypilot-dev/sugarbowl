@@ -1,4 +1,6 @@
-import { nondigitsOnly } from '../nondigitsOnly';
+import { describe, expect, it } from 'vitest';
+
+import { nondigitsOnly } from '~/src/functions/string/nondigitsOnly.js';
 
 describe('nondigitsOnly()', () => {
   it("should return only 'AB' from 'A1B2'", () => {

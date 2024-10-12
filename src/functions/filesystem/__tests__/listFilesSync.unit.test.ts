@@ -1,6 +1,12 @@
-import path from 'path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { listFilesSync } from '../listFilesSync';
+import { describe, expect, it } from 'vitest';
+
+import { listFilesSync } from '../listFilesSync.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const dirPath = path.relative(path.resolve(), __dirname);
 

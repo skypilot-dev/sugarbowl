@@ -1,11 +1,9 @@
-/* eslint-disable no-console */
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 
-import fs from 'fs';
-import os from 'os';
-import path from 'path';
-
-import { composeFileName, makeDateTimeStamp, randomAlphanumeric, toArray, toPath } from 'src/functions';
-import type { DateTimeStampOptions, DateTimeStampPresetCode, PathLike } from 'src/functions';
+import type { DateTimeStampOptions, DateTimeStampPresetCode, PathLike } from 'src/functions/index.js';
+import { composeFileName, makeDateTimeStamp, randomAlphanumeric, toArray, toPath } from 'src/functions/index.js';
 
 interface MakeTempDirOptions {
   addRandomSuffix?: boolean;
@@ -53,10 +51,8 @@ export function makeTempDir(relativePath: PathLike = '', options: MakeTempDirOpt
     if (disallowExisting) {
       throw new Error(`The subdirectory '${subDir}' already exists`);
     }
-  } else {
-    if (!dryRun) {
-      fs.mkdirSync(dirPath, { recursive: true });
-    }
+  } else if (!dryRun) {
+    fs.mkdirSync(dirPath, { recursive: true });
   }
   if (verbose) {
     if (dirExists) {

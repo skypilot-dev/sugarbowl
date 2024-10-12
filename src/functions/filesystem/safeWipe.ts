@@ -1,12 +1,13 @@
-import fs from 'fs';
-import path from 'path';
-import util from 'util';
+import fs from 'node:fs';
+import path from 'node:path';
+import util from 'node:util';
 
-import { defaultSafeWipeBoundaries } from './_constants';
-import { checkIsInBoundary, makeBoundaryErrorMessage } from './checkIsInBoundary';
-import type { FileSystemBoundary } from './checkIsInBoundary';
-import { toPath } from './toPath';
-import type { PathLike } from './toPath';
+import { defaultSafeWipeBoundaries } from './_constants.js';
+
+import type { FileSystemBoundary } from '~/src/functions/filesystem/checkIsInBoundary.js';
+import { checkIsInBoundary, makeBoundaryErrorMessage } from '~/src/functions/filesystem/checkIsInBoundary.js';
+import type { PathLike } from '~/src/functions/filesystem/toPath.js';
+import { toPath } from '~/src/functions/filesystem/toPath.js';
 
 export interface SafeWipeOptions {
   boundaries?: FileSystemBoundary[];

@@ -1,4 +1,6 @@
-import { EventLog } from '../EventLog';
+import { describe, expect, it, vi } from 'vitest';
+
+import { EventLog } from '../EventLog.js';
 
 describe('EventLog()', () => {
   describe('static meetsThreshold(a: LogLevel | undefined, b: EchoLevel | undefined)', () => {
@@ -34,6 +36,8 @@ describe('EventLog()', () => {
 
   describe('static merge(:EventLog)', () => {
     it('should return a new EventLog containing all events from the EventLog instances in the array', () => {
+      vi.spyOn(console, 'info').mockImplementation(vi.fn());
+      vi.spyOn(console, 'warn').mockImplementation(vi.fn());
       const eventLog1 = new EventLog({ echoLevel: 'debug', echoDetail: 'event' })
         .info('First', { id: 'any', data: { key: 'sample data', array: [1, 2], nested: { a: 1, b: 2 } } })
         .warn('Second');
@@ -63,6 +67,8 @@ describe('EventLog()', () => {
 
   describe('get messages', () => {
     it('should return a dictionary of messages of all levels', () => {
+      vi.spyOn(console, 'error').mockImplementation(vi.fn());
+      vi.spyOn(console, 'info').mockImplementation(vi.fn());
       // Example of method chaining
       const eventLog = new EventLog()
         .error('Error 1')
